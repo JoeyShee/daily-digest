@@ -104,20 +104,26 @@ def card(bar_class, card_type, title, body_html, collapsed=False):
 # --- 熵减卡片 ---
 
 def render_entropy_case(block):
+    # block 已经去掉了 ━━━ 标题行，找第一个加粗标题
     title_m = re.search(r'\*\*(.+?)\*\*', block)
     title = title_m.group(1) if title_m else "经典案例"
-    return card("case", "🏆 经典案例", title, md_to_html(block))
+    # body 去掉第一行如果就是标题
+    body = block
+    if title_m and block.startswith(title_m.group(0)):
+        body = block[title_m.end():].strip()
+    return card("case", "🏆 经典案例", title, md_to_html(body))
 
 def render_entropy_card(block):
-    if '思维模型' in block[:50]:
+    if '思维模型' in block[:80]:
         ct, bar = "🧠 思维模型", "model"
-    elif '场景案例' in block[:50]:
+    elif '场景案例' in block[:80]:
         ct, bar = "📌 场景案例", "idea"
     else:
         ct, bar = "🧠 熵减卡片", "model"
-    lines = [l for l in block.split('\n') if l.strip() and '━' not in l]
-    title = lines[0].strip() if lines else ct
-    title = re.sub(r'^[🧠📌🏆📋💊📦🎯💡🛠⚡🔍⚠️📎]+\s*', '', title)
+    # 取第一行非空内容做标题
+    lines = [l.strip() for l in block.split('\n') if l.strip()]
+    title = lines[0] if lines else ct
+    title = re.sub(r'^[🧠📌🏆📋💊📦🎯💡🛠⚡🔍⚠️📎｜|]+\s*', '', title)
     return card(bar, ct, title, md_to_html(block))
 
 def render_entropy_health(block):
@@ -133,17 +139,36 @@ def parse_entropy_output(raw):
     if not content or "[SILENT]" in content:
         return []
     
+    # 去掉首行标题 "📋 **熵减计划**（日期）"
+    content = re.sub(r'^📋\s*\*?熵减计划.*?\n*', '', content).strip()
+    
+    # 用 ━━━ 分割成区块
+    blocks = re.split(r'━━━\s*[🏆🧠💊]', content)
+    # blocks[0] 是空或头部，blocks[1:] 是实际内容
+    sections = []
+    for b in blocks[1:]:
+        b = b.strip()
+        # 去掉尾部 ━━━
+        b = re.sub(r'━+\s*$', '', b).strip()
+        if b:
+            sections.append(b)
+    
     cards = []
-    blocks = re.split(r'(?=━━━)', content)
-    for block in blocks:
-        block = block.strip()
-        if not block: continue
-        if '经典案例' in block[:80]:
-            cards.append(render_entropy_case(block))
-        elif '熵减卡片' in block[:80] or '思维模型' in block[:50] or '场景案例' in block[:50]:
-            cards.append(render_entropy_card(block))
-        elif '健康提醒' in block[:80] or block.strip().startswith('💊'):
-            cards.append(render_entropy_health(block))
+    for sec in sections:
+        # 判断类型
+        if sec.startswith('🏆') or '经典案例' in sec[:20]:
+            sec = re.sub(r'^🏆\s*经典案例.*?\n', '', sec).strip()
+            cards.append(render_entropy_case(sec))
+        elif sec.startswith('🧠') or '熵减卡片' in sec[:30] or '思维模型' in sec[:30]:
+            sec = re.sub(r'^🧠\s*(熵减卡片|思维模型).*?\n', '', sec).strip()
+            cards.append(render_entropy_card(sec))
+        elif sec.startswith('💊') or '健康提醒' in sec[:20]:
+            sec = re.sub(r'^💊\s*健康提醒.*?\n', '', sec).strip()
+            cards.append(render_entropy_health(sec))
+        else:
+            # 未知类型，尝试通用渲染
+            cards.append(card("entropy", "熵减推送", "熵减推送", md_to_html(sec)))
+    
     if not cards and content:
         cards.append(card("entropy", "熵减计划", "熵减推送", md_to_html(content)))
     return cards
