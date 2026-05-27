@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2024-09-26 — Daily Digest</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <!-- 顶部导航 -->
+  <nav class="top-nav">
+    <a href="../index.html" class="brand">📖 Daily Digest</a>
+    <div class="nav-links">
+      <a href="2024-09-25.html">← 前一天</a>
+      <a href="2024-09-27.html">后一天 →</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- 日期标题 -->
+    <div class="page-header">
+      <h1>2024-09-26</h1>
+    </div>
+
+    <!-- 卡片流 -->
+    <div class="card-stream">
+      <div class="card">
+  <div class="card-bar graveyard"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">📦存档</div><h2>念头翻译器。或者是冲动翻译器。每当我脑子出现一个想法时，先跟翻译器说一下。翻译器会告诉我，我真实的想法是什么。是一种借口还是什么。需求背后是什么。带来的长久影响是什么会有哪些可能性我不这么做会如何。</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"><p><span class="badge graveyard">done</span></p></div>
+</div>
+    </div>
+
+    <footer class="site-footer">
+      <p>Daily Digest · 纯粹的阅读体验</p>
+    </footer>
+  </div>
+
+  <!-- 纯 JS: 卡片展开/收起 -->
+  <script>
+    document.addEventListener('click', function (e) {
+      var header = e.target.closest('.card-header');
+      if (!header) return;
+      var card = header.closest('.card');
+      if (!card) return;
+      card.classList.toggle('collapsed');
+    });
+  </script>
+
+</body>
+</html>

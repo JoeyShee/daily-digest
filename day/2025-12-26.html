@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2025-12-26 — Daily Digest</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <!-- 顶部导航 -->
+  <nav class="top-nav">
+    <a href="../index.html" class="brand">📖 Daily Digest</a>
+    <div class="nav-links">
+      <a href="2025-12-25.html">← 前一天</a>
+      <a href="2025-12-27.html">后一天 →</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- 日期标题 -->
+    <div class="page-header">
+      <h1>2025-12-26</h1>
+    </div>
+
+    <!-- 卡片流 -->
+    <div class="card-stream">
+      <div class="card">
+  <div class="card-bar graveyard"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">生活</div><h2>无数的神经连接突触意味着人理论上可以记住无数内容，超忆者存在证明了这一点大脑出于优化和自我保护的目的会去遗忘一些东西已知多次调用，会让临时链接变成永久连接所以，你可以通过卡片训练来让大脑中存在的记忆越</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"></div>
+</div>
+    </div>
+
+    <footer class="site-footer">
+      <p>Daily Digest · 纯粹的阅读体验</p>
+    </footer>
+  </div>
+
+  <!-- 纯 JS: 卡片展开/收起 -->
+  <script>
+    document.addEventListener('click', function (e) {
+      var header = e.target.closest('.card-header');
+      if (!header) return;
+      var card = header.closest('.card');
+      if (!card) return;
+      card.classList.toggle('collapsed');
+    });
+  </script>
+
+</body>
+</html>

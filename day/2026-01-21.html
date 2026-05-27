@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026-01-21 — Daily Digest</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <!-- 顶部导航 -->
+  <nav class="top-nav">
+    <a href="../index.html" class="brand">📖 Daily Digest</a>
+    <div class="nav-links">
+      <a href="2026-01-20.html">← 前一天</a>
+      <a href="2026-01-22.html">后一天 →</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- 日期标题 -->
+    <div class="page-header">
+      <h1>2026-01-21</h1>
+    </div>
+
+    <!-- 卡片流 -->
+    <div class="card-stream">
+      <div class="card">
+  <div class="card-bar classic-shengcai"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">🚀Idea</div><h2>五天学会绘画App——基于《五天学会绘画》一书的方法论，做一个渐进式绘画教学App。每天一个核心技能点，从右脑绘画法到比例感知，配合AI实时反馈。产品差异化：不是教画画技巧，而是教'看'的方式。</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"><h3>🔍 命题</h3><p>给谁：零基础想学画画的成人；场景：通勤/午休碎片时间；痛点：传统绘画课太长太贵；赚钱方式：Freemium（前5天免费）+ AI点评付费</p><p><span class="badge classic-shengcai">salvaged</span></p></div>
+</div>
+    </div>
+
+    <footer class="site-footer">
+      <p>Daily Digest · 纯粹的阅读体验</p>
+    </footer>
+  </div>
+
+  <!-- 纯 JS: 卡片展开/收起 -->
+  <script>
+    document.addEventListener('click', function (e) {
+      var header = e.target.closest('.card-header');
+      if (!header) return;
+      var card = header.closest('.card');
+      if (!card) return;
+      card.classList.toggle('collapsed');
+    });
+  </script>
+
+</body>
+</html>

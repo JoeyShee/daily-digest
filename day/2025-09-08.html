@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2025-09-08 — Daily Digest</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <!-- 顶部导航 -->
+  <nav class="top-nav">
+    <a href="../index.html" class="brand">📖 Daily Digest</a>
+    <div class="nav-links">
+      <a href="2025-09-07.html">← 前一天</a>
+      <a href="2025-09-09.html">后一天 →</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- 日期标题 -->
+    <div class="page-header">
+      <h1>2025-09-08</h1>
+    </div>
+
+    <!-- 卡片流 -->
+    <div class="card-stream">
+      <div class="card">
+  <div class="card-bar classic-shengcai"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">🚀Idea</div><h2>信心修复器——当用户经历挫折（面试失败、项目黄了、被拒绝等）时，提供一个结构化的信心修复流程：1）情绪命名 2）事实重评 3）历史成就回溯 4）下一步行动建议。类似'心理急救箱'。产品形态可以是小程序</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"><h3>🔍 命题</h3><p>给谁：职场人/创业者/求职者；场景：经历失败后需要快速恢复状态；痛点：心理咨询门槛高，自我调节缺乏方法论；赚钱方式：按次付费或月度订阅</p><p><span class="badge classic-shengcai">salvaged</span></p></div>
+</div>
+    </div>
+
+    <footer class="site-footer">
+      <p>Daily Digest · 纯粹的阅读体验</p>
+    </footer>
+  </div>
+
+  <!-- 纯 JS: 卡片展开/收起 -->
+  <script>
+    document.addEventListener('click', function (e) {
+      var header = e.target.closest('.card-header');
+      if (!header) return;
+      var card = header.closest('.card');
+      if (!card) return;
+      card.classList.toggle('collapsed');
+    });
+  </script>
+
+</body>
+</html>

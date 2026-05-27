@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026-03-04 — Daily Digest</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <!-- 顶部导航 -->
+  <nav class="top-nav">
+    <a href="../index.html" class="brand">📖 Daily Digest</a>
+    <div class="nav-links">
+      <a href="2026-03-03.html.html">← 前一天</a>
+      <a href="2026-03-05.html.html">后一天 →</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- 日期标题 -->
+    <div class="page-header">
+      <h1>2026-03-04</h1>
+    </div>
+
+    <!-- 卡片流 -->
+    <div class="card-stream">
+      <div class="card">
+  <div class="card-bar classic-shengcai"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">经典案例 · 生财宝典</div><h2>吴鲁加</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"><h3>💵 赚钱模式</h3><p>知识星球付费社群+AI使用方法论内容变现</p><h3>🎯 辉哥可以复制的路径</h3><p>辉哥做深度调研时：①对调研主题先向AI提一个宽泛问题拿到框架；②逐条追问「为什么」「哪个最适合」「需要什么资源」；③带着AI给出的方案去实际执行并记录验证结果；④把验证中发现的新问题再喂回AI继续深挖。整个追问链条可直接复用到内容创作选题深挖、用户需求调研等场景。</p><h3>💬 原话</h3><blockquote>知识呈分形扩展，从远处看它的边缘很光滑，但一旦你掌握足够多的知识，就会发现它们充满了间隙，每个间隙都是新的问题。</blockquote><blockquote>不停止提问，不止于提问。</blockquote><blockquote>至于用的是Claude Code还是ChatGPT或者其他，工具重要，人更重要。</blockquote></div>
+</div>
+<div class="card">
+  <div class="card-bar mental-model"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">思维模型</div><h2>问题库存法</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"><div class="model-one-liner">持续记录开放式问题，定期回顾寻找解答</div><h3>⏰ 何时使用</h3><p>有反复出现的困惑或重要决策需要思考时</p><h3>💡 核心逻辑</h3><p>好问题值得被保存而非遗忘，持续积累的问题清单可以成为个人认知进化的路线图</p><h3>🛠 使用方法</h3><p>遇到想不通的问题就写入问题清单，每周回顾一次，尝试回答或更新问题表述</p><div class="red-flag"><p>⚠️ 只存不看会让清单积压；问题可能过时需定期清理</p></div></div>
+</div>
+    </div>
+
+    <footer class="site-footer">
+      <p>Daily Digest · 纯粹的阅读体验</p>
+    </footer>
+  </div>
+
+  <!-- 纯 JS: 卡片展开/收起 -->
+  <script>
+    document.addEventListener('click', function (e) {
+      var header = e.target.closest('.card-header');
+      if (!header) return;
+      var card = header.closest('.card');
+      if (!card) return;
+      card.classList.toggle('collapsed');
+    });
+  </script>
+
+</body>
+</html>
