@@ -15,8 +15,8 @@
 
   /* Borders & Shadows */
   --border: rgba(0, 0, 0, 0.1);
-  --shadow-notion: rgba(0,0,0,0.04) 0px 4px 18px, rgba(0,0,0,0.027) 0px 2px 7.85px, rgba(0,0,0,0.02) 0px 0.8px 2.93px;
-  --shadow-notion-hover: rgba(0,0,0,0.06) 0px 6px 24px, rgba(0,0,0,0.04) 0px 3px 10px, rgba(0,0,0,0.025) 0px 1px 3.5px;
+  --shadow-notion: rgba(0,0,0,0.06) 0px 4px 20px, rgba(0,0,0,0.04) 0px 2px 8px, rgba(0,0,0,0.03) 0px 1px 3px;
+  --shadow-notion-hover: rgba(0,0,0,0.08) 0px 8px 28px, rgba(0,0,0,0.05) 0px 4px 12px, rgba(0,0,0,0.03) 0px 1px 4px;
 
   /* Radius */
   --radius: 12px;
