@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2025-12-31 · 想法墓地</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<nav class="top-nav">
+  <a href="../index.html" class="brand">📋 每日精选</a>
+  <div class="nav-links">
+    <a href="2025-12-30.html">← 前一天</a>
+    <a href="2026-01-01.html">后一天 →</a>
+  </div>
+</nav>
+<div class="container">
+  <div class="day-nav">
+    <a href="2025-12-30.html">← 前一天</a>
+    <div class="day-title">2025-12-31</div>
+    <a href="2026-01-01.html">后一天 →</a>
+  </div>
+  <div class="card">
+  <div class="card-bar graveyard"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">认知</div><h2>知识库-图示，工具心理学通识里的知识点知识库-行业发展规律</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"></div>
+</div>
+<div class="card">
+  <div class="card-bar idea"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">🚀 Idea</div><h2>笔记整理游戏化应用——模仿开心消消乐的游戏机制，让整理笔记变成消除/匹配类的休闲游戏。核心理念：把枯燥的笔记分类、标签管理、归档操作变成有趣的消除类交互，让用户在'玩'的过程中自然完成知识整理。</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"><h3>🔍 命题</h3><p>给谁：笔记多但懒得整理的知识工作者/学生；场景：碎片时间想刷手机时；痛点：笔记堆积如山但整理太无聊；赚钱方式：免费基础+付费主题皮肤/高级整理模式</p></div>
+</div>
+  <footer class="site-footer">
+    <p>Daily Digest · 纯粹的阅读体验</p>
+  </footer>
+</div>
+<script>
+var cards=document.querySelectorAll(".card");cards.forEach(function(c,i){if(i>0)c.classList.add("collapsed")});
+document.addEventListener('click',function(e){var h=e.target.closest('.card-header');if(h)h.closest('.card').classList.toggle('collapsed')});
+</script>
+</body>
+</html>

@@ -1,48 +1,33 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{DATE}} — Daily Digest</title>
-  <link rel="stylesheet" href="../style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{DATE}} · {{SECTION_TITLE}}</title>
+<link rel="stylesheet" href="{{CSS_PATH}}">
 </head>
 <body>
-
-  <!-- 顶部导航 -->
-  <nav class="top-nav">
-    <a href="../index.html" class="brand">📖 Daily Digest</a>
-    <div class="nav-links">
-      <a href="{{PREV_DAY}}">← 前一天</a>
-      <a href="{{NEXT_DAY}}">后一天 →</a>
-    </div>
-  </nav>
-
-  <div class="container">
-    <!-- 日期标题 -->
-    <div class="page-header">
-      <h1>{{DATE}}</h1>
-    </div>
-
-    <!-- 卡片流 -->
-    <div class="card-stream">
-      {{CARDS}}
-    </div>
-
-    <footer class="site-footer">
-      <p>Daily Digest · 纯粹的阅读体验</p>
-    </footer>
+<nav class="top-nav">
+  <a href="{{INDEX_PATH}}" class="brand">📋 每日精选</a>
+  <div class="nav-links">
+    <a href="{{PREV_DAY}}">← 前一天</a>
+    <a href="{{NEXT_DAY}}">后一天 →</a>
   </div>
-
-  <!-- 纯 JS: 卡片展开/收起 -->
-  <script>
-    document.addEventListener('click', function (e) {
-      var header = e.target.closest('.card-header');
-      if (!header) return;
-      var card = header.closest('.card');
-      if (!card) return;
-      card.classList.toggle('collapsed');
-    });
-  </script>
-
+</nav>
+<div class="container">
+  <div class="day-nav">
+    <a href="{{PREV_DAY}}">← 前一天</a>
+    <div class="day-title">{{DATE}}</div>
+    <a href="{{NEXT_DAY}}">后一天 →</a>
+  </div>
+  {{CARDS}}
+  <footer class="site-footer">
+    <p>Daily Digest · 纯粹的阅读体验</p>
+  </footer>
+</div>
+<script>
+var cards=document.querySelectorAll(".card");cards.forEach(function(c,i){if(i>0)c.classList.add("collapsed")});
+document.addEventListener('click',function(e){var h=e.target.closest('.card-header');if(h)h.closest('.card').classList.toggle('collapsed')});
+</script>
 </body>
 </html>

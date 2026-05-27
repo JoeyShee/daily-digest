@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2025-08-27 · 想法墓地</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<nav class="top-nav">
+  <a href="../index.html" class="brand">📋 每日精选</a>
+  <div class="nav-links">
+    <a href="2025-08-26.html">← 前一天</a>
+    <a href="2025-08-28.html">后一天 →</a>
+  </div>
+</nav>
+<div class="container">
+  <div class="day-nav">
+    <a href="2025-08-26.html">← 前一天</a>
+    <div class="day-title">2025-08-27</div>
+    <a href="2025-08-28.html">后一天 →</a>
+  </div>
+  <div class="card">
+  <div class="card-bar graveyard"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">创业</div><h2>从爱好中找到赚钱机会。• 只要这个产品有3个以上的同行每天有出单， 那你就一定会出单，不是可能，是一定！
+• 大部分人在新接触的产品上总是胆怯，不敢做，怕不懂，记住一句话：先上架再说，在买家的逼问下，你会在和很短的时间内了解产品的绝大部分知</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"></div>
+</div>
+  <footer class="site-footer">
+    <p>Daily Digest · 纯粹的阅读体验</p>
+  </footer>
+</div>
+<script>
+var cards=document.querySelectorAll(".card");cards.forEach(function(c,i){if(i>0)c.classList.add("collapsed")});
+document.addEventListener('click',function(e){var h=e.target.closest('.card-header');if(h)h.closest('.card').classList.toggle('collapsed')});
+</script>
+</body>
+</html>

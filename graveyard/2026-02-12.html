@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2026-02-12 · 想法墓地</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<nav class="top-nav">
+  <a href="../index.html" class="brand">📋 每日精选</a>
+  <div class="nav-links">
+    <a href="2026-02-11.html">← 前一天</a>
+    <a href="2026-02-13.html">后一天 →</a>
+  </div>
+</nav>
+<div class="container">
+  <div class="day-nav">
+    <a href="2026-02-11.html">← 前一天</a>
+    <div class="day-title">2026-02-12</div>
+    <a href="2026-02-13.html">后一天 →</a>
+  </div>
+  <div class="card">
+  <div class="card-bar idea"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">🚀 Idea</div><h2>Context 音频加载与 15% AI 讨论——关于 AI 在任务管理领域的应用探讨。想法是将 AI 的 context（上下文理解）能力应用到音频加载场景中，可能是用 AI 来分析和处理任务相关的音频内容，实现更智能的任务管理工具（任务</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"><h3>🔍 命题</h3><p>给谁：需要音频处理+任务管理的知识工作者；场景：会议录音/语音备忘录→自动拆解任务；痛点：听完录音还要手动整理待办；赚钱方式：SaaS订阅或按音频时长计费</p></div>
+</div>
+<div class="card">
+  <div class="card-bar idea"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">🚀 Idea</div><h2>信息陷阱识别框架——建立一套识别和抵御信息陷阱的结构化模型。在消费场景中，用户容易被营销话术、信息茧房、情绪操控等手段误导。目标是建立一个可操作的框架，帮助用户识别信息中的偏见、操控和误导，提升信息消费质量。</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"><h3>🔍 命题</h3><p>给谁：高信息消费人群（自媒体从业者/投资者/终身学习者）；场景：阅读文章/购物决策/投资判断前；痛点：无法快速识别信息中的偏见和操控；赚钱方式：浏览器插件免费+付费深度分析/课程授权</p></div>
+</div>
+  <footer class="site-footer">
+    <p>Daily Digest · 纯粹的阅读体验</p>
+  </footer>
+</div>
+<script>
+var cards=document.querySelectorAll(".card");cards.forEach(function(c,i){if(i>0)c.classList.add("collapsed")});
+document.addEventListener('click',function(e){var h=e.target.closest('.card-header');if(h)h.closest('.card').classList.toggle('collapsed')});
+</script>
+</body>
+</html>

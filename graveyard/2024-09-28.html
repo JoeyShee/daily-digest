@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2024-09-28 · 想法墓地</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<nav class="top-nav">
+  <a href="../index.html" class="brand">📋 每日精选</a>
+  <div class="nav-links">
+    <a href="2024-09-27.html">← 前一天</a>
+    <a href="2024-09-29.html">后一天 →</a>
+  </div>
+</nav>
+<div class="container">
+  <div class="day-nav">
+    <a href="2024-09-27.html">← 前一天</a>
+    <div class="day-title">2024-09-28</div>
+    <a href="2024-09-29.html">后一天 →</a>
+  </div>
+  <div class="card">
+  <div class="card-bar graveyard"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">创业</div><h2>• 习惯追踪自然会建立一系列的视觉提示，比如在日历上打的叉或者进餐日志中的食物列表。当你翻看日历时，那一连串标记无疑在提醒你继续采取行动。——屏保。
+• 如何让时间的力量清晰可见，把长期的目标，变为短期、可感知、甚至强烈冲击的反馈。“永不中</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"></div>
+</div>
+  <footer class="site-footer">
+    <p>Daily Digest · 纯粹的阅读体验</p>
+  </footer>
+</div>
+<script>
+var cards=document.querySelectorAll(".card");cards.forEach(function(c,i){if(i>0)c.classList.add("collapsed")});
+document.addEventListener('click',function(e){var h=e.target.closest('.card-header');if(h)h.closest('.card').classList.toggle('collapsed')});
+</script>
+</body>
+</html>

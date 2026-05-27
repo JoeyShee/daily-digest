@@ -1,34 +1,32 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>每日内容卡片 — Daily Digest</title>
-  <link rel="stylesheet" href="../style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>每日精选</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <!-- 顶部导航 -->
-  <nav class="top-nav">
-    <span class="brand">📖 Daily Digest</span>
-  </nav>
-
-  <!-- 页面标题 -->
-  <div class="container">
-    <div class="page-header">
-      <h1>每日内容卡片</h1>
-      <p>熵减卡片 &amp; 想法墓地，每天更新</p>
-    </div>
-
-    <!-- 日期列表 -->
-    <ul class="date-list">
-      {{DATE_LIST}}
-    </ul>
-
-    <footer class="site-footer">
-      <p>Daily Digest · 纯粹的阅读体验</p>
-    </footer>
+<nav class="top-nav">
+  <span class="brand">📋 每日精选</span>
+</nav>
+<div class="container">
+  <div class="page-header">
+    <h1>每日精选</h1>
+    <p>选择一个频道</p>
   </div>
-
+  <div class="channel-grid">
+    <a href="entropy/" class="channel-card">
+      <div class="channel-icon">🧠</div>
+      <div class="channel-name">熵减计划</div>
+      <div class="channel-desc">经典案例 · 思维模型 · 健康提醒</div>
+    </a>
+    <a href="graveyard/" class="channel-card">
+      <div class="channel-icon">🪦</div>
+      <div class="channel-name">想法墓地</div>
+      <div class="channel-desc">困惑 · Idea · 选题 · 反思</div>
+    </a>
+  </div>
+</div>
 </body>
 </html>
