@@ -167,7 +167,7 @@ a:hover { text-decoration: underline; }
 .day-nav a {
   font-size: 0.88rem;
   font-weight: 500;
-  color: var(--text-secondary);
+  color: #0075de;
   padding: 8px 14px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
@@ -176,7 +176,7 @@ a:hover { text-decoration: underline; }
 }
 
 .day-nav a:hover {
-  background: var(--surface-warm);
+  background: rgba(0,117,222,0.06);
   border-color: rgba(0, 0, 0, 0.15);
   text-decoration: none;
 }
@@ -213,11 +213,12 @@ a:hover { text-decoration: underline; }
   align-items: center;
   background: var(--surface-warm);
   border: 1px solid var(--border);
+  border-left: 4px solid transparent;
   border-radius: var(--radius);
   padding: 20px 24px;
   text-decoration: none;
   color: var(--text);
-  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-left 0.15s ease;
   box-shadow: var(--shadow-notion);
   text-align: left;
 }
@@ -227,6 +228,7 @@ a:hover { text-decoration: underline; }
   box-shadow: var(--shadow-notion-hover);
   background: #f0efed;
   text-decoration: none;
+  border-left: 4px solid #0075de;
 }
 
 .channel-card .channel-icon {
@@ -290,7 +292,7 @@ a:hover { text-decoration: underline; }
   box-shadow: var(--shadow-notion);
   border: 1px solid var(--border);
   overflow: hidden;
-  margin-bottom: var(--gap);
+  margin-bottom: 32px;
   transition: box-shadow 0.2s ease;
 }
 
@@ -320,7 +322,9 @@ a:hover { text-decoration: underline; }
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
-  padding: 24px 24px 16px;
+  padding: 20px 24px 16px;
+  border-left: 4px solid transparent;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -329,12 +333,15 @@ a:hover { text-decoration: underline; }
 .card-header:hover { background: rgba(0, 0, 0, 0.02); }
 
 .card-header .card-type {
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   margin-bottom: 4px;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  background: var(--surface-warm);
 }
 
 .card-header h2 {
@@ -365,7 +372,7 @@ a:hover { text-decoration: underline; }
 
 /* 卡片 body */
 .card-body {
-  padding: 0 24px 24px;
+  padding: 0 24px 28px;
   animation: fadeIn 0.2s ease;
 }
 .card.collapsed .card-body { display: none; }
@@ -381,6 +388,10 @@ a:hover { text-decoration: underline; }
   font-weight: 600;
   margin: 24px 0 10px;
   color: var(--text);
+  border-left: 3px solid var(--color-entropy);
+  background: #f6f5f4;
+  padding: 8px 14px;
+  border-radius: 6px;
 }
 
 .card-body h3:first-child { margin-top: 0; }
@@ -401,8 +412,9 @@ a:hover { text-decoration: underline; }
 }
 
 .card-body li {
-  margin-bottom: 6px;
+  margin-bottom: 12px;
   line-height: 1.8;
+  list-style-type: disc;
 }
 
 .card-body strong {
@@ -422,22 +434,23 @@ a:hover { text-decoration: underline; }
 }
 
 .card-body .highlight-box {
-  background: var(--surface-warm);
+  background: #f6f5f4;
   border-radius: var(--radius);
   padding: 16px 20px;
   margin: 16px 0;
   line-height: 1.85;
+  border-left: 4px solid #0075de;
 }
 
 .card-body .highlight-box p { margin-bottom: 8px; }
 .card-body .highlight-box p:last-child { margin-bottom: 0; }
 
 .card-body .red-flag {
-  background: rgba(221, 91, 0, 0.05);
+  background: rgba(221, 91, 0, 0.04);
   border-radius: var(--radius);
   padding: 16px 20px;
   margin: 16px 0;
-  border-left: 3px solid var(--color-health);
+  border-left: 4px solid #dd5b00;
   line-height: 1.85;
 }
 
@@ -461,9 +474,9 @@ a:hover { text-decoration: underline; }
 /* ---------- Badge ---------- */
 .badge {
   display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 3px 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 5px 14px;
   border-radius: 9999px;
   line-height: 1.5;
 }
@@ -549,8 +562,8 @@ a:hover { text-decoration: underline; }
 @media (min-width: 768px) {
   html { font-size: 21px; }
   .container { padding: 0 40px; }
-  .card-header { padding: 28px 28px 18px; }
-  .card-body { padding: 0 28px 28px; }
+  .card-header { padding: 24px 28px 18px; }
+  .card-body { padding: 0 28px 32px; }
   .channel-grid { gap: 14px; }
   .channel-card { padding: 24px 28px; }
 }
