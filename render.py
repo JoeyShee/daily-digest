@@ -104,10 +104,14 @@ def card(bar_class, card_type, title, body_html, collapsed=False):
 # --- 熵减卡片 ---
 
 def render_entropy_case(block):
-    # block 已经去掉了 ━━━ 标题行，找第一个加粗标题
+    # 去掉开头的经典案例编号行（如 "🏆 经典案例 #9｜商业洞察"）
+    block = re.sub(r'^🏆\s*经典案例\s*#\d+[｜|].*?\n', '', block).strip()
+    # 去掉残留的分隔符
+    block = re.sub(r'^━+\s*', '', block).strip()
+    # 找第一个加粗标题
     title_m = re.search(r'\*\*(.+?)\*\*', block)
     title = title_m.group(1) if title_m else "经典案例"
-    # body 去掉第一行如果就是标题
+    # body 去掉标题行
     body = block
     if title_m and block.startswith(title_m.group(0)):
         body = block[title_m.end():].strip()
@@ -123,7 +127,7 @@ def render_entropy_card(block):
     # 取第一行非空内容做标题，跳过通用标题行
     lines = [l.strip() for l in block.split('\n') if l.strip()]
     title = lines[0] if lines else ct
-    title = re.sub(r'^[🧠📌🏆📋💊📦🎯💡🛠⚡🔍⚠️📎｜|]+\s*', '', title)
+    title = re.sub(r'^[🧠📌🏆📋💊📦🎯💡🛠⚡🔍⚠️📎｜|━]+\s*', '', title)
     # 如果标题是通用词（熵减卡片），用下一行
     if title.strip() in ('熵减卡片', '场景案例') and len(lines) > 1:
         title = re.sub(r'^[🧠📌🏆📋💊📦🎯💡🛠⚡🔍⚠️📎｜|]+\s*', '', lines[1])
