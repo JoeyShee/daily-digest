@@ -269,27 +269,25 @@ def render_day_page(date_str, cards_html, section, section_title):
     (out_dir / f"{date_str}.html").write_text(html)
 
 def render_index(dates_entropy, dates_graveyard):
-    """渲染首页 + 两个频道首页"""
+    """渲染首页 + 两个频道首页（直接展示最新一天内容）"""
     template = load_template("index.html")
     (BASE_DIR / "index.html").write_text(template)
     
-    # 熵减频道首页
-    entropy_list = ""
-    for d in sorted(dates_entropy, reverse=True):
-        entropy_list += f'<li><a href="{d}.html"><span>{d}</span><span class="arrow">→</span></a></li>\n'
-    
-    entropy_index = f'''<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>熵减计划</title><link rel="stylesheet" href="../style.css"></head><body><nav class="top-nav"><a href="../index.html" class="brand">📋 每日精选</a></nav><div class="container"><div class="page-header"><h1>🧠 熵减计划</h1><p>经典案例 · 思维模型 · 健康提醒</p></div><ul class="date-list">{entropy_list}</ul></div></body></html>'''
+    # 熵减频道：index.html 直接是最新的日报
     ENTROPY_DIR.mkdir(parents=True, exist_ok=True)
-    (ENTROPY_DIR / "index.html").write_text(entropy_index)
+    if dates_entropy:
+        latest = max(dates_entropy)
+        latest_file = ENTROPY_DIR / f"{latest}.html"
+        if latest_file.exists():
+            (ENTROPY_DIR / "index.html").write_text(latest_file.read_text())
     
-    # 墓地频道首页
-    graveyard_list = ""
-    for d in sorted(dates_graveyard, reverse=True):
-        graveyard_list += f'<li><a href="{d}.html"><span>{d}</span><span class="arrow">→</span></a></li>\n'
-    
-    graveyard_index = f'''<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>想法墓地</title><link rel="stylesheet" href="../style.css"></head><body><nav class="top-nav"><a href="../index.html" class="brand">📋 每日精选</a></nav><div class="container"><div class="page-header"><h1>🪦 想法墓地</h1><p>困惑 · Idea · 选题 · 反思</p></div><ul class="date-list">{graveyard_list}</ul></div></body></html>'''
+    # 墓地频道：index.html 直接是最新的日报
     GRAVEYARD_DIR.mkdir(parents=True, exist_ok=True)
-    (GRAVEYARD_DIR / "index.html").write_text(graveyard_index)
+    if dates_graveyard:
+        latest = max(dates_graveyard)
+        latest_file = GRAVEYARD_DIR / f"{latest}.html"
+        if latest_file.exists():
+            (GRAVEYARD_DIR / "index.html").write_text(latest_file.read_text())
 
 # ============================================================
 # 收集卡片
