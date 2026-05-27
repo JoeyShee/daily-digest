@@ -5,26 +5,33 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>每日精选</title>
 <link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 <nav class="top-nav">
-  <span class="brand">📋 每日精选</span>
+  <span class="brand">每日精选</span>
 </nav>
 <div class="container">
   <div class="page-header">
     <h1>每日精选</h1>
-    <p>选择一个频道</p>
+    <p class="subtitle">选择一个频道开始阅读</p>
   </div>
-  <div class="channel-grid">
+  <div class="channel-list">
     <a href="entropy/" class="channel-card">
       <div class="channel-icon">🧠</div>
-      <div class="channel-name">熵减计划</div>
-      <div class="channel-desc">经典案例 · 思维模型 · 健康提醒</div>
+      <div class="channel-info">
+        <div class="channel-name">熵减计划</div>
+        <div class="channel-desc">经典案例 · 思维模型 · 健康提醒</div>
+      </div>
+      <div class="channel-arrow">→</div>
     </a>
     <a href="graveyard/" class="channel-card">
       <div class="channel-icon">🪦</div>
-      <div class="channel-name">想法墓地</div>
-      <div class="channel-desc">困惑 · Idea · 选题 · 反思</div>
+      <div class="channel-info">
+        <div class="channel-name">想法墓地</div>
+        <div class="channel-desc">困惑 · Idea · 选题 · 反思</div>
+      </div>
+      <div class="channel-arrow">→</div>
     </a>
   </div>
 </div>
