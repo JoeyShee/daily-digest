@@ -244,8 +244,25 @@ document.addEventListener("click",function(e){var h=e.target.closest(".card-head
 </script></body></html>'''
     return ""
 
-def render_day_page(date_str, cards_html, section, section_title):
+def _find_prev_next(date_str, available_dates):
+    """在 available_dates 中找到当前日期的前一个和后一个有数据的日期。
+    返回 (prev, next)，如果不存在则为 None。
+    """
+    sorted_dates = sorted(available_dates)
+    prev_d = None
+    next_d = None
+    for d in sorted_dates:
+        if d < date_str:
+            prev_d = d
+        elif d > date_str and next_d is None:
+            next_d = d
+    return prev_d, next_d
+
+def render_day_page(date_str, cards_html, section, section_title, available_dates=None):
     """渲染单日页面"""
+    if available_dates is None:
+        available_dates = set()
+
     if section == "entropy":
         out_dir = ENTROPY_DIR
         css_path = "../style.css"
@@ -254,9 +271,11 @@ def render_day_page(date_str, cards_html, section, section_title):
         out_dir = GRAVEYARD_DIR
         css_path = "../style.css"
         index_path = "../index.html"
-    
-    prev_d = (datetime.strptime(date_str, "%Y-%m-%d") - timedelta(days=1)).strftime("%Y-%m-%d")
-    next_d = (datetime.strptime(date_str, "%Y-%m-%d") + timedelta(days=1)).strftime("%Y-%m-%d")
+
+    prev_d, next_d = _find_prev_next(date_str, available_dates)
+    # 如果没有前一天/后一天，链接到频道首页
+    prev_link = f"{prev_d}.html" if prev_d else index_path
+    next_link = f"{next_d}.html" if next_d else index_path
     
     template = load_template("day.html")
     html = template
@@ -264,8 +283,8 @@ def render_day_page(date_str, cards_html, section, section_title):
     html = html.replace("{{SECTION_TITLE}}", section_title)
     html = html.replace("{{CSS_PATH}}", css_path)
     html = html.replace("{{INDEX_PATH}}", index_path)
-    html = html.replace("{{PREV_DAY}}", f"{prev_d}.html")
-    html = html.replace("{{NEXT_DAY}}", f"{next_d}.html")
+    html = html.replace("{{PREV_DAY}}", prev_link)
+    html = html.replace("{{NEXT_DAY}}", next_link)
     html = html.replace("{{CARDS}}", cards_html)
     html = html.replace(".html.html", ".html")
     
@@ -341,15 +360,18 @@ def get_available_dates():
 # 主逻辑
 # ============================================================
 
-def render_date(date_str):
+def render_date(date_str, e_dates=None, g_dates=None):
     """渲染某一天的熵减+墓地页面"""
+    if e_dates is None: e_dates = set()
+    if g_dates is None: g_dates = set()
+
     e = collect_entropy_cards(date_str)
     if e.strip():
-        render_day_page(date_str, e, "entropy", "熵减计划")
-    
+        render_day_page(date_str, e, "entropy", "熵减计划", e_dates)
+
     g = collect_graveyard_cards(date_str)
     if g.strip():
-        render_day_page(date_str, g, "graveyard", "想法墓地")
+        render_day_page(date_str, g, "graveyard", "想法墓地", g_dates)
 
 def main():
     args = sys.argv[1:]
@@ -359,16 +381,16 @@ def main():
     
     if "--today" in args:
         d = datetime.now().strftime("%Y-%m-%d")
-        render_date(d)
         e_dates, g_dates = get_available_dates()
+        render_date(d, e_dates, g_dates)
         render_index(e_dates, g_dates)
         print(f"✅ 渲染完成: {d}")
-    
+
     elif "--date" in args:
         idx = args.index("--date")
         d = args[idx + 1]
-        render_date(d)
         e_dates, g_dates = get_available_dates()
+        render_date(d, e_dates, g_dates)
         render_index(e_dates, g_dates)
         print(f"✅ 渲染完成: {d}")
     
@@ -376,7 +398,7 @@ def main():
         e_dates, g_dates = get_available_dates()
         all_dates = e_dates | g_dates
         for d in sorted(all_dates):
-            render_date(d)
+            render_date(d, e_dates, g_dates)
         render_index(e_dates, g_dates)
         print(f"✅ 渲染完成: 熵减 {len(e_dates)} 天, 墓地 {len(g_dates)} 天")
 
