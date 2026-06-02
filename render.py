@@ -138,6 +138,18 @@ def render_entropy_health(block):
     title = title_m.group(1) if title_m else "健康提醒"
     return card("health", "💊 健康提醒", title, md_to_html(block))
 
+def render_entropy_opportunity(block):
+    """Zero2Idea 机会雷达卡片"""
+    title_m = re.search(r'\*\*(.+?)\*\*', block)
+    title = title_m.group(1) if title_m else "机会雷达"
+    return card("zero2idea", "🔭 Zero2Idea 机会雷达", title, md_to_html(block))
+
+def render_entropy_graveyard_review(block):
+    """昨日想法回顾卡片"""
+    title_m = re.search(r'\*\*(.+?)\*\*', block)
+    title = title_m.group(1) if title_m else "昨日想法回顾"
+    return card("graveyard", "🪦 昨日想法回顾", title, md_to_html(block))
+
 def parse_entropy_output(raw):
     content = raw
     if "---" in content:
@@ -150,7 +162,7 @@ def parse_entropy_output(raw):
     content = re.sub(r'^📋\s*\*?熵减计划.*?\n*', '', content).strip()
     
     # 用 ━━━ + emoji 分割成区块
-    raw_blocks = re.split(r'━━━\s*[🏆🧠💊]', content)
+    raw_blocks = re.split(r'━━━\s*[🏆🧠💊🔭🪦]', content)
     # raw_blocks: [头部, "标题残留1", "内容1", "标题残留2", "内容2", ...]
     # 合并标题残留到下一个 block
     sections = []
@@ -163,7 +175,7 @@ def parse_entropy_output(raw):
         # 如果 block 很短（<20字符）且只包含标题关键词，它是残留标题
         is_header_remnant = (
             len(b) < 20 
-            and any(kw in b for kw in ['经典案例', '熵减卡片', '思维模型', '场景案例', '健康提醒'])
+            and any(kw in b for kw in ['经典案例', '熵减卡片', '思维模型', '场景案例', '健康提醒', '机会雷达', '昨日想法回顾'])
         )
         if is_header_remnant:
             pending_header = b
@@ -185,6 +197,12 @@ def parse_entropy_output(raw):
         elif '健康提醒' in sec[:40]:
             sec = re.sub(r'^.*?健康提醒\s*[#│|].*?\n', '', sec, count=1).strip()
             cards.append(render_entropy_health(sec))
+        elif '机会雷达' in sec[:40]:
+            sec = re.sub(r'^.*?机会雷达\s*[#│|].*?\n', '', sec, count=1).strip()
+            cards.append(render_entropy_opportunity(sec))
+        elif '昨日想法回顾' in sec[:40] or '想法回顾' in sec[:40]:
+            sec = re.sub(r'^.*?昨日想法回顾\s*[#│|].*?\n', '', sec, count=1).strip()
+            cards.append(render_entropy_graveyard_review(sec))
         else:
             cards.append(card("entropy", "熵减推送", "熵减推送", md_to_html(sec)))
     
