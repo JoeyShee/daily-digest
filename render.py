@@ -162,7 +162,7 @@ def parse_entropy_output(raw):
     content = re.sub(r'^📋\s*\*?熵减计划.*?\n*', '', content).strip()
     
     # 用 ━━━ + emoji 分割成区块
-    raw_blocks = re.split(r'━━━\s*[🏆🧠💊🔭🪦]', content)
+    raw_blocks = re.split(r'━━━\s*[🏆🧠💊📡🔭🪦🎯]', content)
     # raw_blocks: [头部, "标题残留1", "内容1", "标题残留2", "内容2", ...]
     # 合并标题残留到下一个 block
     sections = []
