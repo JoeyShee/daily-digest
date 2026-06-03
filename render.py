@@ -153,8 +153,12 @@ def render_entropy_graveyard_review(block):
 
 def parse_entropy_output(raw):
     content = raw
-    if "---" in content:
-        content = content.split("---", 1)[1]
+    # 只在文件开头（前200字符内）有 --- 分隔线时才跳过元数据头
+    head = content[:200]
+    if "\n---\n" in head:
+        content = content.split("\n---\n", 1)[1]
+    elif content.startswith("---\n"):
+        content = content.split("\n", 1)[1]
     content = content.strip()
     if not content or "[SILENT]" in content:
         return [], []
@@ -190,8 +194,15 @@ def parse_entropy_output(raw):
     zero2idea_cards = []
     for sec in sections:
         if '经典案例' in sec[:40]:
-            sec = re.sub(r'^.*?经典案例\s*[#│|].*?\n', '', sec, count=1).strip()
-            entropy_cards.append(render_entropy_case(sec))
+            # 可能包含多个案例（用 🏆 经典案例 # 分隔）
+            sub_cases = re.split(r'(?=🏆\s*经典案例\s*#\d+)', sec)
+            for sub in sub_cases:
+                sub = sub.strip()
+                if not sub:
+                    continue
+                sub = re.sub(r'^.*?经典案例\s*[#│|].*?\n', '', sub, count=1).strip()
+                if sub:
+                    entropy_cards.append(render_entropy_case(sub))
         elif '思维模型' in sec[:40]:
             entropy_cards.append(render_entropy_card(sec))
         elif '熵减卡片' in sec[:40]:
