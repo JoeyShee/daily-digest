@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2026-06-02 · Zero2Idea</title>
+<link rel="stylesheet" href="../style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav class="top-nav">
+  <a href="../index.html" class="brand">每日精选</a>
+  <div class="tab-nav">
+<a href="../entropy/" class="tab-item">🧠 熵减计划</a>
+<a href="../index.html" class="tab-item">🪦 想法墓地</a>
+<a href="../zero2idea/" class="tab-item active">🔭 Zero2Idea</a>
+</div>
+</nav>
+<div class="container">
+  <div class="day-nav">
+    <a href="../index.html" class="nav-btn">← 前一天</a>
+    <div class="day-title">2026-06-02</div>
+    <a href="2026-06-03.html" class="nav-btn">后一天 →</a>
+  </div>
+  <div class="card">
+  <div class="card-bar zero2idea"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">🔭 Zero2Idea 机会雷达</div><h2>Tabula. AI-powered data tool for startups to centralize data and automate rep...</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"><p>机会雷达 ━━━<br>今日新增 12 条机会（Top 5）：<br>• <strong>Tabula. AI-powered data tool for startups to centralize data and automate rep...</strong><br>  观察 → 冷冻 | 评分 84 | 来源: 榜单<br>  产品横跨数据集成+BI+报告自动化，构建复杂度远超个人7天MVP能力（personal_fit_score=29）；所有关键词证据均为启发式估算无真实搜索量（pay_evidence=13）；来源单一仅toolify榜单第282名；小切口方...<br>  证据缺口: 真实关键词搜索量和CPC数据（当前全部为heuristic估算）；Tabula或同类窄工具的真实用户反馈和付费转化数据<br>• <strong>Julep AI. Julep AI: API for building and deploying complex AI workflows and a...</strong><br>  观察 → 缩小验证 | 评分 71 | 来源: 榜单<br>  这个机会基于单一 Toolify 目录条目，付费证据极弱（3/30），无用户抱怨、无 CPC（除品牌词外）、无实际搜索量数据。实时页面数据（7.0K 月访问、41 秒停留、50.8% 跳出率）反而弱于缓存的 13.1K。AI 工作流编排赛道...<br>  证据缺口: personal-core 文件系统不在当前工作目录访问范围内，已基于 prompt 中附带的完整文件内容做判断；关键词实际月搜索量缺失（当前只有 heuristic KD）<br>• <strong>Need an alternative app for meal plan macros. Fitness users complain that mea...</strong><br>  观察 → 缩小验证 | 评分 70 | 来源: 大产品小切口<br>  方向可能有价值（健身用户+宏量查询+付费替代），但当前证据来源是本地种子回退，非真实用户数据。市场极度饱和，免费替代品已广泛存在，个人偏好匹配度低。不急于开发，先做最小外部验证：在Reddit健身社区收集真实用户抱怨，对比竞品免费版功能覆盖...<br>  证据缺口: 真实用户抱怨数据——当前来源是本地种子回退生成的泛化描述，无可追溯的原始帖子；关键词真实搜索量和CPC数据——当前KD=52全部是启发式估算<br>• <strong>Giststack. AI tool for curating content and generating on-brand social media ...</strong><br>  观察 → 缩小验证 | 评分 66 | 来源: 榜单<br>  增长数据引人注目（2002%），但全部证据来自目录收录，付费证据极弱（3 分）。如果直接进入开发，大概率触发 BP-01（系统建设替代产出）和 BP-02（产品经理惯性）。正确的做法是先用 1-2 小时做外部用户声音搜索，用最小成本确认这个...<br>  证据缺口: Giststack 真实用户评论和付费反馈；关键词实际搜索量（当前全部为 null）<br>• <strong>Carly AI. AI assistant for email, scheduling, and CRM automation reachable vi...</strong><br>  观察 → 缩小验证 | 评分 66 | 来源: 榜单<br>  这是一个从工具目录推导出的假设，不是从用户痛点出发的机会。流量增长是信号，但证据层级偏低（AX-02）。付费信号几乎为零（3/30），违反启发式 #2 的基本门槛。产品功能范围宽（邮件+日程+CRM），不适合个人直接复制，需要先缩小到一个可...<br>  证据缺口: Carly AI 实际产品体验和定价未知——只知道目录描述；目标用户（独立创业者/小团队运营者）对这个痛点是否真实且愿意付费——完全没有验证</p></div>
+</div>
+  <footer class="site-footer">
+    <p>Daily Digest · 纯粹的阅读体验</p>
+  </footer>
+</div>
+<script>
+var cards=document.querySelectorAll(".card");cards.forEach(function(c,i){if(i>0)c.classList.add("collapsed")});
+document.addEventListener('click',function(e){var h=e.target.closest('.card-header');if(h)h.closest('.card').classList.toggle('collapsed')});
+</script>
+</body>
+</html>

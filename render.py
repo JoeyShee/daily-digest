@@ -19,6 +19,7 @@ TEMPLATES_DIR = BASE_DIR / "templates"
 
 ENTROPY_DIR = BASE_DIR / "entropy"
 GRAVEYARD_DIR = BASE_DIR / "graveyard"
+ZERO2IDEA_DIR = BASE_DIR / "zero2idea"
 
 # ============================================================
 # 数据加载
@@ -156,7 +157,7 @@ def parse_entropy_output(raw):
         content = content.split("---", 1)[1]
     content = content.strip()
     if not content or "[SILENT]" in content:
-        return []
+        return [], []
     
     # 去掉首行标题 "📋 **熵减计划**（日期）"
     content = re.sub(r'^📋\s*\*?熵减计划.*?\n*', '', content).strip()
@@ -185,30 +186,31 @@ def parse_entropy_output(raw):
             pending_header = ""
         sections.append(b)
     
-    cards = []
+    entropy_cards = []
+    zero2idea_cards = []
     for sec in sections:
         if '经典案例' in sec[:40]:
             sec = re.sub(r'^.*?经典案例\s*[#│|].*?\n', '', sec, count=1).strip()
-            cards.append(render_entropy_case(sec))
+            entropy_cards.append(render_entropy_case(sec))
         elif '思维模型' in sec[:40]:
-            cards.append(render_entropy_card(sec))
+            entropy_cards.append(render_entropy_card(sec))
         elif '熵减卡片' in sec[:40]:
-            cards.append(render_entropy_card(sec))
+            entropy_cards.append(render_entropy_card(sec))
         elif '健康提醒' in sec[:40]:
             sec = re.sub(r'^.*?健康提醒\s*[#│|].*?\n', '', sec, count=1).strip()
-            cards.append(render_entropy_health(sec))
+            entropy_cards.append(render_entropy_health(sec))
         elif '机会雷达' in sec[:40]:
             sec = re.sub(r'^.*?机会雷达\s*[#│|].*?\n', '', sec, count=1).strip()
-            cards.append(render_entropy_opportunity(sec))
+            zero2idea_cards.append(render_entropy_opportunity(sec))
         elif '昨日想法回顾' in sec[:40] or '想法回顾' in sec[:40]:
             sec = re.sub(r'^.*?昨日想法回顾\s*[#│|].*?\n', '', sec, count=1).strip()
-            cards.append(render_entropy_graveyard_review(sec))
+            entropy_cards.append(render_entropy_graveyard_review(sec))
         else:
-            cards.append(card("entropy", "熵减推送", "熵减推送", md_to_html(sec)))
-    
-    if not cards and content:
-        cards.append(card("entropy", "熵减计划", "熵减推送", md_to_html(content)))
-    return cards
+            entropy_cards.append(card("entropy", "熵减推送", "熵减推送", md_to_html(sec)))
+
+    if not entropy_cards and not zero2idea_cards and content:
+        entropy_cards.append(card("entropy", "熵减计划", "熵减推送", md_to_html(content)))
+    return entropy_cards, zero2idea_cards
 
 # --- 想法墓地 ---
 
@@ -256,7 +258,7 @@ def load_template(name):
     path = TEMPLATES_DIR / name
     if path.exists(): return path.read_text()
     if name == "day.html":
-        return '''<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{DATE}} · {{SECTION_TITLE}}</title><link rel="stylesheet" href="{{CSS_PATH}}"></head><body><nav class="top-nav"><a href="{{INDEX_PATH}}" class="brand">📋 每日精选</a></nav><div class="container"><div class="day-nav"><a href="{{PREV_DAY}}">← 前一天</a><div class="day-title">{{DATE}}</div><a href="{{NEXT_DAY}}">后一天 →</a></div>{{CARDS}}<footer class="site-footer"><p>Daily Digest</p></footer></div><script>
+        return '''<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{DATE}} · {{SECTION_TITLE}}</title><link rel="stylesheet" href="{{CSS_PATH}}"></head><body><nav class="top-nav"><a href="{{INDEX_PATH}}" class="brand">📋 每日精选</a>{{TAB_NAV}}</nav><div class="container"><div class="day-nav"><a href="{{PREV_DAY}}">← 前一天</a><div class="day-title">{{DATE}}</div><a href="{{NEXT_DAY}}">后一天 →</a></div>{{CARDS}}<footer class="site-footer"><p>Daily Digest</p></footer></div><script>
 var cards=document.querySelectorAll(".card");cards.forEach(function(c,i){if(i>0)c.classList.add("collapsed")});
 document.addEventListener("click",function(e){var h=e.target.closest(".card-header");if(h)h.closest(".card").classList.toggle("collapsed")});
 </script></body></html>'''
@@ -276,6 +278,19 @@ def _find_prev_next(date_str, available_dates):
             next_d = d
     return prev_d, next_d
 
+def _tab_nav_html(section, base_path=".."):
+    """生成 3 频道 tab 导航 HTML"""
+    tabs = [
+        ("entropy", f"{base_path}/entropy/", "🧠 熵减计划"),
+        ("graveyard", f"{base_path}/index.html", "🪦 想法墓地"),
+        ("zero2idea", f"{base_path}/zero2idea/", "🔭 Zero2Idea"),
+    ]
+    items = []
+    for key, href, label in tabs:
+        active = " active" if key == section else ""
+        items.append(f'<a href="{href}" class="tab-item{active}">{label}</a>')
+    return '<div class="tab-nav">\n' + '\n'.join(items) + '\n</div>'
+
 def render_day_page(date_str, cards_html, section, section_title, available_dates=None):
     """渲染单日页面"""
     if available_dates is None:
@@ -283,52 +298,83 @@ def render_day_page(date_str, cards_html, section, section_title, available_date
 
     if section == "entropy":
         out_dir = ENTROPY_DIR
-        css_path = "../style.css"
-        index_path = "../index.html"
+    elif section == "zero2idea":
+        out_dir = ZERO2IDEA_DIR
     else:
         out_dir = GRAVEYARD_DIR
-        css_path = "../style.css"
-        index_path = "../index.html"
+
+    css_path = "../style.css"
+    index_path = "../index.html"
+
+    tab_nav = _tab_nav_html(section, "..")
 
     prev_d, next_d = _find_prev_next(date_str, available_dates)
-    # 如果没有前一天/后一天，链接到频道首页
     prev_link = f"{prev_d}.html" if prev_d else index_path
     next_link = f"{next_d}.html" if next_d else index_path
-    
+
     template = load_template("day.html")
     html = template
     html = html.replace("{{DATE}}", date_str)
     html = html.replace("{{SECTION_TITLE}}", section_title)
     html = html.replace("{{CSS_PATH}}", css_path)
     html = html.replace("{{INDEX_PATH}}", index_path)
+    html = html.replace("{{TAB_NAV}}", tab_nav)
     html = html.replace("{{PREV_DAY}}", prev_link)
     html = html.replace("{{NEXT_DAY}}", next_link)
     html = html.replace("{{CARDS}}", cards_html)
     html = html.replace(".html.html", ".html")
-    
+
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / f"{date_str}.html").write_text(html)
 
-def render_index(dates_entropy, dates_graveyard):
-    """渲染首页 + 两个频道首页（直接展示最新一天内容）"""
-    template = load_template("index.html")
-    (BASE_DIR / "index.html").write_text(template)
-    
-    # 熵减频道：index.html 直接是最新的日报
+def render_index(dates_entropy, dates_graveyard, dates_zero2idea):
+    """渲染首页 + 频道首页"""
+    # 首页 = 想法墓地最新日内容
+    if dates_graveyard:
+        latest_g = max(dates_graveyard)
+        g_cards = collect_graveyard_cards(latest_g)
+        if g_cards.strip():
+            tab_nav = _tab_nav_html("graveyard", ".")
+            prev_d, next_d = _find_prev_next(latest_g, dates_graveyard)
+            prev_link = f"graveyard/{prev_d}.html" if prev_d else "index.html"
+            next_link = f"graveyard/{next_d}.html" if next_d else "index.html"
+
+            template = load_template("day.html")
+            html = template
+            html = html.replace("{{DATE}}", latest_g)
+            html = html.replace("{{SECTION_TITLE}}", "想法墓地")
+            html = html.replace("{{CSS_PATH}}", "style.css")
+            html = html.replace("{{INDEX_PATH}}", "index.html")
+            html = html.replace("{{TAB_NAV}}", tab_nav)
+            html = html.replace("{{PREV_DAY}}", prev_link)
+            html = html.replace("{{NEXT_DAY}}", next_link)
+            html = html.replace("{{CARDS}}", g_cards)
+            html = html.replace(".html.html", ".html")
+            (BASE_DIR / "index.html").write_text(html)
+
+    # 熵减频道 index
     ENTROPY_DIR.mkdir(parents=True, exist_ok=True)
     if dates_entropy:
         latest = max(dates_entropy)
         latest_file = ENTROPY_DIR / f"{latest}.html"
         if latest_file.exists():
             (ENTROPY_DIR / "index.html").write_text(latest_file.read_text())
-    
-    # 墓地频道：index.html 直接是最新的日报
+
+    # 墓地频道 index
     GRAVEYARD_DIR.mkdir(parents=True, exist_ok=True)
     if dates_graveyard:
         latest = max(dates_graveyard)
         latest_file = GRAVEYARD_DIR / f"{latest}.html"
         if latest_file.exists():
             (GRAVEYARD_DIR / "index.html").write_text(latest_file.read_text())
+
+    # Zero2Idea 频道 index
+    ZERO2IDEA_DIR.mkdir(parents=True, exist_ok=True)
+    if dates_zero2idea:
+        latest = max(dates_zero2idea)
+        latest_file = ZERO2IDEA_DIR / f"{latest}.html"
+        if latest_file.exists():
+            (ZERO2IDEA_DIR / "index.html").write_text(latest_file.read_text())
 
 # ============================================================
 # 收集卡片
@@ -339,8 +385,24 @@ def collect_entropy_cards(date_str):
     entropy_outputs = get_entropy_outputs()
     if date_str not in entropy_outputs:
         return ""
-    cards = parse_entropy_output(entropy_outputs[date_str])
-    return "\n".join(cards)
+    entropy_cards, _ = parse_entropy_output(entropy_outputs[date_str])
+    return "\n".join(entropy_cards)
+
+def collect_zero2idea_cards(date_str):
+    """收集 Zero2Idea 机会雷达卡片"""
+    entropy_outputs = get_entropy_outputs()
+    if date_str not in entropy_outputs:
+        return ""
+    _, zero2idea_cards = parse_entropy_output(entropy_outputs[date_str])
+    return "\n".join(zero2idea_cards)
+
+def get_zero2idea_dates():
+    """收集所有有 zero2idea 数据的日期"""
+    dates = set()
+    for date_str, raw in get_entropy_outputs().items():
+        if '机会雷达' in raw:
+            dates.add(date_str)
+    return dates
 
 def collect_graveyard_cards(date_str):
     """收集想法墓地卡片"""
@@ -378,10 +440,11 @@ def get_available_dates():
 # 主逻辑
 # ============================================================
 
-def render_date(date_str, e_dates=None, g_dates=None):
-    """渲染某一天的熵减+墓地页面"""
+def render_date(date_str, e_dates=None, g_dates=None, z_dates=None):
+    """渲染某一天的熵减+墓地+Zero2Idea页面"""
     if e_dates is None: e_dates = set()
     if g_dates is None: g_dates = set()
+    if z_dates is None: z_dates = set()
 
     e = collect_entropy_cards(date_str)
     if e.strip():
@@ -391,34 +454,41 @@ def render_date(date_str, e_dates=None, g_dates=None):
     if g.strip():
         render_day_page(date_str, g, "graveyard", "想法墓地", g_dates)
 
+    z = collect_zero2idea_cards(date_str)
+    if z.strip():
+        render_day_page(date_str, z, "zero2idea", "Zero2Idea", z_dates)
+
 def main():
     args = sys.argv[1:]
     if not args:
         print("用法: render.py --today | --date YYYY-MM-DD | --all")
         sys.exit(1)
-    
+
     if "--today" in args:
         d = datetime.now().strftime("%Y-%m-%d")
         e_dates, g_dates = get_available_dates()
-        render_date(d, e_dates, g_dates)
-        render_index(e_dates, g_dates)
+        z_dates = get_zero2idea_dates()
+        render_date(d, e_dates, g_dates, z_dates)
+        render_index(e_dates, g_dates, z_dates)
         print(f"✅ 渲染完成: {d}")
 
     elif "--date" in args:
         idx = args.index("--date")
         d = args[idx + 1]
         e_dates, g_dates = get_available_dates()
-        render_date(d, e_dates, g_dates)
-        render_index(e_dates, g_dates)
+        z_dates = get_zero2idea_dates()
+        render_date(d, e_dates, g_dates, z_dates)
+        render_index(e_dates, g_dates, z_dates)
         print(f"✅ 渲染完成: {d}")
-    
+
     elif "--all" in args:
         e_dates, g_dates = get_available_dates()
-        all_dates = e_dates | g_dates
+        z_dates = get_zero2idea_dates()
+        all_dates = e_dates | g_dates | z_dates
         for d in sorted(all_dates):
-            render_date(d, e_dates, g_dates)
-        render_index(e_dates, g_dates)
-        print(f"✅ 渲染完成: 熵减 {len(e_dates)} 天, 墓地 {len(g_dates)} 天")
+            render_date(d, e_dates, g_dates, z_dates)
+        render_index(e_dates, g_dates, z_dates)
+        print(f"✅ 渲染完成: 熵减 {len(e_dates)} 天, 墓地 {len(g_dates)} 天, Zero2Idea {len(z_dates)} 天")
 
 if __name__ == "__main__":
     main()
