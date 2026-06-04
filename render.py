@@ -145,6 +145,74 @@ def render_entropy_opportunity(block):
     title = title_m.group(1) if title_m else "机会雷达"
     return card("zero2idea", "🔭 Zero2Idea 机会雷达", title, md_to_html(block))
 
+def _parse_opp_meta(line):
+    """解析 META: score=84 | tag=观察 → 冷冻 | source=榜单"""
+    m = re.match(r'META:\s*score=(\d+)\s*\|\s*tag=(.+?)\s*\|\s*source=(.+)', line.strip())
+    if m:
+        return {'score': int(m.group(1)), 'tag': m.group(2).strip(), 'source': m.group(3).strip()}
+    return None
+
+def _decision_tag_class(tag):
+    """决策标签 → CSS class"""
+    tag_lower = tag.lower()
+    if '冷冻' in tag_lower or '观察' in tag_lower:
+        return 'freeze'
+    elif '缩小验证' in tag_lower or '验证' in tag_lower:
+        return 'validate'
+    elif '立项' in tag_lower or '执行' in tag_lower:
+        return 'launch'
+    return 'validate'
+
+def render_single_opportunity_card(block_text):
+    """渲染单条机会卡片"""
+    lines = block_text.strip().split('\n')
+    score = 0
+    tag = ''
+    source = ''
+    title = ''
+    body_lines = []
+
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue
+        meta = _parse_opp_meta(line)
+        if meta:
+            score = meta['score']
+            tag = meta['tag']
+            source = meta['source']
+            continue
+        if line.startswith('**') and not title:
+            title_m = re.match(r'\*\*(.+?)\*\*', line)
+            if title_m:
+                title = title_m.group(1)
+                # title 行之后的内容
+                rest = line[title_m.end():].strip()
+                if rest:
+                    body_lines.append(rest)
+                continue
+        body_lines.append(line)
+
+    if not title:
+        title = "机会"
+
+    # 构建 body HTML
+    body_html = f'<div class="opp-meta-row">'
+    if tag:
+        tag_cls = _decision_tag_class(tag)
+        body_html += f'<span class="decision-tag {tag_cls}">{esc(tag)}</span>'
+    body_html += f' <span style="color:var(--text-muted);font-size:0.88rem;">来源: {esc(source)}</span>'
+    body_html += '</div>'
+
+    # body 内容
+    body_text = '\n'.join(body_lines)
+    body_html += md_to_html(body_text)
+
+    # 在 header title 后面拼 score badge
+    title_with_score = f'{title} <span class="opp-score">{score}</span>'
+
+    return card("zero2idea", "🔭 ZERO2IDEA", title_with_score, body_html)
+
 def render_entropy_graveyard_review(block):
     """昨日想法回顾卡片"""
     title_m = re.search(r'\*\*(.+?)\*\*', block)
@@ -212,7 +280,17 @@ def parse_entropy_output(raw):
             entropy_cards.append(render_entropy_health(sec))
         elif '机会雷达' in sec[:40]:
             sec = re.sub(r'^.*?机会雷达\s*[#│|].*?\n', '', sec, count=1).strip()
-            zero2idea_cards.append(render_entropy_opportunity(sec))
+            # 按分隔符拆分为多条机会
+            if '---OPP---' in sec:
+                opp_blocks = re.split(r'---OPP---', sec)
+                for ob in opp_blocks:
+                    ob = ob.strip()
+                    if not ob:
+                        continue
+                    zero2idea_cards.append(render_single_opportunity_card(ob))
+            else:
+                # 兼容旧格式（没有分隔符的情况）
+                zero2idea_cards.append(render_entropy_opportunity(sec))
         elif '昨日想法回顾' in sec[:40] or '想法回顾' in sec[:40]:
             sec = re.sub(r'^.*?昨日想法回顾\s*[#│|].*?\n', '', sec, count=1).strip()
             entropy_cards.append(render_entropy_graveyard_review(sec))

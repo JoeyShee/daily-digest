@@ -533,6 +533,70 @@ a:hover { text-decoration: underline; }
   font-size: 0.85rem;
 }
 
+/* ---------- 机会卡片专属样式 ---------- */
+.opp-score {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  background: rgba(37, 99, 235, 0.08);
+  color: var(--color-zero2idea);
+  vertical-align: middle;
+  margin-left: 8px;
+  letter-spacing: 0;
+}
+
+.opp-meta-row {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.decision-tag {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 3px 12px;
+  border-radius: 9999px;
+  line-height: 1.4;
+}
+.decision-tag.freeze   { background: rgba(142, 142, 147, 0.1);  color: #6b6b70; }
+.decision-tag.validate { background: rgba(223, 171, 1, 0.1);   color: #b08d00; }
+.decision-tag.launch   { background: rgba(22, 163, 74, 0.1);   color: #16a34a; }
+
+.opp-evidence-gap {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  padding: 10px 14px;
+  background: var(--surface-warm);
+  border-radius: var(--radius-sm);
+  margin-top: 12px;
+  line-height: 1.7;
+}
+
+/* ---------- Mobile first ---------- */
+@media (max-width: 640px) {
+  html { font-size: 16px; }
+  .container { padding: 0 14px; }
+  .top-nav { padding: 0 14px; }
+  .tab-nav .tab-item { font-size: 0.78rem; padding: 6px 10px; }
+  .day-nav { padding: 14px 0; }
+  .day-nav a { font-size: 0.82rem; padding: 6px 10px; }
+  .day-nav .day-title { font-size: 1rem; }
+  .card { margin-bottom: 20px; border-radius: 10px; }
+  .card-header { padding: 14px 16px 12px; gap: 8px; }
+  .card-header h2 { font-size: 1.05rem; }
+  .card-header .card-type { font-size: 0.75rem; }
+  .card-body { padding: 0 16px 20px; }
+  .card-body p { line-height: 1.7; margin-bottom: 10px; font-size: 0.92rem; }
+  .opp-score { font-size: 0.68rem; padding: 2px 6px; }
+  .channel-card { padding: 16px 18px; }
+  .channel-card .channel-icon { font-size: 1.5rem; margin-right: 12px; }
+}
+
 /* ---------- 桌面端 ---------- */
 @media (min-width: 768px) {
   html { font-size: 21px; }
