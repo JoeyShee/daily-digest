@@ -91,12 +91,13 @@ def md_to_html(text):
 # 卡片渲染
 # ============================================================
 
-def card(bar_class, card_type, title, body_html, collapsed=False):
+def card(bar_class, card_type, title, body_html, collapsed=False, raw_type=False):
     cls = ' class="card collapsed"' if collapsed else ' class="card"'
+    type_html = card_type if raw_type else esc(card_type)
     return f'''<div{cls}>
   <div class="card-bar {bar_class}"></div>
   <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">{esc(card_type)}</div><h2>{esc(title)}</h2></div>
+    <div><div class="card-type">{type_html}</div><h2>{esc(title)}</h2></div>
     <div class="toggle-icon">▼</div>
   </div>
   <div class="card-body">{body_html}</div>
@@ -210,10 +211,10 @@ def render_single_opportunity_card(block_text):
     body_text = '\n'.join(body_lines)
     body_html += md_to_html(body_text)
 
-    # 在 header title 后面拼 score badge
-    title_with_score = f'{title} <span class="opp-score">{score}</span>'
+    # score 放到 card_type 标签里
+    card_type_with_score = f"🔭 ZERO2IDEA · <span class=\"opp-score\">{score}</span>"
 
-    return card("zero2idea", "🔭 ZERO2IDEA", title_with_score, body_html)
+    return card("zero2idea", card_type_with_score, title, body_html, raw_type=True)
 
 def render_entropy_graveyard_review(block):
     """昨日想法回顾卡片"""
