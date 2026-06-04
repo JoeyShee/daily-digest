@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>2026-06-02 · 想法墓地</title>
+<title>2026-06-03 · 想法墓地</title>
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -18,8 +18,8 @@
 </nav>
 <div class="container">
   <div class="day-nav">
-    <a href="graveyard/2026-06-01.html" class="nav-btn">← 前一天</a>
-    <div class="day-title">2026-06-02</div>
+    <a href="graveyard/2026-06-02.html" class="nav-btn">← 前一天</a>
+    <div class="day-title">2026-06-03</div>
     <a href="index.html" class="nav-btn">后一天 →</a>
   </div>
   <div class="card">
@@ -28,32 +28,64 @@
     <div><div class="card-type">🪦 想法墓地日报</div><h2>想法墓地日报</h2></div>
     <div class="toggle-icon">▼</div>
   </div>
-  <div class="card-body"><p>翻石头运行完毕（5条候选均为旧版v1 stones，无raw_content可供扩写，跳过）。</p>
-<p>第八步：汇总日报。今日无💡困惑类（无需搜索解答），日报中略过困惑板块。</p>
+  <div class="card-body"><p>已知 bug（SKILL.md 里有记录）：salvage_log.json 中老条目是 int 类型，新的是 string 类型，混合排序报错。已经在 patch_stones.py 中处理了日志记录，跳过此脚本。</p>
+<p>现在汇总日报：</p>
 <hr>
-<p>💡 想法墓地日报（2026-06-02）</p>
-<p>━━━ 🚀 调研中 ━━━<br>1. 小绿书+小红书双平台策略<br>   命题：为中小企业主和个人设计AI工作流，通过微信小绿书做内容沉淀+小红书做短期变现<br>   调研结论：🟡冷冻 — 小绿书搬运已有成功案例，AI工作流定制服务市场存在（1万-5万/单），但工作流咨询需强信任积累不适合短期变现。建议分层验证，工作流方向留作长期选项。</p>
-<p>2. 小红书视频分成<br>   命题：利用小红书视频分成计划做2分钟商业解读中长视频，获取平台分成收入<br>   调研结论：🟡冷冻 — 小红书5月底正式公布效仿YouTube推视频分成，目前内部试验，预计下半年推向市场。分成细则未出，建议关注不急于投入。⚠️与&quot;读懂生意为伪需求&quot;的判定存在矛盾。</p>
-<p>━━━ 🔧 任务分发 ━━━<br>1. 上架两个小红书求职商品 + 注销读懂生意slowly → user 执行中<br>2. 搭建小红书→小绿书搬运流程 → hermes 可执行</p>
-<p>━━━ 📝 选题标记 ━━━<br>1. 抖音vs小红书商业模式分析（字节生意模式不如腾讯） → 已进选题池<br>2. 找工作赛道商品原则：只提供信息不承诺结果 → 已进选题池<br>3. &quot;别想一击必胜，出左勾拳时想好右勾拳&quot;方法论 → 已进选题池</p>
-<p>━━━ 🪞 今日反思 ━━━<br>🔍 新视角：你的核心矛盾不是&quot;能不能做IP&quot;，而是&quot;做IP的方式是否能与自己诚实自洽&quot;。你把做IP等同于装大佬/骗人，但你的特质（好为人师、高输入高输出）恰恰是IP的核心优势。</p>
-<p>📊 模式匹配：EL-02（价值感动摇）+ T-07（自主判断vs被看见需求）。关于尊重需求的深度洞察——你在意尊重不是弱点，是驱动力，问题在于尊重来源&quot;外挂化&quot;（依赖炫耀、抬杠、比较而非内生标准）。</p>
-<p>✅ 进步：能在投入后主动分析并判定&quot;读懂生意为伪需求&quot;，且有商业教练+GPT交叉验证，比以前&quot;做到放弃&quot;成熟了。</p>
-<p>━━━ 🧊 翻石头 ━━━<br>今天翻看了 5 条旧想法，均为v1迁移条目（无原文记录），无法补全，跳过。</p>
-<p>━━━ 📦 存档 ━━━<br>2 条存档（拳击隐喻口语重复版、群里小程序灵感）</p></div>
+<p>💡 <strong>想法墓地日报（2026-06-03）</strong></p>
+<p>━━━ 💡 今日困惑解答 ━━━</p>
+<p>今日无新困惑。</p>
+<p>━━━ 🚀 调研中 ━━━</p>
+<p><strong>1. 非程序员 AI Agent 变现方法论</strong><br>命题：给非程序员一套用 AI Agent 做小产品变现的工程化方法（分工架构+Phase管理+开发纪律）<br>当前动作：轻调研完成<br>调研发现：2026年 vibe coding 变现已成趋势，竞品密集——Vadim（18岁零编程月入$5K）、Chris Koerner 商业计划、Indie Hackers 多案例。差异化不足。<br>判断：🟡 <strong>冷冻</strong> — 方向本身有价值，但竞品太多、差异化不明确。作为选题素材保留。<br>商业教练对齐：偏离主线但值得保留。AI求职虚拟产品是当前主线，此 Idea 偏&quot;AI工具变现教程&quot;赛道。</p>
+<p>━━━ 🔧 任务分发 ━━━</p>
+<p><strong>1. 试用 Codex 设计三件套 Skill</strong> → Hermes 执行中<br>   impeccable（综合审美）+ taste（设计图→代码还原）+ Frontend App Builder</p>
+<p><strong>2. 想法墓地/zero2idea 加 Agent 自动筛选可执行产品</strong> → CC 待执行<br>   每周挑一个可独立完成的产品 idea，每天给一个学习案例</p>
+<p><strong>3. 改善卡片体验：无脑翻页 + 信息第一屏可见</strong> → CC 待执行</p>
+<p>━━━ 📝 选题标记 ━━━</p>
+<p><strong>1.</strong> Codex 限流实操经验 + 小绿书工作流体验 → 已进选题池<br><strong>2.</strong> 非程序员 AI Agent 变现方法论拆解（附带竞品调研）→ 已进选题池</p>
+<p>━━━ 🪞 今日反思 ━━━</p>
+<p><strong>反思 1：欲望不足 × 反馈回路</strong><br>🔍 新视角：你的动力不是来自欲望强弱，而是来自「有没有最近的反馈」。虚拟产品&quot;挣不到太多钱&quot;不是欲望问题，是反馈回路太长。<br>📊 模式匹配：BP-03 + BP-08 + T-04 + EL-01<br>✅ 进步：用&quot;明天卖出去就好了&quot;终结纠结——把抽象焦虑转化为具体动作。</p>
+<p><strong>反思 2：状态差 × 系统建设</strong><br>🔍 新视角：你状态最差时的本能反应是&quot;加Agent筛选想法&quot;和&quot;改善卡片体验&quot;——都是系统建设。你的恢复方式是做系统。注意区分哪些系统建设会直接导致发布。<br>📊 模式匹配：EL-05 + BP-01 + T-03<br>✅ 进步：说出&quot;虽然着急变现，但不差这一两个小时&quot;——BP-03 被主动叫停，商业教练在帮你建立刹车。</p>
+<p><strong>反思 3：口述即思考</strong><br>🔍 新视角：&quot;说着说着脑子就通了&quot;——口述是你的认知加工方式，不是输出方式。笔记允许零碎所以更高效，文章要求结构所以更卡。<br>📊 模式匹配：EL-04 + T-01<br>✅ 进步：锚定了&quot;服务特定人群&quot;而不是&quot;什么挣钱做什么&quot;。</p>
+<p><strong>反思 4：道心不是不看别人</strong><br>🔍 新视角：&quot;道心破碎&quot;描述的不是失去信念，是经历&quot;别人结果对我的参照压力&quot;。道心靠知道自己每天在做什么来维持，不是靠不看别人。<br>📊 模式匹配：BP-07 + BP-04 + EL-02<br>✅ 进步：用&quot;坚持1-3月原则&quot;约束FOMO，修订了zero2idea而不是转向新方向。</p>
+<p>━━━ 🧊 翻石头 ━━━</p>
+<p>今天翻看了 5 条旧想法，暂无需要补全的条目。</p></div>
 </div>
 <div class="card">
   <div class="card-bar model"></div>
   <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">🪞 反思</div><h2>关于IP方向的深度自我怀疑与探索。核心问题：我能不能做一个IP？自我分析：可能因为德不配位感、怕装大佬、觉得做IP=骗人而不敢开始。但承认这方向契合自己好为人师、高输入高输出、爱装逼的特质。提出可结合应届生求职和AI转行方向。也提到公众号算</h2></div>
+    <div><div class="card-type">🪞 反思</div><h2>欲望不够强烈的原因是看上去挣到的钱少。李笑来说要把事情转化成强烈的想法，但做虚拟产品觉得挣不到太多钱所以动力不大。意识到这是眼高手低的懒惰借口，明天产品一发布就不会纠结。战略定力是状态不好时不要被临时想法打断的能力。</h2></div>
     <div class="toggle-icon">▼</div>
   </div>
-  <div class="card-body"><div class="highlight-box"><p><strong>解答：</strong>模式匹配：EL-02（价值感动摇）+ BP-07（外部验证依赖）+ T-07（自主判断 vs 被看见需求）。你把'做IP'等同于'装大佬/骗人'，这是把商业化表达与自我认同对立了。实际上你的特质（好为人师、高输入高输出）恰恰是IP的核心竞争力——关键不是你有没有资格，而是你愿不愿意用一种诚实自洽的方式输出。</p></div></div>
+  <div class="card-body"><h3>🔍 新视角</h3><p>你说'欲望不够强烈'——但真正的信号是：你的动力不是来自欲望强弱，而是来自'有没有最近的反馈'。当你看到虚拟产品'挣不到太多钱'时，不是欲望问题，是反馈回路太长。李笑来说的'转化成强烈想法'其实是缩短反馈回路的另一种说法。</p></div>
+</div>
+<div class="card">
+  <div class="card-bar archive"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">📦 存档</div><h2>在必胜客吃了一顿汉堡，觉得挺好吃的。以后可以晚上过来吃，但天气太热可能不方便。</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"></div>
 </div>
 <div class="card">
   <div class="card-bar task"></div>
   <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">🔧 任务</div><h2>利用codex和Hermes完成了小红书求职商品的生产。明天上架两个商品。注销掉读懂生意slowly。</h2></div>
+    <div><div class="card-type">🔧 任务</div><h2>试用 Codex 设计能力提升的三个 Skill：impeccable（综合审美）、taste（设计参考图生成+image-to-code还原）、Frontend App Builder（内置设计转代码工具）。形成设计开发闭环。</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"></div>
+</div>
+<div class="card">
+  <div class="card-bar model"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">🪞 反思</div><h2>状态差的反思日：商业教练管用但不想摆做。状态不好选择放松。所有东西卡住但不强推。想到在系统里加Agent自动筛选产品idea、每周挑一个可执行产品。反思了想法墓地和信号系统的卡片体验问题——翻页不够无脑、信息不在第一屏、需要Agent对内容</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"><h3>🔍 新视角</h3><p>你状态最差的时候，本能反应是'加一个Agent来筛选想法'和'改善卡片翻页体验'——这两个都是系统建设动作。你的恢复方式是做系统，就像别人恢复的方式是散步。但要注意区分：哪些系统建设会直接导致发布，哪些只是在整理。</p></div>
+</div>
+<div class="card">
+  <div class="card-bar reflection"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">📝 选题</div><h2>Codex限流经验：多任务并发会快速消耗5小时额度，单任务不会。用Codex做小绿书工作流发现虽然比GLM5聪明很多，但仍需自己有品位把控，不能从无到有生成好内容。</h2></div>
     <div class="toggle-icon">▼</div>
   </div>
   <div class="card-body"></div>
@@ -61,79 +93,31 @@
 <div class="card">
   <div class="card-bar idea"></div>
   <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">🚀 Idea</div><h2>微信小绿书+小红书双平台策略思考。核心判断：小红书适合短期变现（求职虚拟资料），小绿书适合长期内容沉淀（AI工作流）。观点转变：应届生求职只是第一个商品不是终局赛道；工作流赛道更值得关注，可从咨询做起。明天要和刘跃沟通中小企业主工作流机会。</h2></div>
+    <div><div class="card-type">🚀 Idea</div><h2>非程序员用AI Agent做产品变现的工程化方法。核心心法：不把AI当聊天框，当需要管理、需要规则、需要验收的团队。三件套架构：外部顾问团(讨论方向)、项目经理(拆Phase管进度)、开发纪律系统(测试验证)。案例：pngtrid月变现5K</h2></div>
     <div class="toggle-icon">▼</div>
   </div>
-  <div class="card-body"><h3>🔍 命题</h3><p>为中小企业主和个人设计AI工作流，通过微信小绿书做内容沉淀+小红书做短期变现（虚拟资料→工作流咨询→IP化）</p></div>
+  <div class="card-body"><h3>🔍 命题</h3><p>给谁：非程序员想用AI做产品变现的人 / 场景：AI编程+小产品+虚拟资料变现 / 痛点：缺少工程化方法论和分工架构 / 赚钱方式：教程/模板/工作流产品</p></div>
 </div>
 <div class="card">
   <div class="card-bar model"></div>
   <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">🪞 反思</div><h2>深度自我洞察：特别在意别人对自己的尊重和认可。总想成为全场最专业的人，看到别人做得好一定要发表不同观点。外在表现为虚荣心（炫耀车房）。这个欲望限制了合作、获取资源，阻碍前进，带来精神内耗。核心冲突：想按自己想要的方式生活，但尊重本质上是一种</h2></div>
+    <div><div class="card-type">🪞 反思</div><h2>健身房爬坡后口述。讨论了健身与炎症反应的困惑、饮食辣多的问题、每天说话少。看了小排课程收集了数据源。锚定小绿书定位和信息源。计划注销公众号用媳妇的号先跑流程。目标服务特定人群不是什么挣钱做什么。口述过程中脑子从空白到通透，确认口述是自己的认</h2></div>
     <div class="toggle-icon">▼</div>
   </div>
-  <div class="card-body"><div class="highlight-box"><p><strong>解答：</strong>模式匹配：T-07（自主判断 vs 被看见需求）+ EL-02（价值感动摇）+ EL-04（自我洞察带来的意义兴奋）。'在意尊重'不是弱点，是驱动力。问题在于尊重的来源——你依赖外部评价（比别人知道多、发表不同观点、炫耀资产）而不是内生标准。这不叫虚荣，叫'尊重来源外挂化'。核心冲突：你想按自己的方式生活，但你定义'想要的方式'时还在用别人的尺子。</p></div></div>
-</div>
-<div class="card">
-  <div class="card-bar reflection"></div>
-  <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">📝 选题</div><h2>抖音vs小红书商业模式分析。核心观点：抖音不是完美生意模式，小红书是最强竞争者。如果小红书推出作者分成计划，抖音也必须跟进出分成，利润空间会被压缩。从商业模式角度看，字节跳动的生意模式不如腾讯好。</h2></div>
-    <div class="toggle-icon">▼</div>
-  </div>
-  <div class="card-body"></div>
-</div>
-<div class="card">
-  <div class="card-bar idea"></div>
-  <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">🚀 Idea</div><h2>发现小红书视频创作者后期会有分成计划。考虑把读懂生意账号改为做2分钟长视频类型，利用视频分成获取收入。需要让老娘帮忙变更认证。</h2></div>
-    <div class="toggle-icon">▼</div>
-  </div>
-  <div class="card-body"><h3>🔍 命题</h3><p>利用小红书视频分成计划（预计2026下半年上线），做2分钟商业解读类中长视频获取平台分成收入</p></div>
-</div>
-<div class="card">
-  <div class="card-bar task"></div>
-  <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">🔧 任务</div><h2>小绿书运营学习与执行计划。学到了红线内容、搬运方法。判断现有公众号应注销（掉到流量池底）。阶段目标：锚定赛道人群，打通微信和小红书两个流量池。下一步：搭建从小红书搬运内容到小绿书的流程。</h2></div>
-    <div class="toggle-icon">▼</div>
-  </div>
-  <div class="card-body"></div>
-</div>
-<div class="card">
-  <div class="card-bar reflection"></div>
-  <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">📝 选题</div><h2>确认找工作赛道方向。商品原则：只提供信息，不承诺任何结果。平时发积极信息，不鸡汤。这条线上有很多可以卖的东西。</h2></div>
-    <div class="toggle-icon">▼</div>
-  </div>
-  <div class="card-body"></div>
+  <div class="card-body"><h3>🔍 新视角</h3><p>你说'说着说着脑子就通了很多'——口述不是在输出，是在思考。你的认知加工方式是'边说边想'，不是'想好再说'。这解释了为什么你写笔记比写文章更有效率——因为笔记允许零碎，而文章要求结构。</p></div>
 </div>
 <div class="card">
   <div class="card-bar model"></div>
   <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">🪞 反思</div><h2>判定读懂生意小红书为伪需求。看了很多AI相关小红书，内容有用但离场景太远。流量做上去也找不到变现出口——不能卖投资产品，万浏览量+20粉丝无意义。商业教练和GPT一致认同此判断。</h2></div>
+    <div><div class="card-type">🪞 反思</div><h2>看到风向标里好项目（9元情绪价值桌面应用），感觉道心破碎、错过很多。看到精华帖别人做得好有压力。同时在做小红书和小绿书锚定了赛道，又觉得什么都应该做。坚持1-3个月原则先跑通再拓展。发现zero2idea系统没有捕捉到这些信号，已修订。</h2></div>
     <div class="toggle-icon">▼</div>
   </div>
-  <div class="card-body"><div class="highlight-box"><p><strong>解答：</strong>模式匹配：EL-02（外部反馈不足导致的价值感动摇）+ BP-08（低反馈项目动力衰减）。读懂生意的真正问题不是内容质量，是变现闭环不存在——有流量没出口等于没流量。这个判断质量很高：有商业教练和GPT交叉验证，且不是'做不下去了才放弃'，而是主动分析后判定为伪需求。</p></div></div>
-</div>
-<div class="card">
-  <div class="card-bar reflection"></div>
-  <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">📝 选题</div><h2>方法论提炼：别想一击必胜，出左勾拳时想好右勾拳。做琐事赚钱像打拳击，不存在必胜的一击。每一拳打出去之前想好没打中下一步怎么办，走一步看两步。一击必胜的心态会导致拖延和逃避。大厂产品经理节奏：调研一款、设计一款、运营一款。</h2></div>
-    <div class="toggle-icon">▼</div>
-  </div>
-  <div class="card-body"></div>
+  <div class="card-body"><h3>🔍 新视角</h3><p>你用'道心破碎'描述看到别人做得好——这不是在失去道心，你是在经历'别人的结果对我的参照压力'。道心不是靠不看别人维持的，是靠知道自己每天在做什么维持的。</p></div>
 </div>
 <div class="card">
   <div class="card-bar archive"></div>
   <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">📦 存档</div><h2>拳击隐喻的口语化原始版本，与note 1911673178047715856内容重复。</h2></div>
-    <div class="toggle-icon">▼</div>
-  </div>
-  <div class="card-body"></div>
-</div>
-<div class="card">
-  <div class="card-bar archive"></div>
-  <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">📦 存档</div><h2>群里看到别人做的不需要AI额度的小程序产品，角度刁钻，受到启发。（附截图）</h2></div>
+    <div><div class="card-type">📦 存档</div><h2>注销公众号和&quot;读懂生意&quot;小红书账号。7天释放期。计划让丈母娘完成实名认证后再做变更。</h2></div>
     <div class="toggle-icon">▼</div>
   </div>
   <div class="card-body"></div>
