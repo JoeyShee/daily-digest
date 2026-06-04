@@ -270,13 +270,23 @@ def parse_entropy_output(raw):
     zero2idea_cards = []
     for sec in sections:
         if '经典案例' in sec[:40]:
-            # 可能包含多个案例（用 🏆 经典案例 # 分隔）
-            sub_cases = re.split(r'(?=🏆\s*经典案例\s*#\d+)', sec)
+            # 可能包含多个案例
+            # 优先按 🏆 经典案例 #\d+ 分割（旧格式）
+            if re.search(r'🏆\s*经典案例\s*#\d+', sec):
+                sub_cases = re.split(r'(?=🏆\s*经典案例\s*#\d+)', sec)
+            else:
+                # 新格式：按 🧑 案例人物｜ 分割
+                sub_cases = re.split(r'(?=\n🧑\s*案例人物)', sec)
             for sub in sub_cases:
                 sub = sub.strip()
                 if not sub:
                     continue
+                # 去掉通用标题行和分隔线
                 sub = re.sub(r'^.*?经典案例\s*[#│|].*?\n', '', sub, count=1).strip()
+                sub = re.sub(r'^━━━\s*🏆\s*经典案例\s*━+\s*\n', '', sub).strip()
+                # 如果只剩标题行或极短内容，跳过
+                if not sub or len(sub) < 10:
+                    continue
                 if sub:
                     rendered = render_entropy_case(sub)
                     if rendered:
