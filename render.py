@@ -117,6 +117,11 @@ def render_entropy_case(block):
     body = block
     if title_m and block.startswith(title_m.group(0)):
         body = block[title_m.end():].strip()
+
+    # 如果 body 为空或只有空白，跳过该卡片
+    if not body or not body.strip():
+        return ""
+
     return card("case", "🏆 经典案例", title, md_to_html(body))
 
 def render_entropy_card(block):
@@ -273,7 +278,9 @@ def parse_entropy_output(raw):
                     continue
                 sub = re.sub(r'^.*?经典案例\s*[#│|].*?\n', '', sub, count=1).strip()
                 if sub:
-                    entropy_cards.append(render_entropy_case(sub))
+                    rendered = render_entropy_case(sub)
+                    if rendered:
+                        entropy_cards.append(rendered)
         elif '思维模型' in sec[:40]:
             entropy_cards.append(render_entropy_card(sec))
         elif '熵减卡片' in sec[:40]:
