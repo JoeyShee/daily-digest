@@ -155,12 +155,14 @@ def _parse_opp_meta(line):
 def _decision_tag_class(tag):
     """决策标签 → CSS class"""
     tag_lower = tag.lower()
-    if '冷冻' in tag_lower or '观察' in tag_lower:
+    if '冷冻' in tag_lower:
         return 'freeze'
-    elif '缩小验证' in tag_lower or '验证' in tag_lower:
-        return 'validate'
     elif '立项' in tag_lower or '执行' in tag_lower:
         return 'launch'
+    elif '验证' in tag_lower or '缩小' in tag_lower:
+        return 'validate'
+    elif '观察' in tag_lower:
+        return 'freeze'
     return 'validate'
 
 def render_single_opportunity_card(block_text):
