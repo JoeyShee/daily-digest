@@ -360,7 +360,9 @@ def parse_entropy_output(raw):
             sec = re.sub(r'^.*?健康提醒\s*[#│|].*?\n', '', sec, count=1).strip()
             entropy_cards.append(render_entropy_health(sec))
         elif '机会雷达' in sec[:40]:
-            sec = re.sub(r'^.*?机会雷达\s*[#│|].*?\n', '', sec, count=1).strip()
+            sec = re.sub(r'^.*?机会雷达\s*[#│|━].*?\n', '', sec, count=1).strip()
+            # 去掉残留的统计行（如"今日新增 N 条机会（Top N）："）
+            sec = re.sub(r'^今日新增\s+\d+\s+条机会.*?\n', '', sec).strip()
             # 按分隔符拆分为多条机会
             if '---OPP---' in sec:
                 opp_blocks = re.split(r'---OPP---', sec)
@@ -369,8 +371,11 @@ def parse_entropy_output(raw):
                     if not ob:
                         continue
                     zero2idea_cards.append(render_single_opportunity_card(ob))
+            elif 'META:' in sec:
+                # 新格式（有META行但只有1条，无分隔符）
+                zero2idea_cards.append(render_single_opportunity_card(sec))
             else:
-                # 兼容旧格式（没有分隔符的情况）
+                # 兼容旧格式
                 zero2idea_cards.append(render_entropy_opportunity(sec))
         elif '昨日想法回顾' in sec[:40] or '想法回顾' in sec[:40]:
             sec = re.sub(r'^.*?昨日想法回顾\s*[#│|].*?\n', '', sec, count=1).strip()
