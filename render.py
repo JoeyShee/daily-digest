@@ -288,6 +288,73 @@ def render_entropy_graveyard_review(block):
     title = title_m.group(1) if title_m else "昨日想法回顾"
     return card("graveyard", "🪦 昨日想法回顾", title, md_to_html(block))
 
+def _parse_dedao_meta(line):
+    """解析 DEDADOMETA: type=AI案例 | course=快刀广播站"""
+    m = re.match(r'DEDADOMETA:\s*type=(.+?)\s*\|\s*course=(.+)', line.strip())
+    if m:
+        return {'type_label': m.group(1).strip(), 'course': m.group(2).strip()}
+    return None
+
+def _dedao_type_class(type_label):
+    """得到课程类型 → CSS class"""
+    tl = type_label.lower()
+    if 'ai' in tl:
+        return 'ai'
+    elif '商业案例' in tl:
+        return 'biz'
+    elif '趋势' in tl:
+        return 'trend'
+    elif '模型' in tl:
+        return 'model'
+    return 'biz'
+
+def render_single_dedao_card(block_text):
+    """渲染单条得到课程卡片"""
+    lines = block_text.strip().split('\n')
+    type_label = ''
+    course = ''
+    title = ''
+    body_lines = []
+
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue
+        meta = _parse_dedao_meta(line)
+        if meta:
+            type_label = meta['type_label']
+            course = meta['course']
+            continue
+        if line.startswith('**') and not title:
+            title_m = re.match(r'\*\*(.+?)\*\*', line)
+            if title_m:
+                title = title_m.group(1)
+                rest = line[title_m.end():].strip()
+                if rest:
+                    body_lines.append(rest)
+                continue
+        body_lines.append(line)
+
+    if not title:
+        title = "课程信号"
+
+    body_html = ''
+    # 第一行：类型标签 + 课程来源
+    body_html += '<div class="dedao-meta-row">'
+    if type_label:
+        tag_cls = _dedao_type_class(type_label)
+        body_html += f'<span class="dedao-type-tag {tag_cls}">{esc(type_label)}</span>'
+    body_html += f'<span class="dedao-course-badge">{esc(course)}</span>'
+    body_html += '</div>'
+
+    # 内容
+    body_text = '\n'.join(body_lines)
+    if body_text.strip():
+        body_html += md_to_html(body_text)
+
+    card_type = f"📚 得到课程雷达"
+    return card("dedao", card_type, title, body_html)
+
 def parse_entropy_output(raw):
     content = raw
     # 只在文件开头（前200字符内）有 --- 分隔线时才跳过元数据头
@@ -304,7 +371,7 @@ def parse_entropy_output(raw):
     content = re.sub(r'^📋\s*\*?熵减计划.*?\n*', '', content).strip()
     
     # 用 ━━━ + emoji 分割成区块
-    raw_blocks = re.split(r'━━━\s*[🏆🧠💊📡🔭🪦🎯]', content)
+    raw_blocks = re.split(r'━━━\s*[🏆🧠💊📡🔭🪦🎯📚]', content)
     # raw_blocks: [头部, "标题残留1", "内容1", "标题残留2", "内容2", ...]
     # 合并标题残留到下一个 block
     sections = []
@@ -317,7 +384,7 @@ def parse_entropy_output(raw):
         # 如果 block 很短（<20字符）且只包含标题关键词，它是残留标题
         is_header_remnant = (
             len(b) < 20 
-            and any(kw in b for kw in ['经典案例', '熵减卡片', '思维模型', '场景案例', '健康提醒', '机会雷达', '昨日想法回顾'])
+            and any(kw in b for kw in ['经典案例', '熵减卡片', '思维模型', '场景案例', '健康提醒', '机会雷达', '昨日想法回顾', '得到课程'])
         )
         if is_header_remnant:
             pending_header = b
@@ -380,6 +447,27 @@ def parse_entropy_output(raw):
         elif '昨日想法回顾' in sec[:40] or '想法回顾' in sec[:40]:
             sec = re.sub(r'^.*?昨日想法回顾\s*[#│|].*?\n', '', sec, count=1).strip()
             entropy_cards.append(render_entropy_graveyard_review(sec))
+        elif '得到课程' in sec[:40]:
+            sec = re.sub(r'^.*?得到课程雷达\s*[#│|━].*?\n', '', sec, count=1).strip()
+            sec = re.sub(r'^今日\s+\d+\s+条课程信号.*?\n', '', sec).strip()
+            if '---DEDAO---' in sec:
+                dedao_blocks = re.split(r'---DEDAO---', sec)
+            else:
+                dedao_blocks = [sec]
+            for db in dedao_blocks:
+                db = db.strip()
+                if not db:
+                    continue
+                # 每个课程分组内可能有多条 item（以 DEDADOMETA 分隔）
+                if 'DEDADOMETA:' in db:
+                    # 按课程分组标题拆分
+                    sub_items = re.split(r'(?=\nDEDADOMETA:)', db)
+                    for si in sub_items:
+                        si = si.strip()
+                        if si:
+                            entropy_cards.append(render_single_dedao_card(si))
+                else:
+                    entropy_cards.append(render_single_dedao_card(db))
         else:
             entropy_cards.append(card("entropy", "熵减推送", "熵减推送", md_to_html(sec)))
 
