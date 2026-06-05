@@ -172,7 +172,7 @@ def _decision_tag_class(tag):
     return 'validate'
 
 def render_single_opportunity_card(block_text):
-    """渲染单条机会卡片"""
+    """渲染单条机会卡片 — 结构化展示：结论先行 → 判断依据 → 证据缺口"""
     lines = block_text.strip().split('\n')
     score = 0
     tag = ''
@@ -194,7 +194,6 @@ def render_single_opportunity_card(block_text):
             title_m = re.match(r'\*\*(.+?)\*\*', line)
             if title_m:
                 title = title_m.group(1)
-                # title 行之后的内容
                 rest = line[title_m.end():].strip()
                 if rest:
                     body_lines.append(rest)
@@ -204,17 +203,79 @@ def render_single_opportunity_card(block_text):
     if not title:
         title = "机会"
 
-    # 构建 body HTML
-    body_html = f'<div class="opp-meta-row">'
+    # === 构建 body HTML（结构化） ===
+    body_text = '\n'.join(body_lines)
+
+    # 清洗内部指标（双重保险：cron层已清洗，render层再清一次）
+    body_text = re.sub(r'[(\uff08][^\)\uff09]*(?:personal_fit_score|pay_evidence|evidence_grade|market_size_score|competition_score|tech_fit_score|personal_fit|tech_complexity|time_to_mvp|mvp_feasibility)[^\)\uff09]*[\)\uff09]', '', body_text)
+    body_text = re.sub(r'[(\uff08][\)\uff09]', '', body_text)
+    body_text = re.sub(r'[,，]?\s*(?:DH|BP|AX|EL|T)-\d+\s*(?:触发|命中|生效)[^,，；;]*', '', body_text)
+    body_text = re.sub(r'[；;]\s*[；;]', '；', body_text)
+    body_text = re.sub(r'^\s*[；;]\s*', '', body_text)
+    body_text = re.sub(r'\s*[；;]\s*$', '', body_text)
+    body_text = body_text.strip()
+
+    # 拆分：判断依据 vs 证据缺口
+    reason_parts = []
+    gap_parts = []
+
+    # 把 body_lines 重新处理（已清洗）
+    body_lines_clean = [l for l in body_text.split('\n') if l.strip()]
+    for bl in body_lines_clean:
+        bl = bl.strip()
+        # 证据缺口行
+        if bl.startswith('证据缺口:') or bl.startswith('缺口:'):
+            gap_content = re.sub(r'^证据缺口[:：]\s*|^缺口[:：]\s*', '', bl)
+            if gap_content:
+                gap_parts = [g.strip() for g in re.split(r'[；;]', gap_content) if g.strip()]
+            continue
+        if bl.startswith('证据缺口'):
+            gap_content = re.sub(r'^证据缺口[:：]?\s*', '', bl)
+            if gap_content:
+                gap_parts = [g.strip() for g in re.split(r'[；;]', gap_content) if g.strip()]
+            continue
+        reason_parts.append(bl)
+
+    # --- 构建 HTML ---
+    body_html = ''
+
+    # 第一行：决策标签 + 来源 + 评分
+    body_html += '<div class="opp-meta-row">'
     if tag:
         tag_cls = _decision_tag_class(tag)
         body_html += f'<span class="decision-tag {tag_cls}">{esc(tag)}</span>'
-    body_html += f' <span style="color:var(--text-muted);font-size:0.88rem;">来源: {esc(source)}</span>'
+    body_html += f'<span class="opp-source-badge">来源: {esc(source)}</span>'
+    body_html += f'<span class="opp-score-inline">{score}分</span>'
     body_html += '</div>'
 
-    # body 内容
-    body_text = '\n'.join(body_lines)
-    body_html += md_to_html(body_text)
+    # 第二部分：判断依据（拆成要点列表）
+    if reason_parts:
+        body_html += '<div class="opp-reason">'
+        # 把分号分隔的长句拆成要点
+        all_reasons = []
+        for rp in reason_parts:
+            # 按分号拆分
+            sub_parts = re.split(r'[；;]', rp)
+            for sp in sub_parts:
+                sp = sp.strip().rstrip('。，').strip()
+                if sp and len(sp) > 2:
+                    all_reasons.append(sp)
+        if all_reasons:
+            body_html += '<ul class="opp-reason-list">'
+            for r in all_reasons[:5]:  # 最多5个要点
+                body_html += f'<li>{md_to_html(r)}</li>'
+            body_html += '</ul>'
+        body_html += '</div>'
+
+    # 第三部分：证据缺口（独立区块）
+    if gap_parts:
+        body_html += '<div class="opp-evidence-gap">'
+        body_html += '<span class="opp-gap-label">证据缺口</span>'
+        body_html += '<ul class="opp-gap-list">'
+        for g in gap_parts[:3]:
+            body_html += f'<li>{esc(g)}</li>'
+        body_html += '</ul>'
+        body_html += '</div>'
 
     # score 放到 card_type 标签里
     card_type_with_score = f"🔭 ZERO2IDEA · <span class=\"opp-score\">{score}</span>"

@@ -574,7 +574,72 @@ a:hover { text-decoration: underline; }
   background: var(--surface-warm);
   border-radius: var(--radius-sm);
   margin-top: 12px;
-  line-height: 1.7;
+}
+
+/* 机会卡片：来源标签 */
+.opp-source-badge {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+/* 机会卡片：行内评分 */
+.opp-score-inline {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-zero2idea);
+  margin-left: auto;
+}
+
+/* 机会卡片：判断依据区块 */
+.opp-reason {
+  margin-top: 10px;
+}
+
+.opp-reason-list {
+  margin: 0;
+  padding-left: 18px;
+  list-style: none;
+}
+
+.opp-reason-list li {
+  position: relative;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  padding-left: 12px;
+}
+
+.opp-reason-list li::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+/* 机会卡片：证据缺口区块 */
+.opp-gap-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.opp-gap-list {
+  margin: 0;
+  padding-left: 16px;
+}
+
+.opp-gap-list li {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+  list-style: disc;
 }
 
 /* ---------- Mobile first ---------- */
