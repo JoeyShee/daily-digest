@@ -596,6 +596,13 @@ def render_index(dates_entropy, dates_graveyard, dates_zero2idea):
     if dates_graveyard:
         latest_g = max(dates_graveyard)
         g_cards = collect_graveyard_cards(latest_g)
+        if not g_cards.strip():
+            # 最新日无有效卡片，往前找最近有数据的一天
+            for d in sorted(dates_graveyard, reverse=True):
+                g_cards = collect_graveyard_cards(d)
+                if g_cards.strip():
+                    latest_g = d
+                    break
         if g_cards.strip():
             tab_nav = _tab_nav_html("graveyard", ".")
             prev_d, next_d = _find_prev_next(latest_g, dates_graveyard)
@@ -677,10 +684,12 @@ def collect_graveyard_cards(date_str):
         c = render_graveyard_report(graveyard_outputs[date_str])
         if c: cards_html.append(c)
     
-    # 当天更新的 stones
+    # 当天更新的 stones（排除存档类占位条目）
     stones = get_stones()
     day_stones = [s for s in stones
                   if s.get("content")
+                  and s.get("category") != "📦存档"
+                  and not s.get("content","").startswith("【早期笔记")
                   and (s.get("updated_at","").startswith(date_str)
                        or s.get("time","").startswith(date_str))]
     for s in day_stones[:15]:
@@ -692,8 +701,10 @@ def get_available_dates():
     """获取所有有数据的日期"""
     entropy_dates = set(get_entropy_outputs().keys())
     graveyard_dates = set(get_graveyard_outputs().keys())
-    # stones 里的日期也加进去
+    # stones 里的日期也加进去（排除存档占位条目，它们不应该创造"有数据"的日期）
     for s in get_stones():
+        if s.get("category") == "📦存档": continue
+        if not s.get("content") or s.get("content","").startswith("【早期笔记"): continue
         for k in ("updated_at", "time"):
             v = s.get(k, "")
             if v: graveyard_dates.add(v[:10])
