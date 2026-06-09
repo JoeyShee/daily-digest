@@ -547,6 +547,7 @@ def _tab_nav_html(section, base_path=".."):
         ("entropy", f"{base_path}/entropy/", "🧠 熵减计划"),
         ("graveyard", f"{base_path}/index.html", "🪦 想法墓地"),
         ("zero2idea", f"{base_path}/zero2idea/", "🔭 Zero2Idea"),
+        ("10x", f"{base_path}/10x/", "🎯 10x投机"),
     ]
     items = []
     for key, href, label in tabs:
