@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>2026-06-04 · 想法墓地</title>
+<title>2026-06-08 · 想法墓地</title>
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -18,9 +18,9 @@
 </nav>
 <div class="container">
   <div class="day-nav">
-    <a href="graveyard/2026-06-03.html" class="nav-btn">← 前一天</a>
-    <div class="day-title">2026-06-04</div>
-    <a href="graveyard/2026-06-05.html" class="nav-btn">后一天 →</a>
+    <a href="graveyard/2026-06-05.html" class="nav-btn">← 前一天</a>
+    <div class="day-title">2026-06-08</div>
+    <a href="index.html" class="nav-btn">后一天 →</a>
   </div>
   <div class="card">
   <div class="card-bar graveyard"></div>
@@ -28,76 +28,87 @@
     <div><div class="card-type">🪦 想法墓地日报</div><h2>想法墓地日报</h2></div>
     <div class="toggle-icon">▼</div>
   </div>
-  <div class="card-body"><p>All data verified. Now generate the daily report as the final response:</p>
-<p>💡 想法墓地日报（2026-06-04）</p>
+  <div class="card-body"><p>Good, digest rendered. Now here's the final daily report:</p>
+<hr>
+<p>💡 <strong>想法墓地日报（2026-06-08）</strong></p>
 <p>━━━ 💡 今日困惑解答 ━━━</p>
-<p><strong>Q: 缺业务场景信息源，已有的体系没法和业务场景碰撞出产品想法</strong><br>A: 你缺少的不是信息源，而是&quot;信息→场景→产品&quot;的转译层。生财风向标、即刻、Product Hunt 都有大量业务场景信号，但你缺少固定的&quot;场景提取&quot;工作流。与其找更多源，不如在现有信息源上加一层&quot;场景拆解&quot;过滤。<br>👉 在现有工作流里加一个&quot;场景雷达&quot;模块：每天从生财风向标/HN/Product Hunt 提取3个可做场景，格式：人群+痛点+现有方案+你的切入角度。<br>📊 模式匹配：BP-05（信息摄入替代创造）</p>
-<p><strong>Q: 最高质量信息渠道没有养成打开习惯，手机端缺少&quot;刷&quot;的动作</strong><br>A: 核心问题不是&quot;信息在哪&quot;，而是&quot;刷的习惯怎么建&quot;。你已经做了 Daily Digest 聚合信息，但手机端访问和日常&quot;刷&quot;没形成。这是一个行为设计问题。关于风向标vs精华帖：风向标是&quot;信号&quot;（现在在发生什么），精华帖是&quot;案例&quot;（已验证什么），两者都重要。<br>👉 把 Daily Digest 添加到手机主屏幕，绑定到&quot;等agent结果&quot;的碎片时间窗口。<br>📊 模式匹配：BP-05</p>
-<p><strong>Q: 高自尊和&quot;地位游戏&quot;有什么关系？</strong><br>A: 心理学上高自尊分&quot;安全型&quot;和&quot;脆弱型&quot;。脆弱型高自尊=自我价值感高度依赖外部评价=本质就是&quot;地位感知器&quot;。你观察到&quot;过分追求别人看法&quot;，正是 T-07（自主判断vs被看见需求）和 BP-07（外部验证依赖）的体现。退出路径：用自己的标准定义&quot;做好了&quot;，不是用别人的反馈。<br>👉 这个主题非常适合写公众号——你有观点（地位是第一性原理）、有个人体验、有框架（安全型vs脆弱型高自尊）。已进选题池 ✅</p>
+<p><strong>Q: TTS语音定制的文件格式和模型原理是什么？豆包的声音定制导出的是什么？</strong><br>A: 声音定制的本质是Voice Cloning（语音克隆）。你录几秒到几分钟音频作为样本，模型提取声纹特征（speaker embedding向量），然后用这组向量驱动TTS合成。豆包等平台导出的&quot;声音文件&quot;本质上是这组embedding参数，不是传统音频文件。2026年讯飞&quot;一句话复刻&quot;仅需一句话即可生成定制音色，Google Chirp 3也支持即时自定义语音。<br>👉 查看Hermes的TTS引擎配置，如果是edge-tts可以换成CosyVoice或Fish-Speech等支持voice cloning的开源方案。</p>
 <p>━━━ 🚀 调研中 ━━━</p>
-<p><strong>1. AI商品封面/详情图工具（🔴可推进）</strong><br>命题：给小红书卖家/个人IP，用AI生成商品封面/详情图/品牌视觉，从&quot;帮自己包装虚拟产品&quot;切入<br>商业教练：✅ 对齐主线 — 直接服务AI求职虚拟产品的视觉包装需求<br>当前动作：建议先给自己的虚拟产品做一套封面，验证效果后包装成模板包</p>
-<p><strong>2. 小模型本地前置处理器（🟡冷冻）</strong><br>命题：基于1-7B本地小模型的&quot;前置处理器&quot;，让AI从云端奢侈品变成桌面标配<br>判断：技术趋势确定（a16z/COMPUTEX验证），但个人创业者切入路径不清晰，与主线偏离</p>
-<p><strong>3. 宠物/萌娃桌面陪伴应用（🟡冷冻）</strong><br>命题：用宠物/萌娃照片定制桌面陪伴应用<br>判断：AI宠物拟人在小红书已爆火，但&quot;桌面App&quot;形态太重，更小切口是先卖模板包</p>
-<p><strong>4. AI意难平互动番外（🟡冷冻）</strong><br>命题：围绕小说读者的&quot;意难平&quot;做AI互动番外体验<br>判断：差异化角度好（没人做意难平细分），但与主线完全偏离，需独立投入</p>
-<p>━━━ 📝 选题标记 ━━━</p>
-<p>1. 「地位游戏——为什么你总是在意别人的看法」→ 已进选题池（安全型vs脆弱型高自尊+个人体验+万维钢框架）</p>
+<p><strong>1. 个人实验田站</strong> `🔴可推进` `[对齐主线]`<br>   命题：搭建低成本个人实验田站，把idea/工具页/实验记录沉淀到外部可见网站。CF Pages免费部署，每周5h约束。<br>   调研：CF Pages免费版支持无限静态请求/带宽/站点。部署极简(Git push)。启发式1/7/9全部通过。<br>   🎯 Pieter Levels: &quot;一个你自己的站，哪怕最初只有3个页面，也比你脑子里100个想法值钱。先上线，再迭代。&quot;</p>
+<p><strong>2. AI求职虚拟产品</strong> `🔴可推进` `[对齐主线]`<br>   命题：给AI焦虑求职者，虚拟资料包（简历模板+面试指南+AI工具包）→小红书/公众号售卖。<br>   调研：小红书虚拟资料赛道2026爆发，求职资料是Top赛道。AI求职细分竞争尚不拥挤。<br>   🎯 Pieter Levels: &quot;不要再想了，你已经看到了市场。48小时内必须有外部痕迹。&quot;</p>
+<p><strong>3. 再次尝试虚拟产品（执行计划）</strong> `🔴可推进` `[对齐主线]`<br>   命题：同一方向的执行计划，先跑通上架闭环。<br>   🎯 Paul Graham: &quot;你已经在正确方向上了，区别在于能不能在别人模仿你之前先把闭环跑通。速度是唯一的护城河。&quot;</p>
+<p><strong>4. 468呼吸法+AdSense</strong> `🟡冷冻` `[偏离但保留]`<br>   命题：尝试Google AdSense变现468站流量。<br>   调研：GA真实仅58人/90天(12秒停留)，AdSense审核大概率不通过。不值得主动投入，域名已续费留作种子。</p>
+<p><strong>5. 小绿书+AI工作流</strong> `🟡冷冻` `[偏离但保留]`<br>   AI工作流是长期方向但不是本月主线，可作副线流量实验。</p>
+<p><strong>6. 小红书视频分成</strong> `🟡冷冻` `[偏离建议冷冻]`<br>   视频分成计划尚未上线，投入制作视频会分散验证精力。</p>
 <p>━━━ 🔧 任务分发 ━━━</p>
-<p>今日无明确可分发任务。</p>
+<p>1. <strong>OpenClaw替代CC方案</strong> → hermes 执行中<br>   Mac Mini上CC API换刚子API→搭建OpenClaw→用GLM的K→分析任务转给OpenClaw</p>
+<p>━━━ 📝 选题标记 ━━━</p>
+<p>1. 「流量的尽头是情绪，商业的本质是填补匮乏。」→ 已进选题池</p>
 <p>━━━ 🪞 今日反思 ━━━</p>
-<p><strong>1. 表演刻苦没有意义</strong><br>🔍 新视角：你开始区分&quot;用力做&quot;和&quot;做对的事&quot;。碎片时间写笔记是比硬坐着更好的选择——因为这恰好是你的认知加工方式。<br>📊 模式匹配：BP-01 + EL-01 + T-03（&quot;大力出奇迹&quot;就是想用时间投入补偿决策质量不足）<br>✅ 进步：识别出&quot;等agent结果的碎片时间适合写作&quot;这个真实场景</p>
-<p><strong>2. 道心靠知道自己每天在做什么来维持</strong><br>🔍 新视角：把道心从情绪层面（相信）降维到了行为层面（知道每天做什么）。从&quot;激情驱动&quot;到&quot;系统驱动&quot;的转变。<br>📊 模式匹配：EL-02 + BP-07（看到别人结果就动摇→但这次没换方向）<br>✅ 进步：修订了zero2idea而不是转向新方向，用&quot;1-3月原则&quot;约束了FOMO</p>
-<p><strong>3. 口述是认知加工方式，不是输出方式</strong><br>🔍 新视角：把&quot;口述&quot;从效率工具升级为认知工具——口述不是在输出已知想法，而是在加工未知想法。<br>📊 模式匹配：EL-04（自我洞察的兴奋，但这次是纯粹的元认知进步）<br>✅ 进步：识别出自己的认知加工方式，很多人一辈子都不知道自己怎么思考的</p>
-<p>━━━ 🧊 翻石头 ━━━</p>
-<p>今天翻看了 5 条旧想法，补全了内容描述和研究命题。静默维护，不展开。</p>
-<p>━━━ 📊 今日统计 ━━━<br>- 处理笔记：13条（困惑3 / Idea4 / 反思3 / 存档3 / 选题标记1）<br>- 存量stones：189条<br>- 翻石头：5条质量补全</p></div>
-</div>
-<div class="card">
-  <div class="card-bar entropy"></div>
-  <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">💡 困惑解答</div><h2>信息源缺失：看不到很多业务场景，没有推送业务场景的信息源，已有体系无法与业务场景碰撞出产品想法或内容产品。已经在做小红书/小绿书发布工作流，计划后续接入业务案例等内容源。</h2></div>
-    <div class="toggle-icon">▼</div>
-  </div>
-  <div class="card-body"><div class="highlight-box"><p><strong>解答：</strong>你缺少的不是信息源，而是&quot;信息→场景→产品&quot;的转译层。生财风向标、即刻、Product Hunt 都有大量业务场景信号，但你缺少一个固定的&quot;场景提取&quot;工作流。与其找更多信息源，不如在现有信息源上加一层&quot;场景拆解&quot;过滤。你的小红书发布工作流思路是对的——关键是给每个内容源配一个&quot;场景雷达&quot;前处理环节。</p><p>👉 在现有工作流里加一个&quot;场景雷达&quot;模块：每天从生财风向标/HackerNews/Product Hunt 提取3个可做场景，格式：人群+痛点+现有方案+你的切入角度。这不影响主线，只是给认知工厂增加原料。</p></div></div>
-</div>
-<div class="card">
-  <div class="card-bar entropy"></div>
-  <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">💡 困惑解答</div><h2>信息摄取习惯问题：最高质量的信息渠道没有养成打开习惯。正在做GitHub静态页面聚合高质量信息，缺手机端&quot;刷&quot;的习惯。生财风向标信息质量高于精华帖但未被收录。</h2></div>
-    <div class="toggle-icon">▼</div>
-  </div>
-  <div class="card-body"><div class="highlight-box"><p><strong>解答：</strong>核心问题不是&quot;高质量信息在哪&quot;，而是&quot;刷信息的习惯怎么建&quot;。你已经做了 Daily Digest 静态页面聚合信息，但手机端访问和日常&quot;刷&quot;的动作还没形成。这是一个行为设计问题，不是信息源问题。关于风向标vs精华帖：风向标是&quot;信号&quot;（现在正在发生什么），精华帖是&quot;案例&quot;（已经验证过什么），两者用途不同，都需要。</p><p>👉 把 Daily Digest 页面添加到手机主屏幕作为快捷方式，绑定到&quot;等 agent 结果&quot;或&quot;午餐后&quot;的碎片时间窗口。不用刻意刷，自然打开就好。</p></div></div>
-</div>
-<div class="card">
-  <div class="card-bar model"></div>
-  <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">🪞 反思</div><h2>反思工作状态：不能一直坐着，天气好应该出去散步。拿不到结果时想用&quot;大力出奇迹&quot;解决，但这和学习不同——需要提高关键决策质量和关键行动数量。表演刻苦没有意义。碎片时间（等agent结果）注意力零散无法学习，最好的事是写作梳理思绪。</h2></div>
-    <div class="toggle-icon">▼</div>
-  </div>
-  <div class="card-body"><div class="highlight-box"><p><strong>解答：</strong>新视角：&quot;表演刻苦没有意义&quot;这个洞察本身就是进步。你开始区分&quot;用力做&quot;和&quot;做对的事&quot;。碎片时间写笔记/梳理思绪是比硬坐着更好的选择——因为这恰好是你的认知加工方式。匹配模式：BP-01（系统建设替代产出）+ EL-01（高投入低现实回报）+ T-03（系统建设vs真实产出）。&quot;大力出奇迹&quot;就是想用时间投入补偿决策质量的不足。</p></div></div>
-</div>
-<div class="card">
-  <div class="card-bar entropy"></div>
-  <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">💡 困惑解答</div><h2>学习笔记：万维钢课程观点——地位是人类游戏的核心原则/第一性原理。所有人际关系（夫妻、同事）本质上都是地位之争。困惑：高自尊与地位游戏的关系是什么？自己是否被困在地位游戏里（过分追求别人看法）？二阶思考：既然大部分人都在追求地位，能否选择不</h2></div>
-    <div class="toggle-icon">▼</div>
-  </div>
-  <div class="card-body"><div class="highlight-box"><p><strong>解答：</strong>心理学上高自尊分&quot;安全型&quot;(secure high self-esteem)和&quot;脆弱型&quot;(fragile high self-esteem)。脆弱型高自尊 = 自我价值感高度依赖外部评价 = 本质就是&quot;地位感知器&quot;。你观察到&quot;过分追求别人看法&quot;，正是 T-07（自主判断vs被看见需求）和 BP-07（外部验证依赖）的体现。万维钢说&quot;追求物质可以退出地位游戏&quot;过于简化——真正的退出路径是：用你自己的标准定义&quot;做好了&quot;，而不是用别人的反馈定义。你自己已经在用这个方法了（坚持1-3月原则、修订zero2idea而不是转向）。</p><p>👉 这个主题非常适合写公众号文章：&quot;地位游戏——为什么你总是在意别人的看法&quot;。你有观点（地位是第一性原理）、有个人体验（过分追求别人看法）、有框架（安全型vs脆弱型高自尊）。建议进入选题池。</p></div></div>
+<p><strong>🔍 分享欲+行动链路</strong> (18:22)<br>新视角：你把&quot;分享&quot;从虚荣行为重新定义为&quot;强化行动链路&quot;——不是炫耀，是在训练神经回路。知识星球专业分析没人点赞不是分析不好，是渠道不对。<br>模式匹配：EL-04（自我洞察带来的意义兴奋）+ BP-05（行动链路断裂）<br>✅ 进步：从情绪层面升级到认知层面，用&quot;神经回路&quot;语言描述行为模式。</p>
+<p><strong>🔍 方案讨论的虚假安全感</strong> (17:22)<br>新视角：&quot;方案讨论带来的焦虑缓解&quot;是高阶舒适区——你以为在行动，实际把紧张感转化为安全感。&quot;明天开始发小红书&quot;的含金量不在于方案多完美，在于是否真的发了。<br>模式匹配：BP-04（大机会瘫痪）+ EL-03（计划兴奋→执行落差）+ T-03（系统建设vs真实产出）<br>✅ 进步：能同时在感受&quot;疏解感&quot;和保持清醒——双轨觉察力是真实进步。</p>
+<p><strong>🔍 468止损与输出通道</strong> (16:19)<br>新视角：&quot;心态极其稳定&quot;不是麻木，是开始区分&quot;结果反馈&quot;和&quot;自我评价&quot;了。问题不是输入太多，是输出通道太窄。<br>模式匹配：BP-01（高输入低输出）+ T-06（沉没成本vs止损）<br>✅ 进步：468放弃但学到完整技术栈（CF Pages→DNS→GA→Search Console）是可迁移资产。</p>
+<p><strong>🔍 周一困乏=重新加载摩擦力</strong> (13:07)<br>新视角：周一的&quot;困乏&quot;可能不是生理问题，是&quot;两天没碰→工作记忆清空→重新加载成本高&quot;。散步+颈椎有效说明身体不需要休息，大脑需要重新启动。<br>模式匹配：BP-02（状态依赖）+ T-04（深度工作vs状态波动）<br>✅ 进步：状态最差时选择&quot;走走+记东西+去健身房&quot;——从被动承受转向主动调节。</p>
+<p>━━━ 🧊 翻石头 ━━━<br>今天翻看了 5 条旧想法：扩写了 3 条碎片内容（分模块记录待办、文章→产品idea生成器、摄像头视频检索），2 条保持原状。</p>
+<p>━━━ 📊 统计 ━━━<br>• 今日新增：10 条（💡1 / 🚀2 / 📝1 / 🔧1 / 🪞4 / 📦1）<br>• 存量：199 条<br>• 🔴可推进：4 条（主线3 + 实验田站1）<br>• 🟡冷冻：7 条<br>• 本轮补 coach_verdict：5 条（存量缺口已清零）<br>• verdict-status 同步：0 处修正（全部一致）</p>
+<hr>
+*回复&quot;深挖 [想法名]&quot;触发深度调研*</div>
 </div>
 <div class="card">
   <div class="card-bar idea"></div>
   <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">🚀 Idea</div><h2>小模型(1-7B)商业机会深度分析。核心判断：小模型的机会在于让AI从云端奢侈品变成桌面标配工具，承接高频、轻量、可容错、隐私敏感的任务。5个具体场景：本地笔记/反思助手、本地资料整理工具、内容生产预处理器、求职资料/JD助手、私域销售/客</h2></div>
+    <div><div class="card-type">🚀 Idea</div><h2>用AI生成个人博客网站，发布到小红书上。</h2></div>
     <div class="toggle-icon">▼</div>
   </div>
-  <div class="card-body"><h3>🔍 命题</h3><p>给个人开发者/小团队，提供基于本地小模型(1-7B)的&quot;前置处理器&quot;能力，让AI从云端奢侈品变成桌面标配工具。核心场景：笔记分类、素材筛选、文件命名、轻量改写。</p></div>
+  <div class="card-body"><h3>🔍 命题</h3><p>给谁：想有个人博客/个人站的小红书用户；场景：个人IP展示、作品集、内容沉淀；痛点：不懂技术建站；赚钱方式：AI建站工具/SaaS</p></div>
 </div>
 <div class="card">
   <div class="card-bar idea"></div>
   <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">🚀 Idea</div><h2>在小红书上给宠物主或爸妈，用宠物/萌娃形象定制陪伴类桌面应用。</h2></div>
+    <div><div class="card-type">🚀 Idea</div><h2>从「心理账户」出发找商业机会：审视人生中花钱的大项（教育、医疗、住房等），从中发现痛点作为创业出发点。可做成工具辅助回忆和梳理。</h2></div>
     <div class="toggle-icon">▼</div>
   </div>
-  <div class="card-body"><h3>🔍 命题</h3><p>给小红书上的宠物主/新手爸妈，用他们的宠物/萌娃照片，定制桌面陪伴类应用（电子宠物/桌面挂件）。</p></div>
+  <div class="card-body"><h3>🔍 命题</h3><p>给谁：想创业但没方向的人；场景：商业机会发现；痛点：不知道从哪里找机会；赚钱方式：AI辅助的消费分析工具/方法论课程</p></div>
+</div>
+<div class="card">
+  <div class="card-bar idea"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">🚀 Idea</div><h2>AI求职赛道虚拟产品：看到微信公众号图文流量机会+小排提到的应届生面试AI工具知识需求+海外AI简历优化站。决定锚定AI求职人群（应届生、非专业AI人士），从小红书开始但不局限于此，公众号图文也是渠道。锚定需求3个月不动摇。</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"><h3>🔍 命题</h3><p>给谁：AI焦虑的求职者（应届生+转行者）；场景：求职面试准备；痛点：不懂AI工具知识被刷/简历不够AI优化；赚钱方式：虚拟资料包（简历模板+面试指南+AI工具包）→ 小红书/公众号图文售卖</p></div>
+</div>
+<div class="card">
+  <div class="card-bar idea"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">🚀 Idea</div><h2>再次尝试虚拟产品的具体执行计划：锁定AI求职赛道（应届生+非专业AI人士），先搞定小闭环上个产品。具体操作：找对标账号（万粉以内、赞数&gt;粉丝数、最近一个月）、搜关键词浏览前50个笔记找评论区有需求的。已发现竞品Lollipop模拟面试。当前</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"><h3>🔍 命题</h3><p>给谁：应届生+非专业AI求职者；场景：小红书/公众号图文购买虚拟资料；痛点：面试被问AI工具知识答不上来、简历没亮点；赚钱方式：AI求职资料包（低价引流→中价产品→高价咨询）</p></div>
+</div>
+<div class="card">
+  <div class="card-bar idea"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">🚀 Idea</div><h2>微信小绿书+小红书双平台策略思考。核心判断：小红书适合短期变现（求职虚拟资料），小绿书适合长期内容沉淀（AI工作流）。观点转变：应届生求职只是第一个商品不是终局赛道；工作流赛道更值得关注，可从咨询做起。明天要和刘跃沟通中小企业主工作流机会。</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"><h3>🔍 命题</h3><p>为中小企业主和个人设计AI工作流，通过微信小绿书做内容沉淀+小红书做短期变现（虚拟资料→工作流咨询→IP化）</p></div>
+</div>
+<div class="card">
+  <div class="card-bar idea"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">🚀 Idea</div><h2>发现小红书视频创作者后期会有分成计划。考虑把读懂生意账号改为做2分钟长视频类型，利用视频分成获取收入。需要让老娘帮忙变更认证。</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"><h3>🔍 命题</h3><p>利用小红书视频分成计划（预计2026下半年上线），做2分钟商业解读类中长视频获取平台分成收入</p></div>
+</div>
+<div class="card">
+  <div class="card-bar idea"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">🚀 Idea</div><h2>非程序员用AI Agent做产品变现的工程化方法。核心心法：不把AI当聊天框，当需要管理、需要规则、需要验收的团队。三件套架构：外部顾问团(讨论方向)、项目经理(拆Phase管进度)、开发纪律系统(测试验证)。案例：pngtrid月变现5K</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"><h3>🔍 命题</h3><p>给谁：非程序员想用AI做产品变现的人 / 场景：AI编程+小产品+虚拟资料变现 / 痛点：缺少工程化方法论和分工架构 / 赚钱方式：教程/模板/工作流产品</p></div>
 </div>
 <div class="card">
   <div class="card-bar idea"></div>
@@ -108,28 +119,74 @@
   <div class="card-body"><h3>🔍 命题</h3><p>给小红书卖家/个人IP，用AI生成商品封面/详情图/品牌视觉，降低电商视觉成本。从&quot;帮自己包装虚拟产品&quot;切入，验证后做成工具。</p></div>
 </div>
 <div class="card">
+  <div class="card-bar model"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">🪞 反思</div><h2>小程序被微信发来AI授权邀请→分享欲迸发→发小红书和知识星球→意识到应该强化行动链路神经回路来压制杏仁核的放弃冲动。知识星球专业分析没人点赞。食物记录（蛮有记面条）。</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"><div class="highlight-box"><p><strong>解答：</strong>新视角：你把&quot;分享&quot;从虚荣行为重新定义为&quot;强化行动链路&quot;——不是炫耀，是在训练神经回路。这个框架很高级，把可能被评判的行为变成了功能性动作。但知识星球专业分析没人点赞值得留意——不是分析不好，是渠道不对。专业内容在小红书/知识星球可能不如公众号/技术社区有效。
+
+模式匹配：EL-04（自我洞察带来的意义兴奋）+ BP-05（行动链路断裂）
+
+✅ 进步：开始用&quot;神经回路&quot;描述行为模式，从情绪层面升级到认知层面。</p></div></div>
+</div>
+<div class="card">
+  <div class="card-bar model"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">🪞 反思</div><h2>与GPT讨论新方案(工具站+资产维护)→焦虑疏解→警惕高枕无忧→明天开始发小红书→不要等的姿态。新方案具体效果未知，但整体在朝好的方向走。</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"><div class="highlight-box"><p><strong>解答：</strong>新视角：&quot;方案讨论带来的焦虑缓解&quot;是高阶舒适区——你以为在行动（讨论方案），实际是在把行动的紧张感转化为方案的安全感。好消息是你自己意识到了（&quot;并没有什么好兴奋的&quot;）。
+
+&quot;明天开始发小红书&quot;的含金量不在于方案多完美，而在于是否真的发了。
+
+模式匹配：BP-04（大机会瘫痪）+ EL-03（计划兴奋→执行落差）+ T-03（系统建设vs真实产出）
+
+✅ 进步：能同时在感受&quot;方案带来的疏解感&quot;和保持&quot;这没什么好兴奋的&quot;的清醒——双轨觉察力是真实进步。</p></div></div>
+</div>
+<div class="card">
+  <div class="card-bar task"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">🔧 任务</div><h2>API资源分配方案：把Mac Mini上CC的API换成刚子的API→搭建OpenClaw→用GLM的K→把CC的各类分析任务转给OpenClaw。需评估OpenClaw做简单分析任务的效果。</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"></div>
+</div>
+<div class="card">
   <div class="card-bar idea"></div>
   <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">🚀 Idea</div><h2>Emochi分析+AI意难平互动番外方向。Emochi配额+订阅模式验证了AI互动产品成本可控。核心判断：不做通用AI陪伴，而是围绕小说读者的&quot;群体意难平&quot;做AI互动番外——选择遗憾类型→进入原创场景→互动几轮→生成番外/新结局。关键限制：</h2></div>
+    <div><div class="card-type">🚀 Idea</div><h2>个人实验田站：低成本、低压力、可持续的个人内容站，承接每周工具站实验的前台展示面板。Cloudflare Pages免费部署，每周最多5h投入，小红书虚拟产品仍是主线。域名考虑jsbuildslowly等。</h2></div>
     <div class="toggle-icon">▼</div>
   </div>
-  <div class="card-body"><h3>🔍 命题</h3><p>给网文读者，围绕&quot;意难平&quot;情绪（被亏欠的角色、BE结局），提供AI互动番外体验。选择遗憾类型→进入原创场景→互动几轮→生成番外/新结局。</p></div>
+  <div class="card-body"><h3>🔍 命题</h3><p>给辉哥自己，搭建低成本个人实验田站，把idea、工具页、实验记录沉淀到外部可见网站。Cloudflare Pages免费部署，每周5h投入约束，不抢主线资源。</p></div>
 </div>
 <div class="card">
   <div class="card-bar model"></div>
   <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">🪞 反思</div><h2>&quot;道心破碎&quot;描述的不是失去信念，是经历&quot;别人结果对我的参照压力&quot;。道心靠知道自己每天在做什么来维持，不是靠不看别人。用&quot;坚持1-3月原则&quot;约束FOMO，修订了zero2idea而不是转向新方向。</h2></div>
+    <div><div class="card-type">🪞 反思</div><h2>468呼吸法GA真实数据：近90天58人访问、12秒停留，与CF的1200+UV形成对比（多为爬虫）。决定放弃468优化。心态极其稳定，无情绪波动。想做一个自己的站来转化信息消费（梁辰美等）。从468项目学到了完整技术栈：CF Pages→</h2></div>
     <div class="toggle-icon">▼</div>
   </div>
-  <div class="card-body"><div class="highlight-box"><p><strong>解答：</strong>新视角：&quot;道心靠知道自己每天在做什么来维持&quot;比&quot;道心靠信念&quot;高级得多。你把道心从情绪层面（相信）降维到了行为层面（知道每天做什么）。匹配模式：EL-02（外部反馈不足→价值感动摇）+ BP-07（外部验证依赖）+ BP-04（大机会瘫痪）。</p></div></div>
+  <div class="card-body"><div class="highlight-box"><p><strong>解答：</strong>新视角：&quot;心态极其稳定&quot;不是麻木，是你开始区分&quot;结果反馈&quot;和&quot;自我评价&quot;了。58人访问不代表你不行，只代表这个种子没发芽。从&quot;信息消费→焦虑&quot;到&quot;信息消费→自己的站&quot;这个转化思路是对的——问题不是输入太多，是输出通道太窄。
+
+模式匹配：BP-01（高输入低输出）+ T-06（沉没成本vs止损）
+
+✅ 进步：468虽然放弃，但学到的完整技术栈（CF Pages→DNS→GA→Search Console）是可迁移资产。</p></div></div>
 </div>
 <div class="card">
-  <div class="card-bar model"></div>
+  <div class="card-bar entropy"></div>
   <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">🪞 反思</div><h2>&quot;说着说着脑子就通了&quot;——口述是认知加工方式，不是输出方式。</h2></div>
+    <div><div class="card-type">💡 困惑解答</div><h2>Hermes自动实现了文稿转语音(TTS)，效果尚可。三个优化点：①声音能否定制 ②播放形式和路径需改进（飞书语音消息容易被淹没）③长文稿转出后资源消耗和效果未知。核心疑问：豆包等平台声音定制文件是什么格式？模型层面是什么？</h2></div>
     <div class="toggle-icon">▼</div>
   </div>
-  <div class="card-body"><div class="highlight-box"><p><strong>解答：</strong>新视角：你把&quot;口述&quot;从效率工具升级为认知工具。口述不是在输出已知想法，而是在加工未知想法。碎片时间口述=思考，不是记录。匹配模式：EL-04（自我洞察带来的意义兴奋）——但这次是正向的，没有负面。</p></div></div>
+  <div class="card-body"><div class="highlight-box"><p><strong>解答：</strong>声音定制的本质是Voice Cloning（语音克隆）。你录几秒到几分钟音频作为样本，模型提取你的声纹特征（speaker embedding向量），然后用这组向量驱动TTS合成。豆包等平台导出的&quot;声音文件&quot;本质上就是这组embedding参数，不是传统音频文件。技术路线：TTS(固定音色)→Voice Cloning(用样本复刻)→即时自定义语音(Chirp 3/讯飞星火等)。讯飞&quot;一句话复刻&quot;仅需一句话即可生成定制音色。</p><p>👉 查看Hermes的TTS配置用的是哪个引擎。如果是edge-tts等基础TTS，可以换成CosyVoice或Fish-Speech等支持voice cloning的开源方案。豆包导出的speaker embedding理论上可接入兼容的TTS引擎。</p></div></div>
+</div>
+<div class="card">
+  <div class="card-bar idea"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">🚀 Idea</div><h2>域名续费70元(10美元)。发现468呼吸法网站月访问2000（但GA真实仅58人/90天）。考虑申请Google AdSense变现。GPT判断AdSense大概率不通过但仍想跑流程。判断在工具站预算内(每天1h)，不算偏离主线。</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"><h3>🔍 命题</h3><p>给468呼吸法站（月UV 2000但GA真实58人/90天），尝试Google AdSense变现。投入在工具站预算内，不偏离主线。</p></div>
 </div>
   <footer class="site-footer">
     <p>Daily Digest · 纯粹的阅读体验</p>
