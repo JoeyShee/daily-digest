@@ -20,6 +20,7 @@ TEMPLATES_DIR = BASE_DIR / "templates"
 ENTROPY_DIR = BASE_DIR / "entropy"
 GRAVEYARD_DIR = BASE_DIR / "graveyard"
 ZERO2IDEA_DIR = BASE_DIR / "zero2idea"
+TENX_DIR = BASE_DIR / "10x"
 
 # ============================================================
 # 数据加载
@@ -60,6 +61,22 @@ def get_graveyard_outputs():
                 m = re.search(r'(\d{4}-\d{2}-\d{2})', f.name)
                 if m: GRAVEYARD_CACHE[m.group(1)] = f.read_text(errors="replace")
     return GRAVEYARD_CACHE
+
+TENX_CACHE = None
+def get_10x_outputs():
+    global TENX_CACHE
+    if TENX_CACHE is None:
+        tenx_base = Path("~/Documents/10x投机/scripts/output").expanduser()
+        TENX_CACHE = {}
+        if tenx_base.exists():
+            for d in sorted(tenx_base.glob("weekly_*")):
+                report = d / "weekly_report.md"
+                if report.exists():
+                    m = re.match(r'weekly_(\d{4})(\d{2})(\d{2})', d.name)
+                    if m:
+                        date_str = f"{m.group(1)}-{m.group(2)}-{m.group(3)}"
+                        TENX_CACHE[date_str] = report.read_text(errors="replace")
+    return TENX_CACHE
 
 # ============================================================
 # HTML 工具
@@ -492,6 +509,63 @@ def render_graveyard_report(md_text):
     if "[SILENT]" in md_text: return ""
     return card("graveyard", "🪦 想法墓地日报", "想法墓地日报", md_to_html(md_text))
 
+# --- 10x投机周报卡片 ---
+
+def render_10x_report(md_text):
+    """把 10x 周报 markdown 拆成多张卡片"""
+    cards = []
+
+    # 只在顶级标题处分割（市场总览/赛道信号评分/深挖报告），忽略内部 ## Step 标题
+    sections = re.split(r'^## (?=(?:市场总览|赛道信号评分|深挖报告))', md_text, flags=re.MULTILINE)
+
+    overview_text = ""
+    sector_blocks = []
+    deep_blocks = []
+
+    for part in sections:
+        part = part.strip()
+        if not part:
+            continue
+        if part.startswith("市场总览"):
+            overview_text = part[len("市场总览"):].strip()
+        elif part.startswith("赛道信号评分"):
+            sector_section = part[len("赛道信号评分"):].strip()
+            # 按 ### 拆分各赛道
+            sub_parts = re.split(r'^### ', sector_section, flags=re.MULTILINE)
+            for sp in sub_parts:
+                sp = sp.strip()
+                if sp:
+                    sector_blocks.append(sp)
+        elif part.startswith("深挖报告"):
+            deep_section = part[len("深挖报告"):].strip()
+            # 按 ### 深挖 N: 拆分（用 lookahead 避免切掉 ### 深挖 N: 本身）
+            sub_parts = re.split(r'^### (?=深挖 \d+:)', deep_section, flags=re.MULTILINE)
+            for sp in sub_parts:
+                sp = sp.strip()
+                if sp:
+                    deep_blocks.append(sp)
+
+    # 市场总览卡片
+    if overview_text:
+        cards.append(card("model", "📊 市场总览", "10x投机 · 市场总览", md_to_html(overview_text)))
+
+    # 赛道信号卡片
+    for block in sector_blocks:
+        title_m = re.match(r'(.+?)\n', block)
+        title = title_m.group(1).strip() if title_m else "赛道"
+        triggered = "触发深挖" in title
+        bar_class = "case" if triggered else "model"
+        tag = "🔴 触发深挖" if triggered else "🟡 观察"
+        cards.append(card(bar_class, tag, title, md_to_html(block)))
+
+    # 深挖报告卡片
+    for block in deep_blocks:
+        title_m = re.match(r'(.+?)\n', block)
+        title = title_m.group(1).strip() if title_m else "深挖报告"
+        cards.append(card("zero2idea", "🔍 深挖报告", title, md_to_html(block), collapsed=True))
+
+    return cards
+
 def render_stone(stone):
     cat = stone.get("category", "📦存档")
     bar, label = CAT_MAP.get(cat, ("graveyard", cat))
@@ -564,6 +638,8 @@ def render_day_page(date_str, cards_html, section, section_title, available_date
         out_dir = ENTROPY_DIR
     elif section == "zero2idea":
         out_dir = ZERO2IDEA_DIR
+    elif section == "10x":
+        out_dir = TENX_DIR
     else:
         out_dir = GRAVEYARD_DIR
 
@@ -591,8 +667,9 @@ def render_day_page(date_str, cards_html, section, section_title, available_date
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / f"{date_str}.html").write_text(html)
 
-def render_index(dates_entropy, dates_graveyard, dates_zero2idea):
+def render_index(dates_entropy, dates_graveyard, dates_zero2idea, dates_10x=None):
     """渲染首页 + 频道首页"""
+    if dates_10x is None: dates_10x = set()
     # 首页 = 想法墓地最新日内容
     if dates_graveyard:
         latest_g = max(dates_graveyard)
@@ -647,6 +724,14 @@ def render_index(dates_entropy, dates_graveyard, dates_zero2idea):
         if latest_file.exists():
             (ZERO2IDEA_DIR / "index.html").write_text(latest_file.read_text())
 
+    # 10x投机频道 index
+    TENX_DIR.mkdir(parents=True, exist_ok=True)
+    if dates_10x:
+        latest = max(dates_10x)
+        latest_file = TENX_DIR / f"{latest}.html"
+        if latest_file.exists():
+            (TENX_DIR / "index.html").write_text(latest_file.read_text())
+
 # ============================================================
 # 收集卡片
 # ============================================================
@@ -674,6 +759,18 @@ def get_zero2idea_dates():
         if '机会雷达' in raw:
             dates.add(date_str)
     return dates
+
+def collect_10x_cards(date_str):
+    """收集 10x 投机周报卡片"""
+    tenx_outputs = get_10x_outputs()
+    if date_str not in tenx_outputs:
+        return ""
+    cards = render_10x_report(tenx_outputs[date_str])
+    return "\n".join(cards)
+
+def get_10x_dates():
+    """收集所有有 10x 周报数据的日期"""
+    return set(get_10x_outputs().keys())
 
 def collect_graveyard_cards(date_str):
     """收集想法墓地卡片"""
@@ -715,11 +812,12 @@ def get_available_dates():
 # 主逻辑
 # ============================================================
 
-def render_date(date_str, e_dates=None, g_dates=None, z_dates=None):
-    """渲染某一天的熵减+墓地+Zero2Idea页面"""
+def render_date(date_str, e_dates=None, g_dates=None, z_dates=None, t_dates=None):
+    """渲染某一天的熵减+墓地+Zero2Idea+10x页面"""
     if e_dates is None: e_dates = set()
     if g_dates is None: g_dates = set()
     if z_dates is None: z_dates = set()
+    if t_dates is None: t_dates = set()
 
     e = collect_entropy_cards(date_str)
     if e.strip():
@@ -733,6 +831,10 @@ def render_date(date_str, e_dates=None, g_dates=None, z_dates=None):
     if z.strip():
         render_day_page(date_str, z, "zero2idea", "Zero2Idea", z_dates)
 
+    t = collect_10x_cards(date_str)
+    if t.strip():
+        render_day_page(date_str, t, "10x", "10x投机", t_dates)
+
 def main():
     args = sys.argv[1:]
     if not args:
@@ -743,8 +845,9 @@ def main():
         d = datetime.now().strftime("%Y-%m-%d")
         e_dates, g_dates = get_available_dates()
         z_dates = get_zero2idea_dates()
-        render_date(d, e_dates, g_dates, z_dates)
-        render_index(e_dates, g_dates, z_dates)
+        t_dates = get_10x_dates()
+        render_date(d, e_dates, g_dates, z_dates, t_dates)
+        render_index(e_dates, g_dates, z_dates, t_dates)
         print(f"✅ 渲染完成: {d}")
 
     elif "--date" in args:
@@ -752,18 +855,20 @@ def main():
         d = args[idx + 1]
         e_dates, g_dates = get_available_dates()
         z_dates = get_zero2idea_dates()
-        render_date(d, e_dates, g_dates, z_dates)
-        render_index(e_dates, g_dates, z_dates)
+        t_dates = get_10x_dates()
+        render_date(d, e_dates, g_dates, z_dates, t_dates)
+        render_index(e_dates, g_dates, z_dates, t_dates)
         print(f"✅ 渲染完成: {d}")
 
     elif "--all" in args:
         e_dates, g_dates = get_available_dates()
         z_dates = get_zero2idea_dates()
-        all_dates = e_dates | g_dates | z_dates
+        t_dates = get_10x_dates()
+        all_dates = e_dates | g_dates | z_dates | t_dates
         for d in sorted(all_dates):
-            render_date(d, e_dates, g_dates, z_dates)
-        render_index(e_dates, g_dates, z_dates)
-        print(f"✅ 渲染完成: 熵减 {len(e_dates)} 天, 墓地 {len(g_dates)} 天, Zero2Idea {len(z_dates)} 天")
+            render_date(d, e_dates, g_dates, z_dates, t_dates)
+        render_index(e_dates, g_dates, z_dates, t_dates)
+        print(f"✅ 渲染完成: 熵减 {len(e_dates)} 天, 墓地 {len(g_dates)} 天, Zero2Idea {len(z_dates)} 天, 10x {len(t_dates)} 天")
 
 if __name__ == "__main__":
     main()
