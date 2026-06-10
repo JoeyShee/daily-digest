@@ -49,7 +49,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
-  font-size: 20px;
+  font-size: 18px;
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
 }
@@ -673,19 +673,19 @@ a:hover { text-decoration: underline; }
 
 /* ---------- Mobile first ---------- */
 @media (max-width: 640px) {
-  html { font-size: 16px; }
+  html { font-size: 18px; }
   .container { padding: 0 14px; }
   .top-nav { padding: 0 14px; }
-  .tab-nav .tab-item { font-size: 0.78rem; padding: 6px 10px; }
+  .tab-nav .tab-item { font-size: 0.82rem; padding: 6px 10px; }
   .day-nav { padding: 14px 0; }
-  .day-nav a { font-size: 0.82rem; padding: 6px 10px; }
-  .day-nav .day-title { font-size: 1rem; }
+  .day-nav a { font-size: 0.85rem; padding: 6px 10px; }
+  .day-nav .day-title { font-size: 1.05rem; }
   .card { margin-bottom: 20px; border-radius: 10px; }
   .card-header { padding: 14px 16px 12px; gap: 8px; }
-  .card-header h2 { font-size: 1.05rem; }
-  .card-header .card-type { font-size: 0.75rem; }
+  .card-header h2 { font-size: 1.1rem; }
+  .card-header .card-type { font-size: 0.78rem; }
   .card-body { padding: 0 16px 20px; }
-  .card-body p { line-height: 1.7; margin-bottom: 10px; font-size: 0.92rem; }
+  .card-body p { line-height: 1.8; margin-bottom: 10px; font-size: 0.95rem; }
   .opp-score { font-size: 0.68rem; padding: 2px 6px; }
   .channel-card { padding: 16px 18px; }
   .channel-card .channel-icon { font-size: 1.5rem; margin-right: 12px; }
@@ -693,7 +693,7 @@ a:hover { text-decoration: underline; }
 
 /* ---------- 桌面端 ---------- */
 @media (min-width: 768px) {
-  html { font-size: 21px; }
+  html { font-size: 20px; }
   .container { padding: 0 40px; }
   .card-header { padding: 24px 28px 18px; }
   .card-body { padding: 0 28px 32px; }
