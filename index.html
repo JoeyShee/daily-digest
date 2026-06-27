@@ -29,43 +29,41 @@
     <div><div class="card-type">🪦 想法墓地日报</div><h2>想法墓地日报</h2></div>
     <div class="toggle-icon">▼</div>
   </div>
-  <div class="card-body"><p>部署已启动。以下是最终报告：</p>
+  <div class="card-body"><p>Stones 已写入（13条）、salvage_log 已更新、日报已渲染部署到 GitHub Pages。</p>
 <hr>
-<h3>💡 想法墓地日报（2026-06-26）</h3>
+<h3>想法加工日报 | 2026-06-26</h3>
 <h3>📥 今日素材</h3>
-- 共 20 条笔记，3 条待加工（核心反思+困惑），17 条存档（得到引用10条+操作记录+社区信号+学习笔记）
+- 共 20 条笔记，13 条待加工，6 条可跳过（存档），1 条空笔记
+<h3>🔍 加工结果</h3>
+<p><strong>📦 可跳过（6条）：</strong> 发展心理学阶段提取（小满书架内改进）、运动节奏调整（生活习惯）、尹烨失眠分享（信息记录）、喝茶+运动注意事项（生活经验）、力量训练小重量方法（健身笔记）、生财有术素材来源（一句话提醒）</p>
 <hr>
-<h3>💡 困惑解答</h3>
-<p><strong>Q: Zero2idea 系统运行这么长时间，为什么没有帮我做出任何实质性的面向外界的产品？</strong></p>
-<p>A: Zero2idea 解决的是<strong>上游问题</strong>（找什么机会），但你的真正瓶颈在<strong>下游</strong>（把想法变成别人能看到的东西）。就像你一直在优化水库的进水管道，但出水口是堵着的。你自己已经触及了核心：<strong>&quot;最根本的是你有什么&quot;</strong>——信号再多，如果不是你有积累的领域，看了也白看。pipeline 设计得越完整（6个Agent + 多张飞书表），执行成本越高，越难跑通——这正好踩中了 <strong>BP-01 系统建设替代真实产出</strong> + <strong>T-03 系统建设 vs 真实产出</strong>。</p>
-<p>👉 <strong>可行动建议：</strong> 暂时停掉 Zero2idea 的新信号采集，把精力放到已选定的方向（AI求职虚拟产品）上，72小时内做一个最小外部动作。</p>
-<p>👥 <strong>蒸馏人物视角：</strong><br>- 🔭 Musk: 你的系统在解决错误的问题。不是信号不够，是执行管道断裂。删掉80%的信号采集，专注1个能72小时内验证的方向。<br>- 🔭 Naval: 你在用劳动杠杆（手动分析信号）替代代码杠杆。Zero2idea 应该全自动运行，不应该是你的日常精力消耗点。<br>- 🔭 Thiel: 你没有秘密。Zero2idea 收集的是公开信号。真正的机会来自你独有的积累和洞察。<br>- 📱 Levels: 别分析了，做一个出来。每周上线1-2个？太多了。先上线1个，看看有没有人用。<br>- 📱 PG: 你在解决&quot;找什么机会&quot;的问题，但你真正的问题可能是&quot;不敢开始做&quot;。你在搭建AI系统时遇到的痛点，可能就是产品。<br>- 📱 Sahil: 回到你的社区。你常混小红书，机会就在小红书上。不是去Reddit找海外机会。</p>
+<p><strong>💡 困惑：业务工作流 Agent 化的框架选择</strong><br>&gt; &quot;每项业务工作流最好是一个 Agent——目标+大模型+提示词+任务规划+业务规则，能自由对话和自更新。有没有这样的简单框架？&quot;</p>
+<p><strong>A:</strong> 两条路：<br>1. <strong>Hermes+CC（你现在在用的）</strong>：Hermes 路由协调，CC 执行，skill 写业务规则。已经是最合理的轻量方案，通讯通过 session 管理。<br>2. <strong>框架化方案（CrewAI/LangGraph/AutoGen）</strong>：更结构化的多 Agent 编排，但对个人开发者配置复杂度太高，ROI 低。</p>
+<p>核心优化点不是换框架，而是<strong>优化 skill 里的沟通规则</strong>——让 Hermes 在不同业务场景下知道怎么跟 CC 最高效地配合。<br>👉 列出目前 Hermes+CC 沟通效率不高的具体场景，针对性优化那几个 skill</p>
 <hr>
-<h3>🪞 今日反思</h3>
-<p><strong>1. 对 Codex/AI 能力过度乐观的校准</strong><br>📊 模式匹配：<strong>BP-01 反面修正</strong> — 从&quot;让AI搭一切&quot;到&quot;自己也要理解细节&quot;。这是健康的预期校准：AI是放大器不是替代品，你输入的理解越深，AI产出越好。<br>🔍 <strong>新视角：</strong> 辉哥不是在对AI失望，而是在经历从&quot;AI能做一切&quot;到&quot;AI是放大器，不是替代品&quot;的认知成熟。把 zero2idea 改成飞书管理让流程透明化，其实是&quot;把工具当工具用&quot;的正确回归。<br>✅ <strong>今天的进步：</strong> 认识到&quot;有些力气省不掉&quot;比&quot;AI能搞定一切&quot;是更成熟的认知。用飞书表替代 Codex 搭 UI 的黑盒——这是对 BP-01 的实战修正。</p>
-<p><strong>2. 内容方向焦虑：&quot;想不出来该发什么&quot;</strong><br>📊 模式匹配：<strong>EL-01 高投入低现实回报回路</strong> + <strong>BP-05 信息摄入替代创造</strong><br>🔍 <strong>新视角：</strong> 辉哥说&quot;想不出来发什么&quot;，但今天的笔记本身就是内容素材。Zero2idea的架构思考、Codex能力边界的认知、小红书卖商品的经验——这些都是真实、有经验价值的创作素材。他不是没有内容，是在用&quot;做产品&quot;的标准要求&quot;发内容&quot;。<br>✅ <strong>今天的进步：</strong> 小红书笔记已有10赞+收藏的数据验证——方向对了，继续做就行。</p>
-<p><strong>3. 任务助手不需要太复杂</strong><br>📊 模式匹配：<strong>BP-01 系统建设反面修正</strong><br>🔍 <strong>新视角：</strong> &quot;通道建立+清理干净+写复盘+定时提醒→系统就搭起来了&quot;——这是对过度设计的自我克制。能对话的 Agent &gt; 死模板。<br>✅ <strong>今天的进步：</strong> 主动简化系统设计，认识到&quot;不需要定义新的消息结构&quot;就是好的工程判断。</p>
-<p><strong>4. Founder Fit + 海外 vs 小红书矛盾</strong><br>📊 模式匹配：<strong>BP-03 商业化焦虑</strong> + <strong>T-01 商业化 vs 做自己</strong> + <strong>T-06 成长 vs 赚钱</strong><br>🔍 <strong>新视角：</strong> &quot;做娱乐和做工作本来就是不一样的&quot;——这个区分本身就很清醒。你的特定知识是 AI工作流 + 中文内容生产，这个组合很稀缺。海外开发者不懂中文市场，中文创作者不懂AI工具，<strong>你站在交叉点上</strong>。<br>✅ <strong>今天的进步：</strong> &quot;最根本的是你有什么&quot;——这个认知已经从知道变成了真正做到（把 zero2idea 改成飞书管理、把小红书当成主阵地）。</p>
+<p><strong>🚀 Idea 1：AI 辅助工作场景英语学习</strong><br>&gt; 让 AI 筛出日常消息/报错中的英文单词，主动问&quot;认识吗&quot;，教含义。把英语嵌入工作流。</p>
+<p><strong>分诊：🟡冷冻</strong> — 受众面窄（工作中遇到英文的中文开发者），实现简单但难产品化。更适合做 Hermes 内部 skill 自用。偏离当前 AI 求职主线，不排入本周队列。</p>
 <hr>
-<h3>📝 选题标记</h3>
-<p>1. <strong>AI内容制作过程分享</strong> → 已进选题池<br>   辉哥用AI制作播客/内容的全过程展示。有实战经验（Hermes + Codex + 飞书自动化），小红书已有10赞+收藏验证。<br>   👥 6人共识：全票推荐。Levels: &quot;过程就是内容&quot;、PG: &quot;你在解决自己的问题，这是最好的创作源泉&quot;。</p>
-<p>2. <strong>小红书挂商品实战经验</strong> → 已进选题池<br>   &quot;笔记本身有价值的话，对方不会反感你卖商品&quot;。已有真实数据验证（10赞+收藏）。<br>   👥 6人共识：Musk&quot;产品价值&gt;营销技巧&quot;、Sahil&quot;社区最想要的就是实战经验&quot;。</p>
+<p><strong>🚀 Idea 2：新生计划（续航大师转型）</strong><br>&gt; 把续航大师改名为&quot;新生计划&quot;，定位高敏低精力、i 人群体。去爹味化，认知科学+细分场景案例，飞书文档交付。</p>
+<p><strong>分诊：🟡冷冻</strong> — 定位比原来更聚焦。&quot;30 元×2000 份&quot;有真实案例证明市场存在。但当前主线是 AI 求职虚拟产品，目标人群偏移。等辉哥确认续航大师与 FindJob 的关系后再推进。</p>
 <hr>
-<h3>🔧 任务分发</h3>
-<p>1. <strong>Zero2idea 架构改进</strong> → 辉哥拍板<br>   辉哥已画完整 mermaid 流程图（6个Agent pipeline）。⚠️ <strong>风险提示：</strong> pipeline 6个Agent + 多张飞书表，执行成本极高。建议先跑通最短路径（信号采集→飞书表→拍板→PRD→构建），验证有效后再逐步增加环节。BP-01 + T-03 模式提醒：pipeline越完整，越容易变成系统建设替代真实产出。</p>
+<p><strong>🚀 Idea 3：飞书链接商品模式（合并入新生计划）</strong><br>&gt; 成长类商品：飞书链接+微信二维码，定价 30 卖了 2000 份=6 万。内容一般但有市场。</p>
+<p><strong>处理：合并入新生计划作为交付模式参考。</strong> 关键数据：30 元低客单×2000 份高销量，飞书文档交付+微信咨询追加销售。可借鉴：场景选择、商品说明页写法、订单号+权限审批模式。</p>
+<hr>
+<p><strong>🔧 任务 1：macmini 上 Hermes 无法调 codex</strong><br>技术瓶颈，需排查。可能跟 macOS 升级后路径/权限有关。需辉哥提供具体错误信息。</p>
+<p><strong>🔧 任务 2：zero2idea 飞书文档系统 7 项改进</strong><br>无编辑权限→信号池缺解释→agent 配置为空→缺 founder 偏好→表格 key 太长→时间字段语义不清→评审池看不到原始信号和证据链。辉哥已标注部分&quot;暂时不需要动&quot;。</p>
+<hr>
+<p><strong>🪞 反思：不确定时代的焦虑与赚钱能力拆解</strong><br>&gt; &quot;增强确定且重要的知识和技能能缓解焦虑吗？赚钱能力怎么拆解？&quot;</p>
+<p><strong>新视角：</strong> 辉哥已经在持续做这件事（AI 工具链、认知系统建设、内容生产），焦虑来源不是&quot;不知道该做什么&quot;，而是<strong>做的速度跟不上想要的确定性</strong>。赚钱能力的线索已在浮出：不是学新技能，而是<strong>把已有能力产品化</strong>。今天的三个 Idea（英语学习 skill、新生计划、飞书商品模式）都在围绕这个方向转。</p>
 <hr>
 <h3>📋 行动项</h3>
-<p>- [ ] 暂停 Zero2idea 新信号采集，精力聚焦 AI求职虚拟产品<br>- [ ] 72小时内做一个最小外部动作（发布/询问/上架/调研）<br>- [ ] 小红书选题：AI内容制作过程分享 + 挂商品实战经验，择一发布</p>
-<hr>
+1. 排查 macmini codex 问题（需辉哥提供错误信息）
+2. zero2idea 飞书文档编辑权限需先解决，否则 7 项改进无法推进
 <h3>💡 洞察</h3>
-<p><strong>核心认知突破：</strong> 今天的笔记有一条暗线——辉哥在经历一轮&quot;AI能力预期校准&quot;。从&quot;有了Codex就不用折腾飞书&quot;到&quot;有些力气省不掉&quot;，从&quot;广撒网收集信号&quot;到&quot;最根本的是你有什么&quot;。这不是对AI失望，是从工具崇拜走向工具成熟。<strong>当你不再期望工具替代你，你才开始真正用好工具。</strong></p>
-<hr>
-<h3>🧊 翻石头</h3>
-<p>今天翻看了 5 条旧想法（静默维护，存档已更新）：<br>- `1913057754170888080` findjob小红书数据复盘（📝选题 pending）→ 已标记 content_matrix_flag<br>- `1913161284355502992` 好学生困境（📝选题 done）→ 选题质量高，可考虑深化<br>- `1913222237457645912` 社区信号日报提炼（📝选题 pending）→ 补全 content_matrix_flag<br>- `1913079151695545552` 小红书执行+工具站反思（🪞反思 answered）→ 与今日反思高度呼应<br>- `1913054633875802192` 专注度深度反思（🪞反思 answered）→ 与&quot;一次只开一个项目&quot;认知一致</p>
-<hr>
-<p>📦 <strong>17条存档笔记</strong>：得到引用10条（万维钢现代思维工具100讲：非预期后果、卢卡斯批判、切斯特顿篱笆、司马光困境、平台四层规则、快慢变量等）+ 社区信号整理 + 屠龙创业方法论学习笔记 + 今早操作记录 + 代理折腾 + zero2idea飞书版本/Hermes看板完成记录。</p>
-<hr>
-<p>*渲染部署：✅ daily-digest 已渲染，git push 进行中*</p></div>
+今天笔记集群的主题是<strong>&quot;把已有积累产品化&quot;</strong>。短期目标也在说&quot;完成虚拟产品第一版&quot;。方向已经收敛，关键是选一个场景先跑通闭环。
+<h3>🏷️ 清单候选</h3>
+<p><strong>🍰 甜点清单候选：</strong><br>- 今天笔记中无新的甜点候选</p>
+<p><strong>💭 思考清单候选（悬而未定的想法/方向）：</strong><br>1. <strong>续航大师→新生计划转型</strong>：去爹味化后首个产品形态选哪个场景？（思考清单 #8&quot;FindJob 卖什么商品&quot;的延伸）<br>2. <strong>业务工作流 Agent 化路径</strong>：Hermes+CC 够用还是需要更结构化的方案？<br>3. <strong>飞书商品模式复制验证</strong>：30 元×2000 份的模式，自己的知识库能拆出几个 SKU？</p></div>
 </div>
 <div class="card">
   <div class="card-bar graveyard"></div>
