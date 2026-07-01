@@ -91,16 +91,17 @@ def collect_community_items():
 
         content = brief_file.read_text(encoding='utf-8', errors='replace')
 
-        # 提取 "### 精华解读" 下的条目
-        精华_section = re.search(r'### 精华解读\s*\n(.*?)(?=\n##|\n###|\Z)', content, re.DOTALL)
-        if not 精华_section:
+        # 提取 "## 🌐 社区信号" section
+        community_section = re.search(r'## 🌐 社区信号\s*\n(.*?)(?=\n##|\Z)', content, re.DOTALL)
+        if not community_section:
             continue
 
-        精华_content = 精华_section.group(1)
+        community_content = community_section.group(1)
 
-        # 提取每条精华（格式：- **标题**（作者）：描述）
-        pattern = r'- \*\*([^*]+)\*\*[^:]*:([^-]+)(?=\n-|$)'
-        matches = re.findall(pattern, 精华_content, re.DOTALL)
+        # 提取所有信号行（格式：**XXX**：...）
+        # 匹配 **精华**：... 或 **腾讯**：... 等
+        pattern = r'\*\*([^*]+)\*\*：(.+)'
+        matches = re.findall(pattern, community_content, re.MULTILINE)
 
         for title, desc in matches:
             title = title.strip()

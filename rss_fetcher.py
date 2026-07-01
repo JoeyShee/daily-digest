@@ -109,6 +109,20 @@ def fetch_feed(feed_url, feed_name):
 
             link = entry.get('link', '')
 
+            # 回退：从 id 字段提取 permalink
+            if not link:
+                entry_id = entry.get('id', '')
+                # castos permalink: https://permalink.castos.com/podcast/{podcast_id}/episode/{episode_id}
+                # 可以直接用 entry_id 作为 link（虽然不是原始站点，但至少能访问到内容）
+                if entry_id and entry_id.startswith('http'):
+                    link = entry_id
+                else:
+                    # 从 links 列表里找 text/html 或 alternate
+                    for l in entry.get('links', []):
+                        if l.get('type') == 'text/html' or l.get('rel') == 'alternate':
+                            link = l.get('href', '')
+                            break
+
             entries.append({
                 "title": title,
                 "summary": summary,
