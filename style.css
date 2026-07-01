@@ -703,9 +703,172 @@ a:hover { text-decoration: underline; }
   .channel-card { padding: 24px 28px; }
 }
 
+/* ---------- Browse 频道专用样式（暗色主题） ---------- */
+
+/* Browse 容器 */
+.browse-container {
+  background: #1a1a1a;
+  min-height: 100vh;
+  padding: 20px 0 40px;
+}
+
+/* Browse 网格布局 */
+.browse-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 0;
+}
+
+/* Browse 单个卡片 */
+.browse-item {
+  background: #2a2a2a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 4px solid transparent;
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.browse-item:hover {
+  background: #333333;
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateX(2px);
+  text-decoration: none;
+}
+
+/* 根据来源设置左边框颜色 */
+.browse-item[data-source="idea"] { border-left-color: #4a9eff; }
+.browse-item[data-source="case"] { border-left-color: #f0b429; }
+.browse-item[data-source="community"] { border-left-color: #4ecdc4; }
+.browse-item[data-source="rss"] { border-left-color: #8b95a5; }
+
+/* Browse 卡片头部 */
+.browse-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+/* 来源标签 */
+.browse-source-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.browse-source-tag.idea { background: rgba(74, 158, 255, 0.15); color: #4a9eff; }
+.browse-source-tag.case { background: rgba(240, 180, 41, 0.15); color: #f0b429; }
+.browse-source-tag.community { background: rgba(78, 205, 196, 0.15); color: #4ecdc4; }
+.browse-source-tag.rss { background: rgba(139, 149, 165, 0.15); color: #8b95a5; }
+
+/* 日期 */
+.browse-date {
+  font-size: 0.75rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* 标题 */
+.browse-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.5;
+  margin-bottom: 6px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* 摘要 */
+.browse-summary {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  line-height: 1.6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+
+/* 分页容器 */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px 0 16px;
+  margin-top: 20px;
+}
+
+/* 分页链接 */
+.pagination-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 14px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #ffffff;
+  background: #2a2a2a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+  transition: all 0.15s ease;
+  text-decoration: none;
+}
+
+.pagination-link:hover {
+  background: #333333;
+  border-color: rgba(255, 255, 255, 0.2);
+  text-decoration: none;
+}
+
+.pagination-link.active {
+  background: #4a9eff;
+  border-color: #4a9eff;
+  color: #ffffff;
+}
+
+.pagination-link:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Browse 频道暗色主题适配 */
+@media (min-width: 768px) {
+  .browse-container { padding: 40px 0 60px; }
+  .browse-grid { gap: 14px; }
+  .browse-item { padding: 20px 24px; }
+}
+
+@media (max-width: 640px) {
+  .browse-container { padding: 16px 0 32px; }
+  .browse-item { padding: 14px 16px; }
+  .browse-title { font-size: 0.95rem; }
+  .browse-summary { font-size: 0.85rem; }
+  .pagination { gap: 6px; }
+  .pagination-link { min-width: 36px; height: 36px; font-size: 0.85rem; padding: 0 10px; }
+}
+
 /* ---------- 打印 ---------- */
 @media print {
   .top-nav, .day-nav, .tab-nav { display: none; }
   .card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
   .card.collapsed .card-body { display: block !important; }
+  .browse-container { background: #ffffff; }
+  .browse-item { background: #ffffff; color: #000000; border: 1px solid #ddd; }
+  .browse-title { color: #000000; }
+  .browse-summary { color: #666666; }
 }

@@ -21,6 +21,8 @@ ENTROPY_DIR = BASE_DIR / "entropy"
 GRAVEYARD_DIR = BASE_DIR / "graveyard"
 ZERO2IDEA_DIR = BASE_DIR / "zero2idea"
 TENX_DIR = BASE_DIR / "10x"
+BROWSE_DIR = BASE_DIR / "browse"
+BROWSE_DATA_DIR = HERMES_DIR / "data" / "browse" / "items.json"
 
 # ============================================================
 # 数据加载
@@ -616,12 +618,13 @@ def _find_prev_next(date_str, available_dates):
     return prev_d, next_d
 
 def _tab_nav_html(section, base_path=".."):
-    """生成 3 频道 tab 导航 HTML"""
+    """生成 5 频道 tab 导航 HTML"""
     tabs = [
         ("entropy", f"{base_path}/entropy/", "🧠 熵减计划"),
         ("graveyard", f"{base_path}/index.html", "🪦 想法墓地"),
         ("zero2idea", f"{base_path}/zero2idea/", "🔭 Zero2Idea"),
         ("10x", f"{base_path}/10x/", "🎯 10x投机"),
+        ("browse", f"{base_path}/browse/", "📖 随便逛逛"),
     ]
     items = []
     for key, href, label in tabs:
@@ -732,6 +735,10 @@ def render_index(dates_entropy, dates_graveyard, dates_zero2idea, dates_10x=None
         if latest_file.exists():
             (TENX_DIR / "index.html").write_text(latest_file.read_text())
 
+    # browse 频道 index
+    BROWSE_DIR.mkdir(parents=True, exist_ok=True)
+    render_browse_index()
+
 # ============================================================
 # 收集卡片
 # ============================================================
@@ -808,6 +815,106 @@ def get_available_dates():
             if v: graveyard_dates.add(v[:10])
     return entropy_dates, graveyard_dates
 
+def collect_browse_items():
+    """读取 browse items.json，返回列表"""
+    items = load_json(BROWSE_DATA_DIR)
+    if not items:
+        return []
+    return items
+
+def render_browse_index(page=1, per_page=20):
+    """渲染 browse 频道页面"""
+    items = collect_browse_items()
+    if not items:
+        print("⚠️ browse items.json 为空或不存在")
+        return
+
+    # 分页
+    total = len(items)
+    total_pages = (total + per_page - 1) // per_page
+
+    # 确保页码有效
+    if page < 1 or page > total_pages:
+        page = 1
+
+    # 获取当前页的条目
+    start_idx = (page - 1) * per_page
+    end_idx = start_idx + per_page
+    page_items = items[start_idx:end_idx]
+
+    # 生成卡片 HTML
+    cards_html = []
+    for item in page_items:
+        title = item.get("hook_title") or item.get("original_title", "")
+        source = item.get("source", "")
+        date = item.get("date", "")
+        link = item.get("link", "")
+        summary = item.get("summary", "")
+
+        # 如果有链接，整条可点击
+        if link:
+            card_start = f'<a href="{link}" class="browse-item">'
+            card_end = '</a>'
+        else:
+            card_start = '<div class="browse-item">'
+            card_end = '</div>'
+
+        card_html = f'''{card_start}
+  <div class="browse-item-header">
+    <span class="browse-source-tag">{esc(source)}</span>
+    <span class="browse-date">{esc(date)}</span>
+  </div>
+  <div class="browse-title">{esc(title)}</div>
+  {f'<div class="browse-summary">{esc(summary[:100])}</div>' if summary else ''}
+{card_end}'''
+
+        cards_html.append(card_html)
+
+    # 生成分页导航
+    pagination_html = '<div class="pagination">'
+
+    if page > 1:
+        prev_page = page - 1
+        if prev_page == 1:
+            prev_link = "index.html"
+        else:
+            prev_link = f"page-{prev_page}.html"
+        pagination_html += f'<a href="{prev_link}" class="pagination-link">← 上一页</a>'
+
+    pagination_html += f'<span class="pagination-info">第 {page} 页 / 共 {total_pages} 页</span>'
+
+    if page < total_pages:
+        next_page = page + 1
+        pagination_html += f'<a href="page-{next_page}.html" class="pagination-link">下一页 →</a>'
+
+    pagination_html += '</div>'
+
+    # 生成页面 HTML
+    all_cards = '\n'.join(cards_html)
+
+    template = load_template("day.html")
+    html = template
+    html = html.replace("{{DATE}}", f"第 {page} 页")
+    html = html.replace("{{SECTION_TITLE}}", "随便逛逛")
+    html = html.replace("{{CSS_PATH}}", "../style.css")
+    html = html.replace("{{INDEX_PATH}}", "../index.html")
+    html = html.replace("{{TAB_NAV}}", _tab_nav_html("browse", ".."))
+    html = html.replace("{{PREV_DAY}}", "")  # browse 不用日期导航
+    html = html.replace("{{NEXT_DAY}}", "")
+    html = html.replace("{{CARDS}}", f'<div class="browse-grid">{all_cards}</div>{pagination_html}')
+    html = html.replace(".html.html", ".html")
+
+    # 输出文件
+    BROWSE_DIR.mkdir(parents=True, exist_ok=True)
+    if page == 1:
+        output_file = BROWSE_DIR / "index.html"
+    else:
+        output_file = BROWSE_DIR / f"page-{page}.html"
+
+    output_file.write_text(html)
+
+    print(f"✅ 渲染 browse: {output_file.name} ({len(page_items)} 条)")
+
 # ============================================================
 # 主逻辑
 # ============================================================
@@ -848,6 +955,7 @@ def main():
         t_dates = get_10x_dates()
         render_date(d, e_dates, g_dates, z_dates, t_dates)
         render_index(e_dates, g_dates, z_dates, t_dates)
+        render_browse_index()  # 渲染 browse 频道
         print(f"✅ 渲染完成: {d}")
 
     elif "--date" in args:
@@ -858,6 +966,7 @@ def main():
         t_dates = get_10x_dates()
         render_date(d, e_dates, g_dates, z_dates, t_dates)
         render_index(e_dates, g_dates, z_dates, t_dates)
+        render_browse_index()  # 渲染 browse 频道
         print(f"✅ 渲染完成: {d}")
 
     elif "--all" in args:
@@ -868,6 +977,7 @@ def main():
         for d in sorted(all_dates):
             render_date(d, e_dates, g_dates, z_dates, t_dates)
         render_index(e_dates, g_dates, z_dates, t_dates)
+        render_browse_index()  # 渲染 browse 频道
         print(f"✅ 渲染完成: 熵减 {len(e_dates)} 天, 墓地 {len(g_dates)} 天, Zero2Idea {len(z_dates)} 天, 10x {len(t_dates)} 天")
 
 if __name__ == "__main__":
