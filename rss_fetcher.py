@@ -105,7 +105,7 @@ def fetch_feed(feed_url, feed_name):
 
             # 清洗摘要
             summary = strip_html(summary)
-            summary = truncate_text(summary, 500)
+            summary = truncate_text(summary, 1500)
 
             link = entry.get('link', '')
 
