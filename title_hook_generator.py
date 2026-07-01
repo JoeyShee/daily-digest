@@ -7,6 +7,7 @@
 import json
 import os
 import re
+import time
 from pathlib import Path
 
 # API 配置
@@ -113,6 +114,9 @@ def generate_hook_title(original_title, summary):
         result = re.sub(r'^[：:]\s*', '', result)  # 去掉开头的冒号
         result = result[:30]  # 截断到30字
 
+        # 避免频繁请求
+        time.sleep(2)
+
         return result if result else ""
 
     except Exception as e:
@@ -147,6 +151,9 @@ def process_batch(items, batch_size=10):
             print(f"  → {hook}")
         else:
             print(f"  ✗ 生成失败")
+
+        # 避免频繁请求
+        time.sleep(1)
 
         # 回写 items.json
         save_items(items)

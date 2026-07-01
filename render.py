@@ -737,6 +737,7 @@ def render_index(dates_entropy, dates_graveyard, dates_zero2idea, dates_10x=None
 
     # browse 频道 index
     BROWSE_DIR.mkdir(parents=True, exist_ok=True)
+    render_browse_details()
     render_browse_index()
 
 # ============================================================
@@ -822,7 +823,65 @@ def collect_browse_items():
         return []
     return items
 
-def render_browse_index(page=1, per_page=20):
+def render_browse_details():
+    """为没有外部链接的条目生成本地详情页"""
+    items = collect_browse_items()
+    if not items:
+        return
+
+    BROWSE_DIR.mkdir(parents=True, exist_ok=True)
+    template = load_template("day.html")
+
+    detail_count = 0
+    for idx, item in enumerate(items):
+        if item.get("link", "").strip():
+            continue  # 有外部链接，跳过
+
+        title = item.get("hook_title") or item.get("original_title", "")
+        source = item.get("source", "")
+        date = item.get("date", "")
+        summary = item.get("summary", "")
+        detail_id = idx
+
+        # 渲染完整摘要
+        full_summary = summary if len(summary) <= 2000 else summary[:2000] + "..."
+
+        html = template
+        html = html.replace("{{DATE}}", date)
+        html = html.replace("{{SECTION_TITLE}}", source)
+        html = html.replace("{{CSS_PATH}}", "../style.css")
+        html = html.replace("{{INDEX_PATH}}", "../index.html")
+        html = html.replace("{{TAB_NAV}}", _tab_nav_html("browse", ".."))
+        html = html.replace("{{PREV_DAY}}", "")
+        html = html.replace("{{NEXT_DAY}}", "")
+
+        card_html = f'''<div class="browse-detail">
+  <div class="browse-item-header">
+    <span class="browse-source-tag">{esc(source)}</span>
+    <span class="browse-date">{esc(date)}</span>
+  </div>
+  <div class="browse-detail-title">{esc(title)}</div>
+  <div class="browse-detail-content">{esc(full_summary)}</div>
+</div>'''
+
+        html = html.replace("{{CARDS}}", card_html)
+        html = html.replace(".html.html", ".html")
+
+        detail_file = BROWSE_DIR / f"detail-{detail_id}.html"
+        detail_file.write_text(html)
+
+        # 回写 link 到 items（这样列表页能链接到详情页）
+        item["link"] = f"detail-{detail_id}.html"
+        detail_count += 1
+
+    # 保存更新后的 items.json
+    items_file = Path.home() / ".hermes" / "data" / "browse" / "items.json"
+    with open(items_file, 'w', encoding='utf-8') as f:
+        json.dump(items, f, ensure_ascii=False, indent=2)
+
+    print(f"✅ 渲染 {detail_count} 个详情页")
+
+def render_browse_index(per_page=20):
     """渲染 browse 频道页面"""
     items = collect_browse_items()
     if not items:
@@ -833,33 +892,31 @@ def render_browse_index(page=1, per_page=20):
     total = len(items)
     total_pages = (total + per_page - 1) // per_page
 
-    # 确保页码有效
-    if page < 1 or page > total_pages:
-        page = 1
+    # 生成所有分页
+    for page in range(1, total_pages + 1):
+        # 获取当前页的条目
+        start_idx = (page - 1) * per_page
+        end_idx = start_idx + per_page
+        page_items = items[start_idx:end_idx]
 
-    # 获取当前页的条目
-    start_idx = (page - 1) * per_page
-    end_idx = start_idx + per_page
-    page_items = items[start_idx:end_idx]
+        # 生成卡片 HTML
+        cards_html = []
+        for item in page_items:
+            title = item.get("hook_title") or item.get("original_title", "")
+            source = item.get("source", "")
+            date = item.get("date", "")
+            link = item.get("link", "")
+            summary = item.get("summary", "")
 
-    # 生成卡片 HTML
-    cards_html = []
-    for item in page_items:
-        title = item.get("hook_title") or item.get("original_title", "")
-        source = item.get("source", "")
-        date = item.get("date", "")
-        link = item.get("link", "")
-        summary = item.get("summary", "")
+            # 如果有链接，整条可点击
+            if link:
+                card_start = f'<a href="{link}" class="browse-item">'
+                card_end = '</a>'
+            else:
+                card_start = '<div class="browse-item">'
+                card_end = '</div>'
 
-        # 如果有链接，整条可点击
-        if link:
-            card_start = f'<a href="{link}" class="browse-item">'
-            card_end = '</a>'
-        else:
-            card_start = '<div class="browse-item">'
-            card_end = '</div>'
-
-        card_html = f'''{card_start}
+            card_html = f'''{card_start}
   <div class="browse-item-header">
     <span class="browse-source-tag">{esc(source)}</span>
     <span class="browse-date">{esc(date)}</span>
@@ -868,52 +925,52 @@ def render_browse_index(page=1, per_page=20):
   {f'<div class="browse-summary">{esc(summary[:100])}</div>' if summary else ''}
 {card_end}'''
 
-        cards_html.append(card_html)
+            cards_html.append(card_html)
 
-    # 生成分页导航
-    pagination_html = '<div class="pagination">'
+        # 生成分页导航
+        pagination_html = '<div class="pagination">'
 
-    if page > 1:
-        prev_page = page - 1
-        if prev_page == 1:
-            prev_link = "index.html"
+        if page > 1:
+            prev_page = page - 1
+            if prev_page == 1:
+                prev_link = "index.html"
+            else:
+                prev_link = f"page-{prev_page}.html"
+            pagination_html += f'<a href="{prev_link}" class="pagination-link">← 上一页</a>'
+
+        pagination_html += f'<span class="pagination-info">第 {page} 页 / 共 {total_pages} 页</span>'
+
+        if page < total_pages:
+            next_page = page + 1
+            pagination_html += f'<a href="page-{next_page}.html" class="pagination-link">下一页 →</a>'
+
+        pagination_html += '</div>'
+
+        # 生成页面 HTML
+        all_cards = '\n'.join(cards_html)
+
+        template = load_template("day.html")
+        html = template
+        html = html.replace("{{DATE}}", f"第 {page} 页")
+        html = html.replace("{{SECTION_TITLE}}", "随便逛逛")
+        html = html.replace("{{CSS_PATH}}", "../style.css")
+        html = html.replace("{{INDEX_PATH}}", "../index.html")
+        html = html.replace("{{TAB_NAV}}", _tab_nav_html("browse", ".."))
+        html = html.replace("{{PREV_DAY}}", "")  # browse 不用日期导航
+        html = html.replace("{{NEXT_DAY}}", "")
+        html = html.replace("{{CARDS}}", f'<div class="browse-grid">{all_cards}</div>{pagination_html}')
+        html = html.replace(".html.html", ".html")
+
+        # 输出文件
+        BROWSE_DIR.mkdir(parents=True, exist_ok=True)
+        if page == 1:
+            output_file = BROWSE_DIR / "index.html"
         else:
-            prev_link = f"page-{prev_page}.html"
-        pagination_html += f'<a href="{prev_link}" class="pagination-link">← 上一页</a>'
+            output_file = BROWSE_DIR / f"page-{page}.html"
 
-    pagination_html += f'<span class="pagination-info">第 {page} 页 / 共 {total_pages} 页</span>'
+        output_file.write_text(html)
 
-    if page < total_pages:
-        next_page = page + 1
-        pagination_html += f'<a href="page-{next_page}.html" class="pagination-link">下一页 →</a>'
-
-    pagination_html += '</div>'
-
-    # 生成页面 HTML
-    all_cards = '\n'.join(cards_html)
-
-    template = load_template("day.html")
-    html = template
-    html = html.replace("{{DATE}}", f"第 {page} 页")
-    html = html.replace("{{SECTION_TITLE}}", "随便逛逛")
-    html = html.replace("{{CSS_PATH}}", "../style.css")
-    html = html.replace("{{INDEX_PATH}}", "../index.html")
-    html = html.replace("{{TAB_NAV}}", _tab_nav_html("browse", ".."))
-    html = html.replace("{{PREV_DAY}}", "")  # browse 不用日期导航
-    html = html.replace("{{NEXT_DAY}}", "")
-    html = html.replace("{{CARDS}}", f'<div class="browse-grid">{all_cards}</div>{pagination_html}')
-    html = html.replace(".html.html", ".html")
-
-    # 输出文件
-    BROWSE_DIR.mkdir(parents=True, exist_ok=True)
-    if page == 1:
-        output_file = BROWSE_DIR / "index.html"
-    else:
-        output_file = BROWSE_DIR / f"page-{page}.html"
-
-    output_file.write_text(html)
-
-    print(f"✅ 渲染 browse: {output_file.name} ({len(page_items)} 条)")
+        print(f"✅ 渲染 browse: {output_file.name} ({len(page_items)} 条)")
 
 # ============================================================
 # 主逻辑

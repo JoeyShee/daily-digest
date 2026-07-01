@@ -211,6 +211,20 @@ def main():
     # 按 date 倒序排列
     all_items.sort(key=lambda x: x.get("date", ""), reverse=True)
 
+    # 按 original_title 去重，保留最新的（date 最大的）
+    seen_titles = {}
+    deduped_items = []
+    for item in all_items:
+        title = item.get("original_title", "")
+        if title in seen_titles:
+            # 保留 date 更新的
+            existing_date = seen_titles[title].get("date", "")
+            if item.get("date", "") > existing_date:
+                seen_titles[title] = item
+        else:
+            seen_titles[title] = item
+    all_items = list(seen_titles.values())
+
     # 映射 source 标签
     for item in all_items:
         item["source"] = map_source_tags(item["source"])

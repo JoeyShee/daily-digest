@@ -75,8 +75,6 @@ def fetch_feed(feed_url, feed_name):
         feed = feedparser.parse(feed_url)
         entries = []
 
-        sixty_days_ago = datetime.now() - timedelta(days=60)
-
         for entry in feed.entries:
             # 解析日期
             pub_date = None
@@ -90,9 +88,6 @@ def fetch_feed(feed_url, feed_name):
                     pub_date = datetime(*entry.updated_parsed[:6])
                 except:
                     pub_date = None
-
-            if pub_date and pub_date < sixty_days_ago:
-                continue
 
             date_str = parse_date(pub_date)
 
@@ -121,6 +116,10 @@ def fetch_feed(feed_url, feed_name):
                 "date": date_str,
                 "source": feed_name
             })
+
+        # 按发布日期倒序排序，只取最新 20 条
+        entries.sort(key=lambda x: x.get("date", ""), reverse=True)
+        entries = entries[:20]
 
         print(f"  → 抓取到 {len(entries)} 条")
         return entries
