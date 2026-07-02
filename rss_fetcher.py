@@ -15,6 +15,7 @@ FEEDS = [
     {"url": "https://blog.fsck.com/feed/rss.xml", "name": "Jesse Vincent"},
     {"url": "https://www.startupsfortherestofus.com/feed", "name": "Rob Walling"},
     {"url": "https://patwalls.com/feed", "name": "Pat Walls"},
+    {"url": "https://www.producthunt.com/feed", "name": "Product Hunt"},
 ]
 
 def strip_html(html):
