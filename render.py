@@ -1012,7 +1012,6 @@ def main():
         t_dates = get_10x_dates()
         render_date(d, e_dates, g_dates, z_dates, t_dates)
         render_index(e_dates, g_dates, z_dates, t_dates)
-        render_browse_index()  # 渲染 browse 频道
         print(f"✅ 渲染完成: {d}")
 
     elif "--date" in args:
@@ -1023,7 +1022,6 @@ def main():
         t_dates = get_10x_dates()
         render_date(d, e_dates, g_dates, z_dates, t_dates)
         render_index(e_dates, g_dates, z_dates, t_dates)
-        render_browse_index()  # 渲染 browse 频道
         print(f"✅ 渲染完成: {d}")
 
     elif "--all" in args:
@@ -1034,7 +1032,6 @@ def main():
         for d in sorted(all_dates):
             render_date(d, e_dates, g_dates, z_dates, t_dates)
         render_index(e_dates, g_dates, z_dates, t_dates)
-        render_browse_index()  # 渲染 browse 频道
         print(f"✅ 渲染完成: 熵减 {len(e_dates)} 天, 墓地 {len(g_dates)} 天, Zero2Idea {len(z_dates)} 天, 10x {len(t_dates)} 天")
 
 if __name__ == "__main__":
