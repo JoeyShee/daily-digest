@@ -25,6 +25,30 @@
     <a href="index.html" class="nav-btn">后一天 →</a>
   </div>
   <div class="card">
+  <div class="card-bar graveyard"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">🪦 想法墓地日报</div><h2>想法墓地日报</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"><p>全部处理完成。以下是今日日报。</p>
+<hr>
+<p>💡 想法墓地日报（2026-07-05）</p>
+<p>━━━ 📝 选题标记 ━━━</p>
+<p><strong>1. Hermes × Claude Code 多agent协作架构</strong><br>→ 已进选题池</p>
+<p>选题角度：辉哥日常用 Hermes（调度/认知/决策层）+ Claude Code（编码执行层）的真实协作经验，整理成 builder 内容。调研补了外部弹药——2026 年生产环境主流是 orchestrator-worker 模式（不是 swarm），多 agent 在并行任务上优于单 agent，但顺序推理反而降低 39-70% 性能。多数团队在单 agent 触顶前就过度工程化。Reflection loop 是自改进核心，但 intrinsic 自我批判会失败，grounded reflection 才有效。</p>
+<p>👥 视角摘要：<br>🔭 Musk: 过度协调是税，多 agent 只在任务复杂度超单 agent 时必要<br>🔭 Naval: orchestrator 就是代码杠杆层<br>🔭 Thiel: 你发现了一个别人没看到的协作秘密，值得写<br>📱 Levels: 真实搭建经验&gt;理论帖，直接发<br>📱 PG: 解决自己的问题、Taste 够用，最佳内容来源<br>📱 Sahil: builder 社区最爱真实实现故事</p>
+<p><strong>2. Hermes 每周自检任务的设计与使用</strong><br>→ 已进选题池</p>
+<p>选题角度：self-optimization-weekly 的设计思路和使用方法。调研补了理论锚点——Hermes 的自检系统恰好是 grounded reflection 实践（cron 触发 + 实际对话/memory 做证据 + 结构化输出），区别于会失败的 intrinsic 自我批判。</p>
+<p>👥 视角摘要：<br>🔭 Musk: 自检必须极致精简，删掉不产生信号的项<br>🔭 Naval: 自动化反思=判断力复利，不转化行动只是焦虑<br>🔭 Thiel: 每周自检是大多数人没有的秘密武器<br>📱 Levels: 展示真实 prompt/失败/修复，透明&gt;理论<br>📱 PG: 写设计过程本身就是思考<br>📱 Sahil: Build in public 的过程内容</p>
+<p>━━━ 🧊 翻石头 ━━━</p>
+<p>今日翻看了 5 条 v1 旧类「创业」笔记，迁移到 v2 分类体系：</p>
+<p>1. 「20000个俯卧撑」内容反思 → 🪞反思（内容创作哲学，非创业想法）<br>2. 「AI 搭建 IP 分析工具」→ 🚀Idea 🔴冷冻（概念模糊未推进）<br>3. 「六个朋友社交应用」→ 🚀Idea 🔴冷冻（未验证需求）<br>4. 「语音群聊角色扮演」→ 🚀Idea 🔴冷冻（偏离 AI 主线）<br>5. 「垂直微信公众号变现」→ 🚀Idea 🔴冷冻（方向宽泛未具体化）</p>
+<p>v1 旧类剩余 77 条，后续翻石头继续迁移。</p>
+<p>━━━ 📊 本轮统计 ━━━</p>
+<p>- 原始笔记：20 条（去重 -2，噪音 -7，非今日 -9）<br>- 待处理：2 条，全部处理完毕 ✅<br>- 新增 stones：2 条（均为📝选题）<br>- v1 迁移：5 条<br>- 存量总量：359 条<br>- persona 缺失：0 条 ✅<br>- GitHub Pages：已部署 ✅</p>
+<p>本轮处理 2/2 条，无积压。</p></div>
+</div>
+<div class="card">
   <div class="card-bar reflection"></div>
   <div class="card-header" onclick="toggleCard(this)">
     <div><div class="card-type">📝 选题</div><h2>Builder选题：Hermes如何与Claude Code协作——任务拆解agent+执行agent的多agent架构实践。辉哥在实际使用中积累了Hermes（调度/认知/决策层）与Claude Code（编码执行层）的协作经验，想系统整</h2></div>
