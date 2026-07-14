@@ -30,24 +30,25 @@
     <div><div class="card-type">🪦 想法墓地日报</div><h2>想法墓地日报</h2></div>
     <div class="toggle-icon">▼</div>
   </div>
-  <div class="card-body"><p>全部完成。让我整理日报输出。</p>
+  <div class="card-body"><p>全部完成。数据写入、salvage_log、persona补全、Daily Digest 部署都成功了。现在输出日报。</p>
+<hr>
 <p>💡 想法墓地日报（2026-07-13）</p>
-<p>━━━ 💡 今日困惑解答（7条，主题：Hermes 工作原理深挖）━━━</p>
-<p>今天的 7 条困惑全部来自同一源笔记——辉哥想深入理解 Hermes 的底层机制。这不是发散的好奇，而是一个系统搭建者对核心工具的底层认知补全。以下逐条解答，基于 Hermes 官方文档（hermes-agent.nousresearch.com）。</p>
-<p><strong>Q1: session 的所有对话内容是否都保存？存储结构是什么？怎么查找？</strong><br>A: 是的，全部保存。使用 SQLite（~/.hermes/state.db，WAL 模式），核心是 sessions 表（元数据+token计数+费用）和 messages 表（完整消息历史）。查询通过 FTS5 全文搜索（含 trigram 分词支持中文），可按关键词、短语、来源平台过滤。代价主要是磁盘空间，几个月重度使用约几百 MB，不是瓶颈。<br>👉 运行 `hermes sessions search '关键词'` 搜索历史对话，感受 FTS5 的速度。<br>👥 🔭 Musk: SQLite+WAL 是合理选择 | 🔭 Naval: 知道数据怎么存怎么查是做决策的基础 | 🔭 Thiel: FTS5 搜索让你所有历史对话变成可检索知识库 | 📱 Levels: 别纠结存储细节，关注能做什么 | 📱 PG: 好奇心驱动的好问题 | 📱 Sahil: prune_sessions 是成本控制阀</p>
-<p><strong>Q2: memory 的自动清理原则是什么？</strong><br>A: Hermes memory 不自动清理。两个文件（MEMORY.md 2200字符、USER.md 1375字符）由 agent 主动管理（add/replace/remove）。超限时工具返回错误，agent 自己腾空间。Memory 在 session 开始时冻结注入 system prompt，中途修改下个 session 生效——这是为保护 prefix cache。<br>👉 `hermes memory` 查看当前 memory 内容和使用率。<br>👥 🔭 Musk: frozen snapshot 设计保护 cache，正确 | 🔭 Naval: 有界 memory 迫使你只留真正重要的 | 🔭 Thiel: agent 完全控制权比 AI 自动清理更可信 | 📱 Levels: 2200 字符够用 | 📱 PG: 让 agent 自管 memory 像有自主性的助手 | 📱 Sahil: 简单设计，最小可行方案</p>
-<p><strong>Q3: 自我进化体现是什么？</strong><br>A: 三个机制：1）Skills 系统（程序性记忆，任务后自动创建/改进）；2）Memory 持久化（跨 session，nudge 提醒保存）；3）FTS5 跨 session 搜索+LLM 摘要。表现：Hermes 越用越了解你的项目、偏好、工具链，出错后写进 skill/memory 避免重犯。<br>👉 用 `hermes skills list` 观察 skill 数量增长——这就是进化证据。<br>👥 🔭 Musk: Skills=程序性记忆是核心创新 | 🔭 Naval: 无需许可的杠杆，越用越强 | 🔭 Thiel: closed learning loop 是差异化 | 📱 Levels: 自动记住怎么做最实用 | 📱 PG: 像学徒成长为师傅 | 📱 Sahil: 每次使用的微小改进就是复利</p>
-<p><strong>Q4: soul/agent/memory 的加载顺序是什么？</strong><br>A: SOUL.md → system prompt slot #1（定义身份），最先注入；Memory → 冻结快照块，SOUL 之后；AGENTS.md → 项目级指令，SOUL 之后；Skills → 可用工具描述。SOUL 从 HERMES_HOME 加载（不属于项目）。整个 system prompt byte-stable 保持 cache。<br>👉 编辑 `~/.hermes/SOUL.md` 改变 Hermes 身份——最高优先级配置。<br>👥 🔭 Musk: SOUL first 正确，身份定义优先一切 | 🔭 Naval: 理解加载顺序=理解优先级链 | 🔭 Thiel: byte-stable 保护 cache 是工程智慧 | 📱 Levels: 一个文件搞定 personality，粗暴有效 | 📱 PG: SOUL vs AGENTS 区分好 | 📱 Sahil: 最小化配置</p>
-<p><strong>Q5+Q6: 每个 API session 的上下文大小/GLM 上下文窗口是多少？</strong>（合并处理——同一主题）<br>A: 取决于模型，不是 Hermes 固定的。GLM-5.1 约 128K tokens。压缩系统基于模型上下文窗口自动管理：50% 触发 Agent Compressor，85% 触发 Gateway Hygiene 安全网。4 步算法：清旧工具结果→定边界（头3+尾20+token预算）→LLM 结构化摘要→重组。<br>👉 config.yaml 中查看 `compression.threshold`，长对话丢上下文时调高到 0.6-0.7。<br>👥 🔭 Musk: 50% 保守但安全 | 🔭 Naval: 128K 已经很大了 | 🔭 Thiel: 压缩质量决定长对话上限 | 📱 Levels: 128K 够聊几小时 | 📱 PG: 结构化摘要模板好 | 📱 Sahil: 知道边界才能在边界内做到最好</p>
-<p><strong>Q7: 不同 agent 的压缩算法差异？人脑怎么压缩？</strong><br>A: Hermes=结构化 LLM 摘要（Goal/Progress/Decisions/Files/Next Steps）。其他：Claude Code 类似但结构不同；LCM plugin 无损压缩；简单 agent 直接截断。外部表现：有损摘要型会「忘记」细节但保要点。人脑压缩=概念层次化+情感标记+模式识别。Hermes 的三层记忆类比：skill=程序性，memory=陈述性，session搜索=情景。<br>👉 观察 Hermes 长对话压缩后输出的 CONTEXT COMPACTION 摘要，评估信息损失率。<br>👥 🔭 Musk: skill 提取就是信息抽象，方向对 | 🔭 Naval: 三层记忆模型是好框架 | 🔭 Thiel: lossless vs lossy 是关键取舍 | 📱 Levels: 别过度思考，50% 够用 | 📱 PG: 人脑压缩类比有启发 | 📱 Sahil: 结构化摘要就是最小可行方案</p>
-<p>━━━ 🚀 Idea 调研 ━━━</p>
-<p><strong>1. Builder 日志视频化</strong> [路径A：市场验证型]<br>搜索过程：DuckDuckGo 搜 &quot;AI devlog video generator&quot; → 找到 DevLog AI（GitHub 开源，git commit→文本日志，2026-06）、liyown/devlog-generator（类似）、dev.to 文章提出 headless 视频栈（LLM→Carbon→Motion Canvas→Invideo/Synhesia）<br>市场现状：git-commit-to-text-log 已有开源方案但停在文本；text-to-video-for-devlogs 的自动化管线是空白。通用 AI 视频生成器（Invideo、CapCut）不做 devlog 专项。<br>判断：🔴可推进。辉哥已有 builder 日志文本产出（内容矩阵/daily-digest 管线），只差最后一步视频化。与 AI 协作内容生产主线直接协同。<br>对齐评估：对齐主线。<br>👥 🔭 Musk: 视频是最高带宽传输方式，先手动跑通再自动化 | 🔭 Naval: 媒体杠杆，构建过程变可复利资产 | 🔭 Thiel: 这个细分还没有垄断者 | 📱 Levels: 先用 CapCut+录屏做一条发出去 | 📱 PG: 你已有文本产出，视频化是自然下一步 | 📱 Sahil: 先问社区想不想看视频版</p>
+<p>今天 10 条待处理笔记（7 条原始 + 子话题拆分后 14 条子笔记），全部处理完毕。split_failed=3 已手动补拆分。</p>
+<p>━━━ 💡 今日困惑解答 ━━━</p>
+<p><strong>Q1: 如何让我、Codex、Hermes 实现群聊协作？</strong><br>A: 当前最成熟的方案是消息总线模式——共享文件/数据库作「聊天室」，每个 Agent 轮询或订阅变更。Hermes 的 delegate_task + 文件交接已能实现异步群聊。核心挑战不是通信协议，而是上下文一致性——多个 Agent 如何共享和维持一致的上下文状态。<br>👉 先用一个共享 JSON 文件做消息队列 MVP，验证多 Agent 异步协作的基本闭环<br>👥 🔭 Musk: 多Agent协作是AI工程化的关键能力 | 🔭 Naval: 先用最简方案验证 | 🔭 Thiel: 瓶颈在上下文一致性不在通信 | 📱 Levels: 用最土的办法先跑起来 | 📱 PG: 你解决的是自己的痛点 | 📱 Sahil: 先固化一个场景再扩展</p>
+<p><strong>Q2: 裁决中枢用独立 CC 实例加载——通信原理和超时问题？</strong><br>A: Hermes 通过 delegate_task 调用 CC 是同步阻塞调用。不是「超时更长」而是单次调用时间更长但减少了多轮通信的总开销。优势：CC 有独立 token 窗口，裁决逻辑与执行逻辑分离。劣势：每次调用要重新加载上下文（除非用 CC 的 session/resume 功能）。<br>👉 用 CC 的 --session 或 resume 功能保持上下文，避免每次裁决都重新加载 SKILL.md</p>
+<p>━━━ 💎 Idea 分析 ━━━</p>
+<p><strong>1. AI增强RSS阅读器 [路径A：市场验证]</strong><br>搜索过程：⚠️ Tavily API 432 错误，搜索未完成，基于已有知识分析<br>市场现状：Feedly AI 已有摘要功能、Readwise Reader 有 highlighting+AI 总结、Omnivore 已停服。大部分产品停留在「帮你读」而非「帮你筛」。辉哥的核心差异化在于「基于个人认知模式做信息过滤」。<br>判断：🟡冷冻 — 差异化方向有价值，但偏重度产品开发，与当前主线（AI 求职虚拟产品）完全不同领域，技术难度（个人认知建模）较高<br>对齐：偏离建议冷冻<br>👥 🔭 Musk: 技术可行但不是现在该做的 | 🔭 Naval: 有杠杆但需大量前期投入 | 🔭 Thiel: 差异化在认知过滤但秘密是否足够大 | 📱 Levels: 市场太卷别碰 | 📱 PG: 自己的痛点但不一定够多人 | 📱 Sahil: 先做落地页验证有人愿意付费</p>
 <p>━━━ 🔧 任务分发 ━━━</p>
-<p>1. <strong>用 Codex 辅助编辑 SOUL.md</strong> → owner: hermes（辉哥触发时执行，需要明确想要什么风格方向后再动手）</p>
+<p>1. 续航大师本周3个优化方向（视频类型/聚光投流/卡片笔记）→ Hermes 执行中<br>2. 续航大师定价调到 9.9 元 + 笔记加商品目录 → Hermes 执行中<br>3. Builder 日志程序自动生成素材 + Claude 写作包接入 → Hermes 执行中<br>4. 续航大师卡片版本标签 bug 修复 → 明天与伙伴模式讨论</p>
+<p>━━━ 📝 选题标记 ━━━</p>
+<p>1. 「一定要自己搞清楚 AI 说的是什么才能成为 builder」→ 已进选题池<br>   👥 🔭 Musk: 理解AI是builder的基本功 | 🔭 Naval: 理解AI=特定知识=杠杆 | 🔭 Thiel: 理解vs使用是垄断者和跟随者的分界线 | 📱 Levels: 理解了就赶紧出货 | 📱 PG: 理解AI输出逻辑=新时代Taste | 📱 Sahil: builder思维=先搞懂再动手<br>2. 「芒格集中策略模型——适用于投资也适用于精力分配」→ 已进选题池<br>   👥 🔭 Musk: 集中=All-in的正确版本 | 🔭 Naval: 集中持有=特定知识的体现 | 🔭 Thiel: 少数最好的远胜多数平庸的 | 📱 Levels: 低换手率=少折腾 | 📱 PG: 核心是判断什么是好资产=Taste | 📱 Sahil: 精力集中&gt;资源分散</p>
+<p>━━━ 🪞 今日反思 ━━━</p>
+<p>🔍 新视角：效率高的原因是精力集中在了杠杆型活动上（裁决 CC + build 系统自动化），这是正确的投入方向。但注意——裁决中枢和系统自动化本身可能触发 BP-01（系统建设替代真实产出）。关键校验：这些系统能否在 72 小时内直接加速续航大师的外部发布和验证？<br>📊 模式匹配：T-03（系统建设 vs 真实产出）—— 系统自动化在服务内容产出时是杠杆，在脱离产出目标时是避难所<br>✅ 进步：看到公众号作者被推荐工作给王慧文的信号，说明内容输出正在积累行业可见度——这是长期投入开始兑现的外部反馈<br>👥 🔭 Musk: 杠杆活动选对了 | 🔭 Naval: 裁决中枢成为「plus版的你」=无需许可的杠杆 | 🔭 Thiel: 裁决中枢是否带来垄断优势 | 📱 Levels: 系统在起作用，继续优化 | 📱 PG: 搞清楚AI说什么=Taste来源 | 📱 Sahil: 注意身体信号，能量管理&gt;时间管理</p>
 <p>━━━ 🧊 翻石头 ━━━</p>
-<p>今天补全了 10 条旧 stones 的 persona_perspective（6人视角），还有 34 条待下轮补全。<br>翻石头维护 5 条（未修改 updated_at）：<br>- 长期提醒产品文档（Idea，2026-05）→ 仍冷冻，已有竞品<br>- 整理 AI 助手记忆问题（反思，2026-05）→ 认知系统迁移已解决此问题<br>- 今日复盘+明日计划（任务，2026-05）→ 已完成<br>- 与陌生人攀谈选题（选题）→ 内容矩阵可拾取<br>- 空内容旧笔记（存档）→ 无法补全，保持原状</p>
-<p>━━━ 📊 本轮统计 ━━━</p>
-<p>本轮处理 10/10 条（2 个 parent note），0 条积压。✅ 全部消化。<br>persona_perspective 补全：10 条（剩余 34 条下轮继续）。<br>部署状态：✅ GitHub Pages 已推送。<br>⚠️ 预处理脚本修复：PYTHONPATH 指向 venv python3.11 导致系统 python3.9 的 urllib3 类型错误，已 patch 使用 venv python3.11。</p></div>
+<p>今天补全了 10 条旧 Idea 的蒸馏人物视角（AI儿童教育、做菜视频出海、AI海报工具、随机翻股票、Idea碰撞器、文章阅读助手、冲突应对训练、听懂老婆的话、专业傻瓜化、如何混小老板圈子）。34 条积压中完成 10 条，剩余 24 条下轮继续。</p>
+<p>━━━ ⚠️ 注意事项 ━━━</p>
+<p>- web_search 因 Tavily API 432 错误全部失败，困惑和 Idea 调研基于已有知识完成，标注了 ⚠️搜索未完成<br>- Daily Digest 已部署到 GitHub Pages（commit 6188862）<br>- 本轮处理 10/10 条，全部完成，无积压</p></div>
 </div>
 <div class="card">
   <div class="card-bar idea"></div>
