@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>2025-08-13 · 💡 想法</title>
+<title>2025-08-11 · 💡 想法</title>
 <link rel="stylesheet" href="../style.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -21,16 +21,75 @@
 <div class="container">
   <div class="day-nav">
     <a href="" class="nav-btn">← 前一天</a>
-    <div class="day-title">2025-08-13</div>
+    <div class="day-title">2025-08-11</div>
     <a href="" class="nav-btn">后一天 →</a>
   </div>
   <div class="browse-detail">
   <div class="browse-item-header">
     <span class="browse-source-tag">💡 想法</span>
-    <span class="browse-date">2025-08-13</span>
+    <span class="browse-date">2025-08-11</span>
   </div>
-  <div class="browse-detail-title">可以用小红书和公众号用log记录自制自己的续航大师和商业教练的每日打造过程呀。包括其中的思考。</div>
-  <div class="browse-detail-content">可以用小红书和公众号用log记录自制自己的续航大师和商业教练的每日打造过程呀。包括其中的思考。</div>
+  <div class="browse-detail-title">happypaperHappyPapper（iPad 单端）目标：不给家长和孩子增加额外操作，开 A</div>
+  <div class="browse-detail-content">happypaperHappyPapper（iPad 单端）目标：不给家长和孩子增加额外操作，开 App 3 分钟内即可开始打卡。一、使用场景 &amp; 目标用户• 用户
+ • 儿童：4-10 岁，需要借助“贴星+奖励”建立习惯。
+ • 家长：作为辅导者，只在首次配置与兑现奖励时参与，其余时间可完全放手。
+• 典型场景
+ A. 第一次打开——家长陪同 2-3 分钟完成“选习惯→设奖励”。
+ B. 每天放学后——孩子自己拖星打卡，获得动画与音效。
+ C. 星数达标——孩子看到全屏解锁动画，拿着 iPad 去找家长兑现奖励。
+ D. 周末——自动弹出成长报告，孩子或家长可一键保存/分享。
+二、核心功能• 拖拽贴星 + 动画反馈
+ • 星星池固定在右下角（普通 ⭐︎ / 闪光 ✨）。
+ • 长按拖拽 → 吸附到今日格子 → 粒子+震动+音效。
+ • 防作弊：同一习惯一天只允许 1 枚普通星；超过弹窗提示“今日已完成”。
+• 目标–奖励一体化
+ • 奖励卡：家长可添加图片或文字 + 目标星数（支持 3、5、10…）。
+ • 进度显示：主页顶部彩虹条 + 数字“12 / 20 星”。
+ • 解锁仪式：烟花动画 + 奖励卡翻面 + “拍照留念”按钮。
+ • 历史奖励：列表查看，支持回放动画。
+• 周/月成长报告 + 勋章
+ • 周报：完成率柱状图 + 连续天数。
+ • 月报：环形图 + TOP3 习惯 + 已获勋章。
+ • 勋章：首个满分周、连续 7/14/21 天等 8 枚。
+ • 分享：导出长图，存相册或分享到微信/家庭群。
+三、产品结构 &amp; 主要界面• 今日打卡页（默认首页）
+ ┌── 顶栏：日期 | 头像 | 当前星 / 奖励进度 ──┐
+ │ 7×列本周打卡网格（今日列高亮） │
+ │ 横向习惯图标条（长按排序、＋新增） │
+ │ 右下：星星池 ⭐︎ ✨ │
+ │ 底部：我的奖励（跳转奖励页） │
+ └──────────────────────────┘
+• 奖励页
+ • 卡片瀑布流（未达成灰阶、已达成彩色）。
+ • + 按钮新建奖励（输入名称/拍照/填星数）。
+• 成长报告页
+ • 页签：周报 | 月报。
+ • 完成率、趋势图、勋章墙、一键分享。
+• 设置页（极简）
+ • 编辑习惯
+ • 编辑奖励
+ • 备份/恢复到 iCloud（可选）
+四、核心交互流程• 打卡
+ (1) 长按星 → 拖放今日格 → 动画。
+ (2) 更新总星数；若达奖励阈值 → 跳转解锁动画。
+• 奖励解锁
+ (1) 全屏烟花 + 奖励卡翻面。
+ (2) “我已获得”按钮 → Star 数清零并保留多余星。
+ (3) 可拍照留念，保存至相册。
+• 周/月报生成
+ • 周日晚 20:00、月底 1 号 8:00 自动生成并弹窗提示查看。
+五、数据结构（简版）
+ habit { id, name, icon }
+ star { date, habitId, type }
+ reward{ id, title, image, target, achievedAt }
+ badge { id, unlockedAt }六、零门槛使用原则• 无需注册登录 → 本地 CoreData 存储；可选 iCloud 备份开关。
+• 打开即送 5 个默认习惯模板，减少首次配置时间。
+• 所有功能 3 屏内可达；无家长审核、无多端同步硬依赖。
+七、里程碑
+ • 第 2 周：完成打卡 + 本地数据。
+ • 第 4 周：完成奖励系统 + 解锁动画。
+ • 第 6 周：完成周/月报 + 分享。
+ • 第 8 周：视觉/动效打磨 + TestFlight。</div>
 </div>
   <footer class="site-footer">
     <p>Daily Digest · 纯粹的阅读体验</p>
