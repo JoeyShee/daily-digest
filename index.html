@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>2026-07-30 · 想法墓地</title>
+<title>2026-07-31 · 想法墓地</title>
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -20,47 +20,14 @@
 </nav>
 <div class="container">
   <div class="day-nav">
-    <a href="graveyard/2026-07-29.html" class="nav-btn">← 前一天</a>
-    <div class="day-title">2026-07-30</div>
+    <a href="graveyard/2026-07-30.html" class="nav-btn">← 前一天</a>
+    <div class="day-title">2026-07-31</div>
     <a href="index.html" class="nav-btn">后一天 →</a>
   </div>
   <div class="card">
-  <div class="card-bar graveyard"></div>
-  <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">🪦 想法墓地日报</div><h2>想法墓地日报</h2></div>
-    <div class="toggle-icon">▼</div>
-  </div>
-  <div class="card-body"><p>全部完成。输出日报：</p>
-<p>💡 想法墓地日报（2026-07-30）</p>
-<p>⚠️ 今日 web_search 全挂（Tavily 432），困惑类解答标注「搜索未完成，基于已有知识分析」。core-decision-agent 模式匹配正常执行。</p>
-<p>━━━ 💡 今日困惑解答 ━━━</p>
-<p><strong>Q1: 用 Codex 通过浏览器调用其他网页端 Agent 可行吗？</strong><br>A: ⚠️搜索未完成，基于已有知识分析。技术上可行但多此一举。Codex 本质也是 LLM 调用，不如直接用 Playwright MCP 或 browser-use 直接控制目标服务。绕道 Codex 增加不必要的复杂度。<br>👉 想控制网页端 Agent，直接研究 Playwright MCP 或 browser-use，不要通过 Codex 绕道。<br>👥 Musk: 多此一举，直接调目标API | Naval: 不要在中间层浪费时间 | Thiel: 工具选择不是战略决策，选最短路径<br>📱 Levels: 用Playwright直接干 | PG: 答案很简单别做中间层 | Sahil: 时间应花在业务上</p>
-<p><strong>Q2: 怎么用最低GPT算力整理认知树？决策中心设计方案怎么落地？</strong><br>A: ⚠️搜索未完成，基于已有知识分析。认知树：(a) 顶层结构人工定义，不要用LLM做graph结构生成；(b) LLM只做增量标注和关联推荐；(c) 用本地 embedding 做语义检索而非全量扫描。决策中心：选1-2个日常决策场景做最小版本先跑起来，不要先设计完整架构。<br>👉 认知树：手动定顶层 + embedding检索 + LLM只做增量标注。决策中心：选1个日常场景先跑。<br>👥 Musk: 人工定义结构LLM只做叶子 | Naval: 价值在检索不在生成 | Thiel: 先定一个场景跑通<br>📱 Levels: 用现成工具别自己搭 | PG: 从你每天都在用的决策出发 | Sahil: 先做1个场景验证</p>
-<p>━━━ 📝 选题标记 ━━━</p>
-<p>1. <strong>较弱模型通过长程协作追赶强模型——5个研究方向整理</strong> → 已进选题池<br>   （测试时计算扩展 / 多路径采样聚合 / 搜索式推理 / 多智能体辩论 / 模型集成分层协作）<br>👥 Musk: 如果弱模型能通过协作逼近强模型，算力重心应从训练转向推理时协作 | Naval: 用协作结构放大个体能力 | Thiel: 大多数人追强模型，协作架构可能是更优解<br>📱 Levels: 先在自己agent上试一个方向 | PG: 把5个方向用自己的话讲清楚就有价值 | Sahil: 选最简单的方向先实验再写</p>
-<p>━━━ 🪞 今日反思 ━━━</p>
-<p><strong>反思1：念头通达是AI时代个人能力的支点</strong><br>读小说、毛选、曾国藩 → 心胸宽广；冥想和运动 → 摒弃念头。焦虑不应靠找退路获得安全感，而应靠活在当下。AI用得越多，个人本身的执行力、思考力、念头控制力越重要——这是撬动杠杆的支点，必须坚硬。<br>📊 模式匹配：T-06（成为更好的人vs赚钱能力）—— 辉哥在把内在成长和赚钱能力统一，这是健康的张力管理，不再对立。<br>🔍 新视角：焦虑的解药不是「找退路」而是「活在当下」——你把安全感的来源从外部条件转移到了内在状态，这比任何退路都可靠。<br>✅ 进步：明确了个人能力（念头控制/专注/执行力）是AI时代不可外包的支点。<br>👥 Musk: 念头控制力是物理上必须存在的支点 | Naval: 杠杆需要支点个人能力就是那个不可外包的 | Thiel: 念头通达是稀缺能力这本身就是秘密优势<br>📱 Levels: 专注力确实是一切的基础 | PG: 念头通达的人写出来自然好 | Sahil: 念头控制就是能量管理</p>
-<p><strong>反思2：认知系统Agent设计方法论修正——从业务出发而非从完备出发</strong><br>MVP不应从「把所有情况考虑到再删减」出发，应从高频高价值业务出发先做3项。设计无法一次性完成，搭出来在业务中慢慢修正才靠谱。最核心是利用已有认知资产而非盲目扩展。<br>📊 模式匹配：BP-01（系统建设替代真实产出）自觉修正 + T-03（系统建设vs真实产出）——辉哥正在主动对抗自己的系统建设惯性，这是认知进步。<br>🔍 新视角：你已经意识到「设计无法一次性完成」——这比搭出完美系统更值钱。真正的系统是在解决问题中生长出来的，不是设计出来的。<br>✅ 进步：主动对抗BP-01，把「从业务场景出发」作为MVP设计的起点。<br>👥 Musk: 从最高优先级出发剩下的在真实用中发现 | Naval: 系统是工具不是目的 | Thiel: 不要覆盖所有做好一件事的<br>📱 Levels: 先做出来用别搭完美系统 | PG: 做自己用得到的东西 | Sahil: Start then learn系统在解决问题中自然生长</p>
-<p><strong>反思3：和GPT讨论大方案时先定原则和思想再展开</strong><br>约束先于探索，框架先于细节。这是一条可复用的协作方法论。<br>📊 模式匹配：非模式驱动，是有效的方法论沉淀。<br>🔍 新视角：这条原则不只适用于和GPT讨论，也适用于和自己讨论——每次做决策前先问「我的原则是什么」。<br>✅ 进步：提炼出了一条可复用的协作方法论（约束先于探索）。<br>👥 Musk: 约束驱动探索先定不可变参数再优化 | Naval: 原则先于方法方法可迭代原则不能 | Thiel: 这就是战略先行<br>📱 Levels: 有道理别过度设计1-2条就够 | PG: 好的写作也是这样先定主题 | Sahil: 同意但原则要从实践中来</p>
-<p><strong>反思4：做AI时离行业业务有点远，应收束方向先做内容生产agent并分享出去</strong><br>从内部工具探索转向外部交付的自觉调整。<br>📊 模式匹配：AX-01（行动力强但发散）自觉修正——辉哥在主动收束方向，从发散的内部探索转向聚焦的外部交付。<br>🔍 新视角：「分享出去」是关键动作——你已经从「做给自己用」转向「做给别人看」，这标志着从工具使用者到内容创作者的身份转变。<br>✅ 进步：从「做AI」的抽象探索转向「做内容生产agent并分享」的具体外部交付。<br>👥 Musk: 聚焦到能产出外部痕迹的方向 | Naval: 杠杆在内容和代码两者都有 | Thiel: 内容生产加分享等于分发渠道<br>📱 Levels: 先做一个出来分享build in public | PG: 解决自己的问题然后分享出去 | Sahil: 先分享再迭代社区反馈告诉你方向对不对</p>
-<p>━━━ 🧊 翻石头 ━━━</p>
-<p>今天翻看了 5 条旧想法（静默维护，不推送）：<br>1. [327] 翻照类App → 面向小朋友的翻唱/翻照App，确认功能后提交App Store。仍待推进。<br>2. [57] 长期主义提醒产品文档 → iOS版长期提醒产品PRD。仍待推进。<br>3. [12] 原始笔记内容缺失 → 无法恢复，维持存档。<br>4. [379] 健身训练日记 → 练背+核心日记录，维持存档。<br>5. [140] AI助手记忆错乱问题 → 同一信息多处存储的解决方案。已有方案，维持done。</p>
-<p>━━━ 📦 存档 ━━━</p>
-<p>1. 育儿日常碎片（教孩子爬梯子 / 换纸尿裤斗争）→ 已存档</p>
-<p>本轮处理 7/7 条，全部消化完毕。<br>部署状态：GitHub Pages 已推送 ✅</p></div>
-</div>
-<div class="card">
   <div class="card-bar model"></div>
   <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">🪞 反思</div><h2>反思：念头通达是AI时代个人能力的支点。读好小说、毛选、曾国藩带来的最大好处是心胸更宽广；冥想和运动中摒弃念头也是同一训练。焦虑不应靠找退路获得安全感，而应靠活在当下、摒弃杂念、专注该做的事来超越。AI用得越多，越觉得个人本身的执行力、思考</h2></div>
-    <div class="toggle-icon">▼</div>
-  </div>
-  <div class="card-body"></div>
-</div>
-<div class="card">
-  <div class="card-bar model"></div>
-  <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">🪞 反思</div><h2>反思：认知系统Agent的设计方法论修正。MVP不应从「把所有情况考虑到再删减」出发，而应从高频高价值的业务场景出发，先做3项业务来缩小设计压力。设计工作无法一次性完成，更可靠的方式是搭出框架后在具体业务中慢慢修正。最核心的是利用已有认知资</h2></div>
+    <div><div class="card-type">🪞 反思</div><h2>冥想练习带来的核心收获：发展出区分「自己」和「念头」的能力。这不是放松技巧，而是元认知训练——观察思维而不是被思维捕获。清明头脑是这种区分能力的自然结果。辉哥已从理论认知进入实践体验阶段。</h2></div>
     <div class="toggle-icon">▼</div>
   </div>
   <div class="card-body"></div>
@@ -68,39 +35,47 @@
 <div class="card">
   <div class="card-bar entropy"></div>
   <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">💡 困惑解答</div><h2>困惑：既然有人可以用 Codex 通过浏览器调用 GPT，那有没有可能用 Codex 去调用其他网页端就能访问的 Agent？</h2></div>
+    <div><div class="card-type">💡 困惑解答</div><h2>用GPT辅助制定每天作息表的可行性和方法。辉哥的想法是每天早上和GPT对齐当天的计划安排。</h2></div>
     <div class="toggle-icon">▼</div>
   </div>
-  <div class="card-body"><div class="highlight-box"><p><strong>解答：</strong>⚠️搜索未完成（Tavily 432错误），基于已有知识分析。技术上可行但不推荐。Codex CLI 的设计定位是编码助手，不是通用浏览器自动化工具。如果你想让 Agent 操作网页端的其他 AI 服务，更直接的路径是用 Playwright/Puppeteer 这类浏览器自动化框架，或者用已有 MCP（Model Context Protocol）的 browser-use 类工具。把 Codex 当中间层多此一举——它本质上也是个 LLM 调用，不如直接让 Hermes 或其他 Agent 通过 API 或 MCP 直接调目标服务。绕道 Codex 反而增加了不必要的复杂度。</p><p>👉 如果你想控制网页端 Agent，直接研究 Playwright MCP 或 browser-use 工具，不要通过 Codex 绕道。</p></div></div>
-</div>
-<div class="card">
-  <div class="card-bar entropy"></div>
-  <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">💡 困惑解答</div><h2>困惑：1) 怎么用最低的GPT算力把认知树整理好？2) 决策中心的设计方案怎么落地？</h2></div>
-    <div class="toggle-icon">▼</div>
-  </div>
-  <div class="card-body"><div class="highlight-box"><p><strong>解答：</strong>⚠️搜索未完成（Tavily 432错误），基于已有知识分析。Q1 最低算力整理认知树：核心策略是分层——(a) 顶层结构由人工定义（你的领域/主题分类），不要用LLM做graph结构生成；(b) LLM只做增量标注和关联推荐，每次只处理一条新节点的归类和关联；(c) 用本地 embedding 做语义检索（如 ChromaDB/FAISS），而非让LLM每次扫描全量内容。认知树本质是知识图谱，graph的结构定义是人工活，LLM的算力花在叶子节点的标注和关联发现上最划算。Q2 决策中心落地：回到你自己当天笔记里的洞察——从高频高价值业务出发。先选1-2个你每天都在用的决策场景（比如想法墓地的Idea分类、内容发布的go/no-go），做一个最小版本跑起来，然后在实际使用中迭代。不要先设计完整架构。</p><p>👉 认知树：手动定义顶层分类 + embedding做语义检索 + LLM只做增量标注。决策中心：选1个日常决策场景做最小版本先跑起来。</p></div></div>
+  <div class="card-body"><div class="highlight-box"><p><strong>解答：</strong>⚠️搜索未完成（Tavily 432错误），基于已有知识分析。GPT做日程规划完全可行，尤其适合辉哥这种目标导向+AI原生的工作方式。关键不是让GPT排时间表，而是用它做「晨间意图对齐」——输入今天的Top 3任务+能量状态+不可移动的约束（如接送孩子），让它输出时间块建议。比手写计划快，比日历app灵活。真正的价值不在于时间分配本身，而在于每天强迫自己明确优先级。</p><p>👉 明天早上花3分钟跟GPT对话：输入今天的必做事项+当前能量状态，让它给一个时间块方案。试一周看效果。</p></div></div>
 </div>
 <div class="card">
   <div class="card-bar model"></div>
   <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">🪞 反思</div><h2>反思：和GPT讨论大方案时，应该先定原则和思想，然后再往后讨论，这样才能让整个内容不跑偏。这是一条可复用的协作方法论——约束先于探索，框架先于细节。</h2></div>
+    <div><div class="card-type">🪞 反思</div><h2>「心大一些，心小了可能不太容易成事儿。」——关于心态容量与行动力的关系。心小的人要等到想清楚才动，心大的人在没想清楚时也能行动然后调整。</h2></div>
     <div class="toggle-icon">▼</div>
   </div>
   <div class="card-body"></div>
 </div>
 <div class="card">
-  <div class="card-bar model"></div>
+  <div class="card-bar idea"></div>
   <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">🪞 反思</div><h2>反思：做AI时离行业业务有点远了。应该收束方向，先做内容生产相关的agent，并分享出去。这是从内部工具探索转向外部交付的自觉调整。</h2></div>
+    <div><div class="card-type">🚀 Idea</div><h2>三个有希望产生现金流的备选方向：1) 小红书电商 2) zero2idea工具站 3) 风险投资系统（含打新）。辉哥在思考主业外的收入来源。</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"><h3>🔍 命题</h3><p>给辉哥自己 / 副业现金流场景 / 主业外收入不确定 / 通过电商或工具站或投资系统产生现金流</p></div>
+</div>
+<div class="card">
+  <div class="card-bar task"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">🔧 任务</div><h2>三个系统升级任务：1) 想法墓地+daily-digest升级为可写作的素材和信号源 2) 认知树和认知内核升级。辉哥意识到当前系统产出需要向写作和信号方向进化。⚠️注意BP-01风险：系统升级容易替代真实产出。</h2></div>
     <div class="toggle-icon">▼</div>
   </div>
   <div class="card-body"></div>
+</div>
+<div class="card">
+  <div class="card-bar idea"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">🚀 Idea</div><h2>ganmaster开发完成并发布+决策系统从能落地的地方开始构建。核心差异化：不只是完成任务，还提供创业者核心能力的维度提醒，让用户获得成长感。</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"><h3>🔍 命题</h3><p>给创业者 / 任务管理+能力提升场景 / 普通任务管理工具只管完成不管成长 / 通过SaaS订阅产生收入</p></div>
 </div>
 <div class="card">
   <div class="card-bar reflection"></div>
   <div class="card-header" onclick="toggleCard(this)">
-    <div><div class="card-type">📝 选题</div><h2>选题：较弱模型通过长程协作追赶强模型——5个研究方向整理。1) 测试时计算扩展（Test-Time Compute）：增加推理时间/生成长度/搜索预算提升小模型表现；2) 多路径采样与候选聚合（Self-Consistency/Best-o</h2></div>
+    <div><div class="card-type">📝 选题</div><h2>社区信号2026-07-31：腾讯WorkBuddy上线人机双写功能（AI直接进入文档/表格/PPT跟着人一起完成工作）、混元大模型为游戏美术提效数十倍、用户实测腾讯文档+WB替代WPS体验更好。核心趋势：AI从「生成」进入「协作」阶段，办</h2></div>
     <div class="toggle-icon">▼</div>
   </div>
   <div class="card-body"></div>
