@@ -37,6 +37,9 @@
   --color-archive: #8e8e93;
   --color-zero2idea: #2563eb;
   --color-dedao: #d97706;
+  --color-perception: #0f766e;
+  --color-watch: #ca8a04;
+  --color-evidence: #64748b;
 
   /* Notion Blue */
   --notion-blue: #0075de;
@@ -115,8 +118,10 @@ a:hover { text-decoration: underline; }
 }
 
 /* ---------- Tab 导航（3 频道切换） ---------- */
-.tab-nav { width: 100%; display: flex; gap: 0; padding: 8px 0 0; border-top: 1px solid var(--border); margin-top: 4px; }
+.tab-nav { width: 100%; display: flex; flex-wrap: nowrap; gap: 0; padding: 8px 0 0; border-top: 1px solid var(--border); margin-top: 4px; overflow-x: auto; scrollbar-width: none; }
+.tab-nav::-webkit-scrollbar { display: none; }
 .tab-nav .tab-item { font-size: 0.88rem; font-weight: 500; padding: 8px 16px; color: var(--text-muted); border-radius: 9999px; transition: all 0.15s; }
+.tab-nav .tab-item { flex: 0 0 auto; white-space: nowrap; }
 .tab-nav .tab-item:hover { color: var(--text); background: var(--surface-warm); text-decoration: none; }
 .tab-nav .tab-item.active { color: var(--text); background: var(--surface-warm); font-weight: 600; }
 
@@ -283,6 +288,20 @@ a:hover { text-decoration: underline; }
 .card-bar.archive   { background: var(--color-archive); }
 .card-bar.zero2idea  { background: var(--color-zero2idea); }
 .card-bar.dedao      { background: var(--color-dedao); }
+.card-bar.perception { background: var(--color-perception); }
+.card-bar.watch      { background: var(--color-watch); }
+.card-bar.evidence   { background: var(--color-evidence); }
+
+.attention-note {
+  margin: 0 0 24px;
+  padding: 14px 18px;
+  border-radius: var(--radius);
+  background: #f0fdfa;
+  border: 1px solid #99f6e4;
+  color: #115e59;
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
 
 /* 兼容旧 class */
 .card-bar.classic-liangchen { background: var(--color-entropy); }
@@ -679,6 +698,7 @@ a:hover { text-decoration: underline; }
   .container { padding: 0 14px; }
   .top-nav { padding: 0 14px; }
   .tab-nav .tab-item { font-size: 0.82rem; padding: 6px 10px; }
+  .top-nav .brand { padding: 6px 0; }
   .day-nav { padding: 14px 0; }
   .day-nav a { font-size: 0.85rem; padding: 6px 10px; }
   .day-nav .day-title { font-size: 1.05rem; }

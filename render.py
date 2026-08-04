@@ -22,7 +22,10 @@ GRAVEYARD_DIR = BASE_DIR / "graveyard"
 ZERO2IDEA_DIR = BASE_DIR / "zero2idea"
 TENX_DIR = BASE_DIR / "10x"
 BROWSE_DIR = BASE_DIR / "browse"
+PERCEPTION_DIR = BASE_DIR / "perception"
 BROWSE_DATA_DIR = HERMES_DIR / "data" / "browse" / "items.json"
+REPRICING_DATA_DIR = HERMES_DIR / "data" / "repricing" / "reports"
+REPRICING_FALLBACK_DIR = Path("~/Documents/10x投机/docs/reports").expanduser()
 
 # ============================================================
 # 数据加载
@@ -80,6 +83,26 @@ def get_10x_outputs():
                         TENX_CACHE[date_str] = report.read_text(errors="replace")
     return TENX_CACHE
 
+REPRICING_CACHE = None
+def get_repricing_outputs():
+    """读取 Repricing 报告。Hermes 输出优先，项目试跑报告作为回退。"""
+    global REPRICING_CACHE
+    if REPRICING_CACHE is None:
+        REPRICING_CACHE = {}
+        source_dirs = [
+            (REPRICING_FALLBACK_DIR, "*repricing*.md"),
+            (REPRICING_DATA_DIR, "*.md"),
+        ]
+        for source_dir, pattern in source_dirs:
+            if not source_dir.exists():
+                continue
+            for report in sorted(source_dir.glob(pattern)):
+                m = re.search(r'(\d{4}-\d{2}-\d{2})', report.name)
+                if m:
+                    # 后读取的 Hermes 正式报告覆盖项目试跑报告。
+                    REPRICING_CACHE[m.group(1)] = report.read_text(errors="replace")
+    return REPRICING_CACHE
+
 # ============================================================
 # HTML 工具
 # ============================================================
@@ -121,6 +144,72 @@ def card(bar_class, card_type, title, body_html, collapsed=False, raw_type=False
   </div>
   <div class="card-body">{body_html}</div>
 </div>'''
+
+def _strip_markdown_title(text):
+    return re.sub(r'^\s*#+\s+', '', text or '').strip()
+
+def _repricing_headline(section_title, section_body):
+    """优先提取报告中的明确 Repricing 结论作为卡片标题。"""
+    for line in section_body.splitlines():
+        cleaned = line.strip().lstrip('>').strip()
+        cleaned = cleaned.replace('**', '')
+        if '正在被重新定价' in cleaned or '被重新定价的' in cleaned:
+            return cleaned[:160]
+    return _strip_markdown_title(section_title)[:160]
+
+def _without_repeated_headline(section_body, headline):
+    """卡片标题已经承担结论时，不在正文开头重复同一句。"""
+    kept = []
+    removed = False
+    for line in section_body.splitlines():
+        cleaned = line.strip().lstrip('>').strip().replace('**', '')
+        if not removed and cleaned == headline:
+            removed = True
+            continue
+        kept.append(line)
+    return '\n'.join(kept).strip()
+
+def render_repricing_report(text):
+    """把一份分析报告压缩成主判断、候选判断和证据层。"""
+    sections = re.split(r'^##\s+', text, flags=re.MULTILINE)
+    cards = []
+
+    for raw_section in sections[1:]:
+        lines = raw_section.strip().splitlines()
+        if not lines:
+            continue
+        section_title = lines[0].strip()
+        section_body = '\n'.join(lines[1:]).strip()
+        if not section_body:
+            continue
+
+        title = _repricing_headline(section_title, section_body)
+        section_body = _without_repeated_headline(section_body, title)
+        title_lower = section_title.lower()
+
+        if '主判断' in section_title or 'primary' in title_lower:
+            cards.append(card(
+                'perception', '🌍 今日主判断', title,
+                md_to_html(section_body), collapsed=False
+            ))
+        elif '次判断' in section_title or '候选' in section_title or 'watch' in title_lower:
+            cards.append(card(
+                'watch', '🟡 候选重定价', title,
+                md_to_html(section_body), collapsed=True
+            ))
+        elif '证据' in section_title or 'source' in title_lower:
+            cards.append(card(
+                'evidence', '📎 证据层', section_title,
+                md_to_html(section_body), collapsed=True
+            ))
+
+    if cards:
+        return cards
+
+    # 兼容没有标准二级标题的报告：仍只显示为一个连贯判断，不拆成散卡片。
+    first_heading = re.search(r'^#\s+(.+)$', text, flags=re.MULTILINE)
+    title = first_heading.group(1).strip() if first_heading else '今日 Repricing 判断'
+    return [card('perception', '🌍 今日主判断', title, md_to_html(text), collapsed=False)]
 
 # --- 熵减卡片 ---
 
@@ -597,7 +686,7 @@ def load_template(name):
     path = TEMPLATES_DIR / name
     if path.exists(): return path.read_text()
     if name == "day.html":
-        return '''<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{DATE}} · {{SECTION_TITLE}}</title><link rel="stylesheet" href="{{CSS_PATH}}"></head><body><nav class="top-nav"><a href="{{INDEX_PATH}}" class="brand">📋 每日精选</a>{{TAB_NAV}}</nav><div class="container"><div class="day-nav"><a href="{{PREV_DAY}}">← 前一天</a><div class="day-title">{{DATE}}</div><a href="{{NEXT_DAY}}">后一天 →</a></div>{{CARDS}}<footer class="site-footer"><p>Daily Digest</p></footer></div><script>
+        return '''<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{DATE}} · {{SECTION_TITLE}}</title><link rel="stylesheet" href="{{CSS_PATH}}"></head><body><nav class="top-nav"><a href="{{INDEX_PATH}}" class="brand">商业感知</a>{{TAB_NAV}}</nav><div class="container"><div class="day-nav"><a href="{{PREV_DAY}}">← 前一天</a><div class="day-title">{{DATE}}</div><a href="{{NEXT_DAY}}">后一天 →</a></div>{{CARDS}}<footer class="site-footer"><p>Daily Digest</p></footer></div><script>
 var cards=document.querySelectorAll(".card");cards.forEach(function(c,i){if(i>0)c.classList.add("collapsed")});
 document.addEventListener("click",function(e){var h=e.target.closest(".card-header");if(h)h.closest(".card").classList.toggle("collapsed")});
 </script></body></html>'''
@@ -618,13 +707,14 @@ def _find_prev_next(date_str, available_dates):
     return prev_d, next_d
 
 def _tab_nav_html(section, base_path=".."):
-    """生成 5 频道 tab 导航 HTML"""
+    """生成频道导航。商业感知是默认判断层，其余频道是证据与专项层。"""
     tabs = [
+        ("perception", f"{base_path}/perception/", "🌍 商业感知"),
         ("entropy", f"{base_path}/entropy/", "🧠 熵减计划"),
-        ("graveyard", f"{base_path}/index.html", "🪦 想法墓地"),
+        ("graveyard", f"{base_path}/graveyard/", "🪦 想法墓地"),
         ("zero2idea", f"{base_path}/zero2idea/", "🔭 Zero2Idea"),
         ("10x", f"{base_path}/10x/", "🎯 10x投机"),
-        ("browse", f"{base_path}/browse/", "📖 随便逛逛"),
+        ("browse", f"{base_path}/browse/", "📚 信号库"),
     ]
     items = []
     for key, href, label in tabs:
@@ -639,6 +729,8 @@ def render_day_page(date_str, cards_html, section, section_title, available_date
 
     if section == "entropy":
         out_dir = ENTROPY_DIR
+    elif section == "perception":
+        out_dir = PERCEPTION_DIR
     elif section == "zero2idea":
         out_dir = ZERO2IDEA_DIR
     elif section == "10x":
@@ -670,11 +762,36 @@ def render_day_page(date_str, cards_html, section, section_title, available_date
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / f"{date_str}.html").write_text(html)
 
-def render_index(dates_entropy, dates_graveyard, dates_zero2idea, dates_10x=None):
+def render_index(dates_entropy, dates_graveyard, dates_zero2idea, dates_10x=None, dates_perception=None):
     """渲染首页 + 频道首页"""
     if dates_10x is None: dates_10x = set()
-    # 首页 = 想法墓地最新日内容
-    if dates_graveyard:
+    if dates_perception is None: dates_perception = set()
+
+    # 首页 = 最新商业感知判断。原始信息频道不再默认占用注意力。
+    if dates_perception:
+        latest_p = max(dates_perception)
+        p_cards = collect_repricing_cards(latest_p)
+        if p_cards.strip():
+            tab_nav = _tab_nav_html("perception", ".")
+            prev_d, next_d = _find_prev_next(latest_p, dates_perception)
+            prev_link = f"perception/{prev_d}.html" if prev_d else "index.html"
+            next_link = f"perception/{next_d}.html" if next_d else "index.html"
+
+            template = load_template("day.html")
+            html = template
+            html = html.replace("{{DATE}}", latest_p)
+            html = html.replace("{{SECTION_TITLE}}", "商业感知")
+            html = html.replace("{{CSS_PATH}}", "style.css")
+            html = html.replace("{{INDEX_PATH}}", "index.html")
+            html = html.replace("{{TAB_NAV}}", tab_nav)
+            html = html.replace("{{PREV_DAY}}", prev_link)
+            html = html.replace("{{NEXT_DAY}}", next_link)
+            html = html.replace("{{CARDS}}", '<div class="attention-note">今天只需要理解一个变化。原始信号保留在后台，只有形成判断后才进入这里。</div>' + p_cards)
+            html = html.replace(".html.html", ".html")
+            (BASE_DIR / "index.html").write_text(html)
+
+    # 没有商业感知报告时才回退到想法墓地，避免首页空白。
+    elif dates_graveyard:
         latest_g = max(dates_graveyard)
         g_cards = collect_graveyard_cards(latest_g)
         if not g_cards.strip():
@@ -702,6 +819,14 @@ def render_index(dates_entropy, dates_graveyard, dates_zero2idea, dates_10x=None
             html = html.replace("{{CARDS}}", g_cards)
             html = html.replace(".html.html", ".html")
             (BASE_DIR / "index.html").write_text(html)
+
+    # 商业感知频道 index
+    PERCEPTION_DIR.mkdir(parents=True, exist_ok=True)
+    if dates_perception:
+        latest = max(dates_perception)
+        latest_file = PERCEPTION_DIR / f"{latest}.html"
+        if latest_file.exists():
+            (PERCEPTION_DIR / "index.html").write_text(latest_file.read_text())
 
     # 熵减频道 index
     ENTROPY_DIR.mkdir(parents=True, exist_ok=True)
@@ -751,6 +876,16 @@ def collect_entropy_cards(date_str):
         return ""
     entropy_cards, _ = parse_entropy_output(entropy_outputs[date_str])
     return "\n".join(entropy_cards)
+
+def collect_repricing_cards(date_str):
+    """收集商业感知报告；默认只展开主判断。"""
+    reports = get_repricing_outputs()
+    if date_str not in reports:
+        return ""
+    return "\n".join(render_repricing_report(reports[date_str]))
+
+def get_repricing_dates():
+    return set(get_repricing_outputs().keys())
 
 def collect_zero2idea_cards(date_str):
     """收集 Zero2Idea 机会雷达卡片"""
@@ -976,12 +1111,18 @@ def render_browse_index(per_page=20):
 # 主逻辑
 # ============================================================
 
-def render_date(date_str, e_dates=None, g_dates=None, z_dates=None, t_dates=None):
-    """渲染某一天的熵减+墓地+Zero2Idea+10x页面"""
+def render_date(date_str, e_dates=None, g_dates=None, z_dates=None, t_dates=None, p_dates=None):
+    """渲染某一天的商业感知与各专项证据页面。"""
     if e_dates is None: e_dates = set()
     if g_dates is None: g_dates = set()
     if z_dates is None: z_dates = set()
     if t_dates is None: t_dates = set()
+    if p_dates is None: p_dates = set()
+
+    p = collect_repricing_cards(date_str)
+    if p.strip():
+        intro = '<div class="attention-note">先读判断。只有当判断值得追踪时，再展开候选与证据。</div>'
+        render_day_page(date_str, intro + p, "perception", "商业感知", p_dates)
 
     e = collect_entropy_cards(date_str)
     if e.strip():
@@ -1010,8 +1151,9 @@ def main():
         e_dates, g_dates = get_available_dates()
         z_dates = get_zero2idea_dates()
         t_dates = get_10x_dates()
-        render_date(d, e_dates, g_dates, z_dates, t_dates)
-        render_index(e_dates, g_dates, z_dates, t_dates)
+        p_dates = get_repricing_dates()
+        render_date(d, e_dates, g_dates, z_dates, t_dates, p_dates)
+        render_index(e_dates, g_dates, z_dates, t_dates, p_dates)
         print(f"✅ 渲染完成: {d}")
 
     elif "--date" in args:
@@ -1020,19 +1162,21 @@ def main():
         e_dates, g_dates = get_available_dates()
         z_dates = get_zero2idea_dates()
         t_dates = get_10x_dates()
-        render_date(d, e_dates, g_dates, z_dates, t_dates)
-        render_index(e_dates, g_dates, z_dates, t_dates)
+        p_dates = get_repricing_dates()
+        render_date(d, e_dates, g_dates, z_dates, t_dates, p_dates)
+        render_index(e_dates, g_dates, z_dates, t_dates, p_dates)
         print(f"✅ 渲染完成: {d}")
 
     elif "--all" in args:
         e_dates, g_dates = get_available_dates()
         z_dates = get_zero2idea_dates()
         t_dates = get_10x_dates()
-        all_dates = e_dates | g_dates | z_dates | t_dates
+        p_dates = get_repricing_dates()
+        all_dates = e_dates | g_dates | z_dates | t_dates | p_dates
         for d in sorted(all_dates):
-            render_date(d, e_dates, g_dates, z_dates, t_dates)
-        render_index(e_dates, g_dates, z_dates, t_dates)
-        print(f"✅ 渲染完成: 熵减 {len(e_dates)} 天, 墓地 {len(g_dates)} 天, Zero2Idea {len(z_dates)} 天, 10x {len(t_dates)} 天")
+            render_date(d, e_dates, g_dates, z_dates, t_dates, p_dates)
+        render_index(e_dates, g_dates, z_dates, t_dates, p_dates)
+        print(f"✅ 渲染完成: 商业感知 {len(p_dates)} 天, 熵减 {len(e_dates)} 天, 墓地 {len(g_dates)} 天, Zero2Idea {len(z_dates)} 天, 10x {len(t_dates)} 天")
 
 if __name__ == "__main__":
     main()
