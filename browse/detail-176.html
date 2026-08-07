@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>2026-06-30 · 💡 想法</title>
+<title>2026-07-02 · 💡 想法</title>
 <link rel="stylesheet" href="../style.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -22,87 +22,16 @@
 <div class="container">
   <div class="day-nav">
     <a href="" class="nav-btn">← 前一天</a>
-    <div class="day-title">2026-06-30</div>
+    <div class="day-title">2026-07-02</div>
     <a href="" class="nav-btn">后一天 →</a>
   </div>
   <div class="browse-detail">
   <div class="browse-item-header">
     <span class="browse-source-tag">💡 想法</span>
-    <span class="browse-date">2026-06-30</span>
+    <span class="browse-date">2026-07-02</span>
   </div>
-  <div class="browse-detail-title">记录当前浏览器，各个域名的使用时长的插件。Chrome插件需求文档：网站浏览统计工具（支持域名标签功</div>
-  <div class="browse-detail-content">记录当前浏览器，各个域名的使用时长的插件。Chrome插件需求文档：网站浏览统计工具（支持域名标签功能）项目名称网站浏览时长统计助手（Domain Time Tracker Plus）项目概述• 该插件旨在帮助用户统计每天使用浏览器访问的各个域名及其浏览时长。
-• 以条形图的形式直观展示统计结果。
-• 支持为每个域名打标签（如工作、娱乐等），并按照标签统计每天、每周、每月的浏览时长，帮助用户更好地分类和分析自己的上网行为。
-功能需求核心功能• 域名访问时长记录• 记录用户每天访问的域名。
-• 保存每个域名的总浏览时长。
-
-• 域名标签管理• 用户可以为每个域名手动打标签（如工作、娱乐、学习等）。
-• 支持多个标签（一个域名可同时属于多个标签）。
-• 提供标签管理功能：添加、编辑、删除标签。
-
-• 标签统计• 按标签统计每天、每周、每月的浏览时长。
-• 在统计页面中以条形图或饼图形式展示各标签的总时长。
-
-• 数据展示• 独立统计页面展示当天域名的浏览时长，以及标签分类统计。
-• 支持按时长排序（从高到低或低到高）。
-
-非功能性需求• 性能• 插件对浏览器性能影响最小，确保实时统计流畅。
-• 即使统计大量域名和标签，也能高效展示数据。
-
-• 兼容性• 支持最新版本的Chrome浏览器。
-• 兼容Windows、MacOS、Linux等操作系统。
-
-• 安全性• 数据仅存储在本地，不上传到任何服务器。
-• 提供清除统计数据的功能，保护用户隐私。
-
-用户界面需求独立统计页面设计• 页面结构• 顶部导航栏： • 插件标题：显示“网站浏览时长统计助手”。
-• 日期选择器：用户可选择查看某一天、某周或某月的统计数据（默认为当天）。
-
-• 标签统计区域： • 饼图或条形图显示各标签的总浏览时长。
-• 饼图：每个标签占比直观展示（如工作占60%，娱乐占30%）。
-• 条形图：显示每个标签的总时长。
-
-• 域名统计区域： • 条形图显示当天各域名的浏览时长。
-• X轴：域名（如google.com、youtube.com）。
-• Y轴：使用时长（单位：分钟或小时）。
-
-• 排序与筛选功能： • 按时长排序：从高到低或从低到高。
-• 按标签筛选：只显示某个标签下的域名统计。
-
-• 底部操作栏： • 清除数据按钮：用户可手动清除当天的统计数据。
-
-• 标签管理界面• 页面结构： • 标签列表：显示用户已创建的标签（如工作、娱乐、学习）。
-• 添加标签功能：输入标签名称，点击“添加”按钮即可创建。
-• 编辑标签功能：允许修改标签名称。
-• 删除标签功能：支持删除不需要的标签。
-
-• 域名标签绑定： • 用户可以在域名列表中选择某个域名，并绑定一个或多个标签。
-
-• 页面风格• 简洁直观，采用现代化设计风格。
-• 支持深色模式和浅色模式切换。
-
-技术需求• 开发技术• 使用HTML、CSS和JavaScript开发前端界面。
-• 使用Chrome扩展API实现域名统计功能。
-
-• 核心API• chrome.tabs：监控标签页的切换和活动状态。
-• chrome.webNavigation：记录网页加载和导航行为。
-• chrome.storage.local：存储用户统计数据和标签数据。
-
-• 数据存储• 使用chrome.storage.local存储统计数据，确保数据本地化。
-• 数据结构示例：{ &quot;2025-07-30&quot;: { &quot;google.com&quot;: { &quot;timeSpent&quot;: 3600, // 单位：秒 &quot;tags&quot;: [&quot;工作&quot;] }, &quot;youtube.com&quot;: { &quot;timeSpent&quot;: 7200, &quot;tags&quot;: [&quot;娱乐&quot;] }, &quot;github.com&quot;: { &quot;timeSpent&quot;: 1800, &quot;tags&quot;: [&quot;工作&quot;, &quot;学习&quot;] } }, &quot;tags&quot;: { &quot;工作&quot;: { &quot;totalTimeSpent&quot;: 5400 // 单位：秒 }, &quot;娱乐&quot;: { &quot;totalTimeSpent&quot;: 7200 }, &quot;学习&quot;: { &quot;totalTimeSpent&quot;: 1800 } } } 
-
-• 权限• 需要以下权限： • tabs：监控标签页活动。
-• webNavigation：记录网页导航行为。
-• storage：存储数据。
-
-风险与挑战• 数据准确性• 如何准确记录域名的使用时长（如处理用户切换标签页或离开浏览器的情况）。
-
-• 性能问题• 实时统计可能导致浏览器性能下降，需要优化代码。
-
-• 标签管理复杂度• 用户可能需要频繁修改或添加标签，需要提供简便的操作方式。
-
-• 隐私问题• 用户可能担心数据被泄露，因此需要明确隐私保护措施。</div>
+  <div class="browse-detail-title">适合辉哥的产品形态清单：skill、纯代码无LLM网站、纯前端小程序、Chrome插件、计算器类工具</div>
+  <div class="browse-detail-content">适合辉哥的产品形态清单：skill、纯代码无LLM网站、纯前端小程序、Chrome插件、计算器类工具。这些都是builder的名片和标签。</div>
 </div>
   <footer class="site-footer">
     <p>Daily Digest · 先形成判断，再占用注意力</p>
