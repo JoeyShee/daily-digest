@@ -30,69 +30,8 @@
     <span class="browse-source-tag">💡 想法</span>
     <span class="browse-date">2025-08-05</span>
   </div>
-  <div class="browse-detail-title">情绪周报——————————————
- 「一页式社媒周报」PRD
- ——————————————一、</div>
-  <div class="browse-detail-content">情绪周报——————————————
- 「一页式社媒周报」PRD
- ——————————————一、产品定位
- • 使命：把原本 3-4 小时的社媒数据整理工作，浓缩成一封自动推送的 PDF 周报。
- • 目标用户：50-200 人的新消费 / DTC 品牌中的 CEO 助理、Growth Leader、市场负责人。
- • 核心指标：• 有效发送率 ≥98 %
-• 打开率 ≥70 %
-• 每周活跃付费客户数（WPU）
-二、功能范围（只做 1 件事）• 数据抓取 • 绑定品牌官方账号或关键词 → 调用第三方 SaaS（如 Meltwater）API 拉取过去 7 天帖子/评论/情绪。
-
-• 可视化生成 • 三张固定图表：
- A. 总声量柱状 + 环比百分比
- B. 情绪饼图（正 / 中立 / 负）
- C. Top3 抱怨关键词词云
-
-• 报告合成 • 套用单页 HTML 模板 → 渲染为 PDF（≤300 KB）。
-
-• 定时推送 • 周五 17:00（可自选）通过：
- • 邮件附件（默认）
- • 飞书 / 企业微信机器人（Webhook URL）
-
-三、产品形态
- • Web 端极简仪表盘（仅 3 步向导配置＋历史报表列表）。
- • 后台定时任务 + 生成 PDF + 推送服务（无移动端）。四、设计风格
- • 极简留白、双色体系（深靛蓝 + 极简黑 
- • 仅一种无衬线字体；所有按钮用动词+对象：“生成周报”“添加邮箱”。
- • 报表页使用 Metro-style 大号数字，方便投影/打印。五、核心交互流程• 首次登陆（Magic-Link 邮件登录，无密码）。
-• “创建品牌”：填写品牌名 → 选「官方账号或关键词」→ 粘贴 API Token。
-• 选推送方式：邮箱地址或飞书群 Webhook。
-• 确认 → 显示“预计本周五 17:00 首次送达”。
-• 历史页面可查看 / 重发任意一期 PDF。
-• 取消订阅：一键暂停、保留数据源配置。
-六、系统运行流程
- ┌ 用户配置 → 存配置表
- ├→ 周五定时 Job 触发
- │ ├ 调 API 抓 7 天数据
- │ ├ Pandas 清洗 / 聚合
- │ ├ Matplotlib &amp; WordCloud 画 3 图
- │ ├ Jinja2 插入 HTML 模板
- │ ├ wkhtmltopdf → 一页 PDF
- │ └ 邮件 / Webhook 推送日志入库
- └ 监控：失败重试 3 次 + Sentry 告警七、最简可行技术方案（MVP）
- • Backend：Python 3.11 + FastAPI + Celery + Redis(队列)
- • Data Source：购买 Meltwater 基础版；用其报告 API（JSON/CSV）
- • Storage：SQLite 即可（&lt;10 万行）
- • Chart：Matplotlib / Plotly；词云用 wordcloud 库
- • PDF：wkhtmltopdf（Docker 镜像现成）
- • Auth：MagicLink（Itsdangerous + SendGrid）
- • 部署：单 Docker Compose；上线用 Railway / Fly.io / AWS Lightsail开发估算：
- • 1 后端 + 1 前端 + 1 设计，共 3 人 × 3 周 = 120 人·天
- 月度固定成本：
- • Meltwater 基础帐号 2,000 元 + 邮件发送 200 元 + 服务器 300 元 ≈ 2,500 元八、推广方案（≤3 条，直击目标人群）• 精准冷启动：在 15 个“新消费品牌 CEO/增长”微信群发放「免费代做 1 期周报」邀请，成功率在 20% 左右。
-• 影响者背书：拉 3 位在小红书 / 知群做过品牌增长分享的 KOL，免费为其品牌生成周报，要求在直播或长文里提及使用体验。
-• 渠道分成：与两家 PR / 品牌外包工作室签 30% 返佣，嵌入他们每周交付物（海报、电商销售日报）中，同时帮助其提升专业度。
-——————————————
- 上线里程碑
- • T+10 天：Demo 跑通 &amp; 3 位种子用户收到 PDF
- • T+25 天：收费 Beta（≥10 客户）
- • T+90 天：月度复购率 ≥70 %，开始开发“竞品对比”付费插件
- ——————————————</div>
+  <div class="browse-detail-title">叙事医学。总是安慰人</div>
+  <div class="browse-detail-content">叙事医学。总是安慰人</div>
 </div>
   <footer class="site-footer">
     <p>Daily Digest · 先形成判断，再占用注意力</p>
