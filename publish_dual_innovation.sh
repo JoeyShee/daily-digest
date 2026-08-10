@@ -29,4 +29,4 @@ git add -A
 git commit -m "dual-innovation: $TODAY"
 git push origin main
 
-echo "双创研究已发布：https://joeyhee.github.io/daily-digest/dual-innovation/"
+echo "双创研究已发布：https://joeyshee.github.io/daily-digest/dual-innovation/"

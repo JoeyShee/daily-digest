@@ -22,4 +22,4 @@ Repricing 正式报告路径：`~/.hermes/data/repricing/reports/YYYY-MM-DD.md`�
 
 自动发布入口：`./publish_dual_innovation.sh`。
 
-🔗 [joeyhee.github.io/daily-digest](https://joeyhee.github.io/daily-digest)
+🔗 [joeyshee.github.io/daily-digest](https://joeyshee.github.io/daily-digest)
