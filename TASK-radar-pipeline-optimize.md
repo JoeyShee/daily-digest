@@ -42,7 +42,7 @@
 
 ```bash
 #!/bin/bash
-set -e
+set -euo pipefail
 
 echo "=== $(date '+%Y-%m-%d %H:%M:%S') 雷达全链路 START ==="
 
@@ -62,9 +62,9 @@ echo "--- [5/6] 渲染 $(date '+%H:%M:%S') ---"
 cd ~/Documents/daily-digest && python3 render.py --today 2>&1 || true
 
 echo "--- [6/6] 部署 $(date '+%H:%M:%S') ---"
-cd ~/Documents/daily-digest
-git add -A
-git diff --cached --quiet || git commit -m "browse: radar update $(date +%Y-%m-%d)" && git push origin main
+/Users/joeyshee/Documents/daily-digest/publish_to_personal_site.sh \
+  --skip-render \
+  --message-prefix=browse
 
 echo "=== $(date '+%Y-%m-%d %H:%M:%S') 雷达全链路 DONE ==="
 ```
