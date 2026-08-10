@@ -40,6 +40,7 @@
   --color-perception: #0f766e;
   --color-watch: #ca8a04;
   --color-evidence: #64748b;
+  --color-dual-innovation: #dc2626;
 
   /* Notion Blue */
   --notion-blue: #0075de;
@@ -124,6 +125,8 @@ a:hover { text-decoration: underline; }
 .tab-nav .tab-item { flex: 0 0 auto; white-space: nowrap; }
 .tab-nav .tab-item:hover { color: var(--text); background: var(--surface-warm); text-decoration: none; }
 .tab-nav .tab-item.active { color: var(--text); background: var(--surface-warm); font-weight: 600; }
+
+.card-bar.dual-innovation { background: var(--color-dual-innovation); }
 
 /* ---------- 日期切换 ---------- */
 .day-nav {

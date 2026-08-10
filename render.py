@@ -21,11 +21,13 @@ ENTROPY_DIR = BASE_DIR / "entropy"
 GRAVEYARD_DIR = BASE_DIR / "graveyard"
 ZERO2IDEA_DIR = BASE_DIR / "zero2idea"
 TENX_DIR = BASE_DIR / "10x"
+DUAL_INNOVATION_DIR = BASE_DIR / "dual-innovation"
 BROWSE_DIR = BASE_DIR / "browse"
 PERCEPTION_DIR = BASE_DIR / "perception"
 BROWSE_DATA_DIR = HERMES_DIR / "data" / "browse" / "items.json"
 REPRICING_DATA_DIR = HERMES_DIR / "data" / "repricing" / "reports"
 REPRICING_FALLBACK_DIR = Path("~/Documents/10x投机/docs/reports").expanduser()
+DUAL_INNOVATION_SOURCE_DIR = Path("~/Documents/10x投机/deliveries").expanduser()
 
 # ============================================================
 # 数据加载
@@ -82,6 +84,19 @@ def get_10x_outputs():
                         date_str = f"{m.group(1)}-{m.group(2)}-{m.group(3)}"
                         TENX_CACHE[date_str] = report.read_text(errors="replace")
     return TENX_CACHE
+
+DUAL_INNOVATION_CACHE = None
+def get_dual_innovation_outputs():
+    """读取10x系统已经成熟的一页交付，不读取内部研究底稿。"""
+    global DUAL_INNOVATION_CACHE
+    if DUAL_INNOVATION_CACHE is None:
+        DUAL_INNOVATION_CACHE = {}
+        if DUAL_INNOVATION_SOURCE_DIR.exists():
+            for report in sorted(DUAL_INNOVATION_SOURCE_DIR.glob("*.md")):
+                m = re.search(r'(\d{4}-\d{2}-\d{2})', report.name)
+                if m:
+                    DUAL_INNOVATION_CACHE[m.group(1)] = report.read_text(errors="replace")
+    return DUAL_INNOVATION_CACHE
 
 REPRICING_CACHE = None
 def get_repricing_outputs():
@@ -657,6 +672,19 @@ def render_10x_report(md_text):
 
     return cards
 
+def render_dual_innovation_report(md_text):
+    """把双创每日一页渲染为单张决策卡，避免暴露后台台账。"""
+    title_m = re.search(r'^#\s+(.+)$', md_text, flags=re.MULTILINE)
+    title = title_m.group(1).strip() if title_m else "双创研究"
+    body = re.sub(r'^#\s+.+$', '', md_text, count=1, flags=re.MULTILINE).strip()
+    return card(
+        "dual-innovation",
+        "📈 双创研究 · 今日一页",
+        title,
+        md_to_html(body),
+        collapsed=False,
+    )
+
 def render_stone(stone):
     cat = stone.get("category", "📦存档")
     bar, label = CAT_MAP.get(cat, ("graveyard", cat))
@@ -713,6 +741,7 @@ def _tab_nav_html(section, base_path=".."):
         ("entropy", f"{base_path}/entropy/", "🧠 熵减计划"),
         ("graveyard", f"{base_path}/graveyard/", "🪦 想法墓地"),
         ("zero2idea", f"{base_path}/zero2idea/", "🔭 Zero2Idea"),
+        ("dual-innovation", f"{base_path}/dual-innovation/", "📈 双创研究"),
         ("10x", f"{base_path}/10x/", "🎯 10x投机"),
         ("browse", f"{base_path}/browse/", "📚 信号库"),
     ]
@@ -735,6 +764,8 @@ def render_day_page(date_str, cards_html, section, section_title, available_date
         out_dir = ZERO2IDEA_DIR
     elif section == "10x":
         out_dir = TENX_DIR
+    elif section == "dual-innovation":
+        out_dir = DUAL_INNOVATION_DIR
     else:
         out_dir = GRAVEYARD_DIR
 
@@ -762,10 +793,11 @@ def render_day_page(date_str, cards_html, section, section_title, available_date
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / f"{date_str}.html").write_text(html)
 
-def render_index(dates_entropy, dates_graveyard, dates_zero2idea, dates_10x=None, dates_perception=None):
+def render_index(dates_entropy, dates_graveyard, dates_zero2idea, dates_10x=None, dates_perception=None, dates_dual_innovation=None):
     """渲染首页 + 频道首页"""
     if dates_10x is None: dates_10x = set()
     if dates_perception is None: dates_perception = set()
+    if dates_dual_innovation is None: dates_dual_innovation = set()
 
     # 首页 = 最新商业感知判断。原始信息频道不再默认占用注意力。
     if dates_perception:
@@ -860,6 +892,14 @@ def render_index(dates_entropy, dates_graveyard, dates_zero2idea, dates_10x=None
         if latest_file.exists():
             (TENX_DIR / "index.html").write_text(latest_file.read_text())
 
+    # 双创研究频道 index
+    DUAL_INNOVATION_DIR.mkdir(parents=True, exist_ok=True)
+    if dates_dual_innovation:
+        latest = max(dates_dual_innovation)
+        latest_file = DUAL_INNOVATION_DIR / f"{latest}.html"
+        if latest_file.exists():
+            (DUAL_INNOVATION_DIR / "index.html").write_text(latest_file.read_text())
+
     # browse 频道 index
     BROWSE_DIR.mkdir(parents=True, exist_ok=True)
     render_browse_details()
@@ -914,6 +954,16 @@ def collect_10x_cards(date_str):
 def get_10x_dates():
     """收集所有有 10x 周报数据的日期"""
     return set(get_10x_outputs().keys())
+
+def collect_dual_innovation_cards(date_str):
+    """收集双创研究系统的成熟每日一页。"""
+    reports = get_dual_innovation_outputs()
+    if date_str not in reports:
+        return ""
+    return render_dual_innovation_report(reports[date_str])
+
+def get_dual_innovation_dates():
+    return set(get_dual_innovation_outputs().keys())
 
 def collect_graveyard_cards(date_str):
     """收集想法墓地卡片"""
@@ -1111,13 +1161,14 @@ def render_browse_index(per_page=20):
 # 主逻辑
 # ============================================================
 
-def render_date(date_str, e_dates=None, g_dates=None, z_dates=None, t_dates=None, p_dates=None):
+def render_date(date_str, e_dates=None, g_dates=None, z_dates=None, t_dates=None, p_dates=None, d_dates=None):
     """渲染某一天的商业感知与各专项证据页面。"""
     if e_dates is None: e_dates = set()
     if g_dates is None: g_dates = set()
     if z_dates is None: z_dates = set()
     if t_dates is None: t_dates = set()
     if p_dates is None: p_dates = set()
+    if d_dates is None: d_dates = set()
 
     p = collect_repricing_cards(date_str)
     if p.strip():
@@ -1140,6 +1191,11 @@ def render_date(date_str, e_dates=None, g_dates=None, z_dates=None, t_dates=None
     if t.strip():
         render_day_page(date_str, t, "10x", "10x投机", t_dates)
 
+    d = collect_dual_innovation_cards(date_str)
+    if d.strip():
+        intro = '<div class="attention-note">每天只看一页：当前状态、变化、错价、反证和行动。</div>'
+        render_day_page(date_str, intro + d, "dual-innovation", "双创研究", d_dates)
+
 def main():
     args = sys.argv[1:]
     if not args:
@@ -1152,8 +1208,9 @@ def main():
         z_dates = get_zero2idea_dates()
         t_dates = get_10x_dates()
         p_dates = get_repricing_dates()
-        render_date(d, e_dates, g_dates, z_dates, t_dates, p_dates)
-        render_index(e_dates, g_dates, z_dates, t_dates, p_dates)
+        d_dates = get_dual_innovation_dates()
+        render_date(d, e_dates, g_dates, z_dates, t_dates, p_dates, d_dates)
+        render_index(e_dates, g_dates, z_dates, t_dates, p_dates, d_dates)
         print(f"✅ 渲染完成: {d}")
 
     elif "--date" in args:
@@ -1163,8 +1220,9 @@ def main():
         z_dates = get_zero2idea_dates()
         t_dates = get_10x_dates()
         p_dates = get_repricing_dates()
-        render_date(d, e_dates, g_dates, z_dates, t_dates, p_dates)
-        render_index(e_dates, g_dates, z_dates, t_dates, p_dates)
+        d_dates = get_dual_innovation_dates()
+        render_date(d, e_dates, g_dates, z_dates, t_dates, p_dates, d_dates)
+        render_index(e_dates, g_dates, z_dates, t_dates, p_dates, d_dates)
         print(f"✅ 渲染完成: {d}")
 
     elif "--all" in args:
@@ -1172,11 +1230,12 @@ def main():
         z_dates = get_zero2idea_dates()
         t_dates = get_10x_dates()
         p_dates = get_repricing_dates()
-        all_dates = e_dates | g_dates | z_dates | t_dates | p_dates
+        d_dates = get_dual_innovation_dates()
+        all_dates = e_dates | g_dates | z_dates | t_dates | p_dates | d_dates
         for d in sorted(all_dates):
-            render_date(d, e_dates, g_dates, z_dates, t_dates, p_dates)
-        render_index(e_dates, g_dates, z_dates, t_dates, p_dates)
-        print(f"✅ 渲染完成: 商业感知 {len(p_dates)} 天, 熵减 {len(e_dates)} 天, 墓地 {len(g_dates)} 天, Zero2Idea {len(z_dates)} 天, 10x {len(t_dates)} 天")
+            render_date(d, e_dates, g_dates, z_dates, t_dates, p_dates, d_dates)
+        render_index(e_dates, g_dates, z_dates, t_dates, p_dates, d_dates)
+        print(f"✅ 渲染完成: 商业感知 {len(p_dates)} 天, 熵减 {len(e_dates)} 天, 墓地 {len(g_dates)} 天, Zero2Idea {len(z_dates)} 天, 双创研究 {len(d_dates)} 天, 10x {len(t_dates)} 天")
 
 if __name__ == "__main__":
     main()

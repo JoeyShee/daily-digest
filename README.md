@@ -13,4 +13,13 @@
 
 Repricing 正式报告路径：`~/.hermes/data/repricing/reports/YYYY-MM-DD.md`。
 
+## 双创研究
+
+“双创研究”是 10x 投机研究系统的公开阅读层。它每天最多发布一页成熟判断，内容来自
+`~/Documents/10x投机/deliveries/YYYY-MM-DD-*.md`，而不是把原始信号、研究台账或未验证猜测直接公开。
+
+固定阅读结构是：当前状态、今天改变了什么、可能的错价、最强反证和当前行动。没有足够证据时，允许明确发布“今日无重要变化”，不为保持日更而制造机会。
+
+自动发布入口：`./publish_dual_innovation.sh`。
+
 🔗 [joeyhee.github.io/daily-digest](https://joeyhee.github.io/daily-digest)
