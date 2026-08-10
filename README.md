@@ -20,6 +20,9 @@ Repricing 正式报告路径：`~/.hermes/data/repricing/reports/YYYY-MM-DD.md`�
 
 固定阅读结构是：当前状态、今天改变了什么、可能的错价、最强反证和当前行动。没有足够证据时，允许明确发布“今日无重要变化”，不为保持日更而制造机会。
 
-自动发布入口：`./publish_dual_innovation.sh`。
+自动发布入口：`./publish_dual_innovation.sh`。所有公开栏目统一通过
+`./publish_to_personal_site.sh` 触发个人站部署；GitHub 仓库仅保留公开产物的版本记录。
 
-🔗 [joeyshee.github.io/daily-digest](https://joeyshee.github.io/daily-digest)
+🔗 [jsbuildslowly.com/digest](https://jsbuildslowly.com/digest/)
+
+旧 GitHub Pages 地址只保留兼容跳转，不再作为正式发布出口。
