@@ -892,13 +892,9 @@ def render_index(dates_entropy, dates_graveyard, dates_zero2idea, dates_10x=None
         if latest_file.exists():
             (TENX_DIR / "index.html").write_text(latest_file.read_text())
 
-    # 双创研究频道 index
+    # 双创研究首页由独立交互页维护。每日渲染只新增/更新按日期归档页，
+    # 不再用最新日报覆盖首页，否则会抹掉“当前行动 / 本周变化 / 公司库”。
     DUAL_INNOVATION_DIR.mkdir(parents=True, exist_ok=True)
-    if dates_dual_innovation:
-        latest = max(dates_dual_innovation)
-        latest_file = DUAL_INNOVATION_DIR / f"{latest}.html"
-        if latest_file.exists():
-            (DUAL_INNOVATION_DIR / "index.html").write_text(latest_file.read_text())
 
     # browse 频道 index
     BROWSE_DIR.mkdir(parents=True, exist_ok=True)
