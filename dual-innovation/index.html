@@ -1,294 +1,295 @@
 <!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="双创研究：行动提醒、每周变化、公司库与白盒投资分析。">
-  <title>双创研究 · 10x 投资系统</title>
-  <style>
-:root {
-  --ink:#17201c; --muted:#66706a; --soft:#8d9690; --line:#e2e7e3; --paper:#fbfcfa;
-  --white:#fff; --green:#176b4d; --green-soft:#e9f4ee; --amber:#9a650b; --amber-soft:#fff5dc;
-  --blue:#2f5b78; --blue-soft:#edf4f7; --red:#a54135; --red-soft:#fbece9; --purple:#6d5382;
-  --shadow:0 12px 36px rgba(32,45,38,.07); --radius:18px; --max:1160px;
-}
-*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.65}
-button,input{font:inherit} button{color:inherit}.topbar{position:sticky;top:0;z-index:20;background:rgba(251,252,250,.92);border-bottom:1px solid var(--line);backdrop-filter:blur(18px)}
-.topbar-inner{max-width:var(--max);height:72px;margin:auto;padding:0 28px;display:flex;align-items:center;gap:34px}.brand{border:0;background:none;display:flex;align-items:center;gap:11px;padding:0;cursor:pointer;text-align:left}.brand-mark{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--ink);color:#fff;font-weight:800}.brand strong{display:block;font-size:15px}.brand small{display:block;color:var(--soft);font-size:11px;margin-top:-2px}.primary-nav{display:flex;align-self:stretch;gap:6px}.nav-item{border:0;background:none;padding:0 14px;color:var(--muted);font-size:14px;cursor:pointer;border-bottom:2px solid transparent}.nav-item:hover,.nav-item.active{color:var(--ink)}.nav-item.active{border-color:var(--green);font-weight:700}.system-state{margin-left:auto;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:7px}.system-state span{width:7px;height:7px;border-radius:50%;background:#34a36d;box-shadow:0 0 0 5px #e7f5ed}
-.site-return{margin-left:auto;color:var(--muted);font-size:12px;text-decoration:none}.site-return:hover{color:var(--green)}.system-state{margin-left:0}
-.shell{max-width:var(--max);margin:0 auto;padding:54px 28px 90px}.view{display:none}.view.active{display:block;animation:enter .24s ease}@keyframes enter{from{opacity:.3;transform:translateY(5px)}to{opacity:1;transform:none}}
-.eyebrow,.section-kicker{text-transform:uppercase;letter-spacing:.12em;color:var(--green);font-weight:800;font-size:11px}.hero-row{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-top:10px}h1{font-family:Georgia,"Noto Serif SC",serif;font-size:42px;line-height:1.2;letter-spacing:-.035em;margin:0;max-width:760px}h2{font-family:Georgia,"Noto Serif SC",serif;font-size:27px;margin:3px 0 0}h3{font-size:19px;line-height:1.35;margin:8px 0}.lead{font-size:17px;color:var(--muted);max-width:760px;margin:16px 0 0}.hero-badge{width:132px;height:132px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:0 0 auto}.hero-badge.neutral{background:var(--green-soft);color:var(--green)}.hero-badge strong{font-size:38px;line-height:1}.hero-badge span{font-size:12px;margin-top:7px}
-.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:42px 0 58px}.metric-card{background:var(--white);border:1px solid var(--line);border-radius:15px;padding:20px;box-shadow:0 5px 18px rgba(32,45,38,.035)}.metric-card span,.metric-card small{display:block;color:var(--muted);font-size:12px}.metric-card strong{display:block;font-size:29px;margin:4px 0}.section-heading{display:flex;align-items:end;justify-content:space-between;margin-bottom:18px}.text-button,.back-link{border:0;background:none;color:var(--green);font-weight:700;font-size:13px;cursor:pointer;padding:8px 0}.signal-list{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.signal-card,.company-card{border:1px solid var(--line);background:var(--white);border-radius:var(--radius);padding:23px;text-align:left;cursor:pointer;box-shadow:var(--shadow);transition:.18s ease}.signal-card:hover,.company-card:hover{transform:translateY(-3px);border-color:#c7d4cd}.signal-top,.company-card>div:first-child{display:flex;align-items:center;justify-content:space-between}.ticker{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--soft);font-size:11px}.status{padding:4px 8px;border-radius:999px;font-size:11px;font-weight:800}.status.wait,.status.price{background:var(--amber-soft);color:var(--amber)}.status.verify{background:var(--blue-soft);color:var(--blue)}.status.research{background:#f1edf5;color:var(--purple)}.business-line,.company-card p{color:var(--muted);font-size:13px;min-height:64px}.signal-thesis{border-top:1px solid var(--line);padding-top:16px;margin-top:17px;font-size:14px}.signal-card footer,.company-card footer{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:20px;font-size:11px;color:var(--muted)}.signal-card footer b{color:var(--green)}.quiet-note{margin-top:28px;padding:22px 24px;border:1px dashed #b9c8c0;border-radius:16px;display:flex;gap:15px;background:#f6faf7}.quiet-note p{margin:3px 0 0;color:var(--muted);font-size:13px}.quiet-icon{width:27px;height:27px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;flex:0 0 auto}
-.weekly-callout{margin:34px 0 28px;padding:24px 27px;border-radius:var(--radius);background:var(--green-soft);display:grid;grid-template-columns:auto 1fr;gap:2px 22px;align-items:center}.weekly-callout span{font-size:12px;color:var(--green);font-weight:800}.weekly-callout strong{font-family:Georgia,serif;font-size:25px}.weekly-callout p{grid-column:2;margin:0;color:var(--muted);font-size:13px}.weekly-table{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}.weekly-row{display:grid;grid-template-columns:1.15fr 2.1fr .85fr .65fr;width:100%;border:0;border-bottom:1px solid var(--line);background:none;padding:17px 20px;text-align:left;gap:20px;align-items:center}.weekly-row:not(.weekly-head){cursor:pointer}.weekly-row:not(.weekly-head):hover{background:#f7faf8}.weekly-row:last-child{border-bottom:0}.weekly-head{font-size:11px;color:var(--soft);font-weight:800}.weekly-row span{font-size:13px}.weekly-row small{display:block;color:var(--muted);margin-top:2px}.tag{font-style:normal;display:inline-block;padding:4px 8px;border-radius:999px;font-size:10px;font-weight:800}.tag.repricing{background:var(--amber-soft);color:var(--amber)}.tag.compounder{background:var(--green-soft);color:var(--green)}.action-neutral{font-size:12px;color:var(--blue)}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}.panel{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:24px}.panel p{color:var(--muted);font-size:13px;margin-bottom:0}
-.library-head{display:flex;justify-content:space-between;align-items:end;gap:34px}.search-box{width:310px;height:44px;border:1px solid var(--line);background:var(--white);border-radius:12px;display:flex;align-items:center;gap:8px;padding:0 13px}.search-box input{border:0;outline:0;width:100%;background:none}.filters{display:flex;gap:8px;margin:32px 0 18px}.filter{border:1px solid var(--line);background:var(--white);border-radius:999px;padding:8px 13px;font-size:12px;color:var(--muted);cursor:pointer}.filter.active{background:var(--ink);color:#fff;border-color:var(--ink)}.company-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.company-card.hidden{display:none}.company-card h3{font-size:20px}.company-card footer b{font-size:10px;color:var(--soft)}
-.back-link{margin-bottom:22px}.company-hero{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:start}.company-title-row{display:flex;align-items:center;gap:11px;margin:5px 0}.company-title-row h1{font-size:40px}.company-code{font-family:ui-monospace,monospace;color:var(--soft)}.strategy-pills{display:flex;gap:8px;margin-top:16px}.decision-box{min-width:235px;border-radius:var(--radius);padding:22px;background:var(--amber-soft);border:1px solid #efdca6}.decision-box span{display:block;color:var(--amber);font-size:11px;font-weight:800}.decision-box strong{font-size:22px}.decision-box p{font-size:12px;color:var(--muted);margin:7px 0 0}.intro-card{margin:30px 0 20px;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:25px;box-shadow:var(--shadow)}.intro-card h2{font-size:23px;margin-bottom:18px}.intro-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}.intro-grid span{display:block;color:var(--soft);font-size:10px;font-weight:800;letter-spacing:.08em}.intro-grid strong{display:block;font-size:13px;margin-top:5px}.thesis-card{border:1px solid var(--line);background:var(--white);border-radius:var(--radius);overflow:hidden;margin-top:16px}.thesis-head{padding:22px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.thesis-head h2{font-size:23px}.thesis-body{padding:24px}.judgment{font-family:Georgia,"Noto Serif SC",serif;font-size:22px;line-height:1.55;margin:0 0 22px}.logic-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:18px 0}.logic-step{background:#f6f8f6;border-radius:12px;padding:14px;font-size:12px}.logic-step b{display:block;color:var(--green);font-size:10px;margin-bottom:5px}.evidence-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.evidence-box{border:1px solid var(--line);border-radius:13px;padding:16px}.evidence-box.positive{border-left:4px solid var(--green)}.evidence-box.risk{border-left:4px solid var(--red)}.evidence-box h4{margin:0 0 7px;font-size:13px}.evidence-box ul{padding-left:17px;margin:0;color:var(--muted);font-size:12px}.whitebox{margin-top:16px;border:1px solid var(--line);border-radius:var(--radius);background:var(--white);overflow:hidden}.whitebox summary{padding:20px 24px;cursor:pointer;font-weight:800;list-style:none}.whitebox summary::-webkit-details-marker{display:none}.whitebox summary:after{content:"＋";float:right;color:var(--green)}.whitebox[open] summary:after{content:"－"}.whitebox-content{border-top:1px solid var(--line);padding:24px}.method-row{display:grid;grid-template-columns:150px 1fr;gap:22px;padding:13px 0;border-bottom:1px solid var(--line);font-size:13px}.method-row:last-child{border-bottom:0}.method-row b{color:var(--green)}.audit-box{margin-top:20px;background:#f5f4f7;border-radius:14px;padding:18px}.audit-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.audit-grid div{background:#fff;border-radius:11px;padding:14px;font-size:12px}.audit-grid span{display:block;color:var(--purple);font-weight:800;margin-bottom:5px}.source-list{font-size:12px;color:var(--muted);padding-left:20px}.source-list a{color:var(--blue);word-break:break-all}
-@media(max-width:850px){.signal-list,.company-grid{grid-template-columns:1fr 1fr}.summary-grid{grid-template-columns:1fr 1fr}.weekly-row{grid-template-columns:1fr}.weekly-head{display:none}.weekly-row>span{font-size:13px}.intro-grid,.logic-flow{grid-template-columns:1fr 1fr}.library-head{align-items:start;flex-direction:column}.search-box{width:100%}.company-hero{grid-template-columns:1fr}.decision-box{width:100%}.system-state{display:none}}
-@media(max-width:580px){.topbar-inner{padding:0 16px;gap:12px}.brand small,.site-return{display:none}.brand-mark{width:34px;height:34px}.primary-nav{overflow:auto}.nav-item{padding:0 8px;font-size:12px}.shell{padding:35px 17px 70px}h1{font-size:31px}.hero-row{align-items:start}.hero-badge{width:85px;height:85px}.hero-badge strong{font-size:28px}.summary-grid,.signal-list,.company-grid,.two-col,.evidence-grid,.audit-grid{grid-template-columns:1fr}.weekly-callout{grid-template-columns:1fr}.weekly-callout p{grid-column:1}.intro-grid,.logic-flow{grid-template-columns:1fr}.method-row{grid-template-columns:1fr}.section-heading{align-items:start;gap:15px}.section-heading h2{font-size:23px}}
-  </style>
-</head>
-<body>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <button class="brand" data-view="home" aria-label="返回双创研究首页">
-        <span class="brand-mark">双</span>
-        <span><strong>双创研究</strong><small>10x 投资系统</small></span>
-      </button>
-      <nav class="primary-nav" aria-label="主导航">
-        <button class="nav-item active" data-view="home">当前行动</button>
-        <button class="nav-item" data-view="weekly">本周变化</button>
-        <button class="nav-item" data-view="library">公司库</button>
-      </nav>
-      <a class="site-return" href="../">返回个人站</a>
-      <div class="system-state"><span></span> 后台运行中</div>
-    </div>
-  </header>
-
-  <main class="shell">
-    <section class="view active" id="view-home">
-      <div class="eyebrow">截至 2026年8月12日 08:41</div>
-      <div class="hero-row">
-        <div>
-          <h1>今天没有需要你处理的交易。</h1>
-          <p class="lead">系统已检查公告、财报、行情和研究队列。三家公司有新证据，但都没有达到买入或卖出门槛。</p>
-        </div>
-        <div class="hero-badge neutral"><strong>0</strong><span>行动提醒</span></div>
-      </div>
-
-      <div class="summary-grid">
-        <article class="metric-card"><span>覆盖公司</span><strong>20</strong><small>公司底座持续更新</small></article>
-        <article class="metric-card"><span>本周变化</span><strong>3</strong><small>进入周报，不打扰你</small></article>
-        <article class="metric-card"><span>接近验证</span><strong>2</strong><small>等待财报或价格触发</small></article>
-        <article class="metric-card"><span>影子仓</span><strong>0</strong><small>没有制造交易机会</small></article>
-      </div>
-
-      <div class="section-heading">
-        <div><span class="section-kicker">重点观察</span><h2>离行动最近的三个判断</h2></div>
-        <button class="text-button" data-view="weekly">查看完整周报 →</button>
-      </div>
-
-      <div class="signal-list">
-        <button class="signal-card" data-company="301308">
-          <div class="signal-top"><span class="ticker">301308</span><span class="status wait">观察</span></div>
-          <h3>江波龙</h3>
-          <p class="business-line">为手机、汽车和服务器客户提供存储产品及企业级存储方案。</p>
-          <div class="signal-thesis">利润继续增长，但库存、借款和负现金流尚未证明这份利润可持续。</div>
-          <footer><span>供需／价格型 Repricing</span><b>等待三季报 →</b></footer>
-        </button>
-        <button class="signal-card" data-company="300274">
-          <div class="signal-top"><span class="ticker">300274</span><span class="status verify">核查</span></div>
-          <h3>阳光电源</h3>
-          <p class="business-line">向全球客户销售光伏逆变器、储能系统，并开发新能源电站项目。</p>
-          <div class="signal-thesis">估值要求并不极端，但必须先解释一季度利润和现金流同步下滑。</div>
-          <footer><span>公司经营拐点型 Repricing</span><b>等待半年报 →</b></footer>
-        </button>
-        <button class="signal-card" data-company="300308">
-          <div class="signal-top"><span class="ticker">300308</span><span class="status price">等待价格</span></div>
-          <h3>中际旭创</h3>
-          <p class="business-line">为AI数据中心提供800G、1.6T等高速光模块，是算力互连关键环节。</p>
-          <div class="signal-thesis">基本面很强，但当前价格已经要求未来利润连续高速增长。</div>
-          <footer><span>高预期 Repricing</span><b>不追涨 →</b></footer>
-        </button>
-      </div>
-
-      <div class="quiet-note">
-        <span class="quiet-icon">✓</span>
-        <div><strong>系统每天工作，不等于你每天都要阅读。</strong><p>普通材料只进入公司库；改变认识但不改变行动的证据进入周报；只有买入、卖出或重大风险才立即提醒。</p></div>
-      </div>
-    </section>
-
-    <section class="view" id="view-weekly">
-      <div class="eyebrow">2026年第33周 · 周度复盘</div>
-      <h1>本周没有买入信号，但有三个判断值得保留。</h1>
-      <p class="lead">你只需要理解发生了什么变化，以及它为什么仍不足以触发行动。完整证据已经更新到公司库。</p>
-
-      <div class="weekly-callout"><span>本周行动</span><strong>不行动</strong><p>继续等待盈利质量、现金转化和价格安全边际。</p></div>
-
-      <div class="weekly-table" role="table" aria-label="本周公司判断变化">
-        <div class="weekly-row weekly-head" role="row"><span>公司与业务</span><span>本周变化</span><span>策略</span><span>动作</span></div>
-        <button class="weekly-row" data-company="301308" role="row">
-          <span><b>江波龙</b><small>存储产品与企业级存储</small></span>
-          <span>利润继续兑现；现金、库存和融资没有同步改善</span>
-          <span><i class="tag repricing">供需／价格</i></span>
-          <span><b class="action-neutral">观察</b></span>
-        </button>
-        <button class="weekly-row" data-company="300274" role="row">
-          <span><b>阳光电源</b><small>逆变器、储能和电站开发</small></span>
-          <span>完成来源修订；海外与储能利润因果仍不能直接证明</span>
-          <span><i class="tag repricing">经营拐点</i></span>
-          <span><b class="action-neutral">核查</b></span>
-        </button>
-        <button class="weekly-row" data-company="300308" role="row">
-          <span><b>中际旭创</b><small>AI高速光模块</small></span>
-          <span>基本面未恶化，但价格仍隐含三年高增长要求</span>
-          <span><i class="tag repricing">高预期</i></span>
-          <span><b class="action-neutral">等价格</b></span>
-        </button>
-      </div>
-
-      <div class="two-col">
-        <article class="panel">
-          <span class="section-kicker">下周一个问题</span>
-          <h3>AI存储的高利润，多少来自产品升级，多少来自库存价差？</h3>
-          <p>这决定江波龙和佰维存储当前的低市盈率究竟是错价，还是周期利润见顶的正常折价。</p>
-        </article>
-        <article class="panel">
-          <span class="section-kicker">接近催化</span>
-          <h3>阳光电源半年报</h3>
-          <p>重点不是总收入，而是储能、逆变器、项目开发的分业务毛利和海外回款。</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="view" id="view-library">
-      <div class="library-head">
-        <div><div class="eyebrow">公司研究库</div><h1>先认识公司，再判断机会。</h1><p class="lead">公司业务介绍只维护一份；新证据持续更新到同一页面。</p></div>
-        <label class="search-box"><span>⌕</span><input id="company-search" type="search" placeholder="搜索公司、代码或业务"></label>
-      </div>
-      <div class="filters" role="group" aria-label="公司筛选">
-        <button class="filter active" data-filter="all">首批已发布 5</button>
-        <button class="filter" data-filter="repricing">Repricing 3</button>
-        <button class="filter" data-filter="compounder">长期候选 2</button>
-      </div>
-      <div class="company-grid" id="company-grid">
-        <button class="company-card" data-company="301308" data-kind="repricing">
-          <div><span class="ticker">301308</span><span class="status wait">观察</span></div><h3>江波龙</h3><p>存储产品与企业级存储方案商；利润正在受价格周期和产品结构共同影响。</p><footer><span class="tag repricing">R · 供需／价格</span><b>08-12 更新</b></footer>
-        </button>
-        <button class="company-card" data-company="300274" data-kind="repricing">
-          <div><span class="ticker">300274</span><span class="status verify">核查</span></div><h3>阳光电源</h3><p>逆变器、储能系统和新能源项目开发；需要拆开不同业务的利润质量。</p><footer><span class="tag repricing">R · 经营拐点</span><b>08-12 更新</b></footer>
-        </button>
-        <button class="company-card" data-company="300308" data-kind="repricing">
-          <div><span class="ticker">300308</span><span class="status price">等价格</span></div><h3>中际旭创</h3><p>AI数据中心高速光模块供应商；公司兑现强，但市场预期同样很高。</p><footer><span class="tag repricing">R · 高预期</span><b>08-11 更新</b></footer>
-        </button>
-        <button class="company-card" data-company="300124" data-kind="compounder">
-          <div><span class="ticker">300124</span><span class="status research">长期研究</span></div><h3>汇川技术</h3><p>工业自动化控制和新能源汽车电驱产品平台；持续验证现金回报和业务协同。</p><footer><span class="tag compounder">C · 长期候选</span><b>08-11 建库</b></footer>
-        </button>
-        <button class="company-card" data-company="688012" data-kind="compounder">
-          <div><span class="ticker">688012</span><span class="status research">长期研究</span></div><h3>中微公司</h3><p>半导体刻蚀与薄膜设备平台；关注客户验证、产品扩张和资本回报。</p><footer><span class="tag compounder">C · 长期候选</span><b>08-11 建库</b></footer>
-        </button>
-      </div>
-    </section>
-
-    <section class="view" id="view-company">
-      <button class="back-link" data-view="library">← 返回公司库</button>
-      <div id="company-detail"></div>
-    </section>
-  </main>
-
-  <script>
-const companies = {
-  "301308": {
-    code:"301308", name:"江波龙", date:"2026-08-12", status:"观察，不行动", statusNote:"等待三季度现金、库存和企业级收入验证",
-    tags:["R · 供需／价格型", "AI存储"],
-    intro:{doing:"设计、封测并销售存储产品和企业级存储方案",payer:"手机、汽车、服务器、运营商及互联网客户",profit:"存储产品售价、产品结构、库存成本与企业级业务",position:"存储模组与企业级存储解决方案环节"},
-    judgment:"利润兑现是真的，但系统现在买的不是“利润很多”，而是“市场低估了利润能持续多久”。库存、借款和负现金流尚未证明这一点。",
-    flow:["存储价格与企业需求上升","售价／销量／产品结构变化","毛利与净利润增加","现金转化决定利润质量"],
-    positive:["上半年收入240.88亿元，归母净利润105.77亿元","Q2综合毛利率倒算约61.26%，高于Q1","企业级存储收入21.40亿元，同比增长208.80%"],
-    risks:["上半年经营现金流-31.51亿元","存货257.77亿元，占总资产60.12%","长期借款104.93亿元，较年末增长139.7%"],
-    method:[
-      ["基本面动量","检查盈利是否持续改善，而不是只看股价上涨。Q2利润和毛利率继续环比提升，正向事实成立。"],
-      ["利润桥分析","把周期涨价、低成本库存和企业级产品升级分开。当前披露无法量化三者贡献，因此不能把全部利润归因于AI。"],
-      ["营运资本分析","核对利润是否转成现金。存货增加约造成142.27亿元现金占用，是当前最重要的反证。"],
-      ["反向估值","行情接口显示的约8.35倍是上半年利润机械年化，不是真正TTM；直接称低估会低估周期回落风险。"],
-      ["催化剂时钟","下一有效验证是三季报：毛利率、库存周转、经营现金流、融资依赖和企业级收入占比。"],
-    ],
-    glm:"GLM初稿确认利润、毛利率和企业级收入增长，倾向认为低PE提供明显安全边际。",
-    codex:"接受增长事实；驳回“低PE即安全边际”。纠正PE口径，并把库存、借款与负现金流设为升级前置条件。",
-    sources:[
-      ["江波龙2026年半年度报告","https://static.cninfo.com.cn/finalpage/2026-08-11/1225467150.PDF"],
-      ["江波龙2026年第一季度报告","https://static.cninfo.com.cn/finalpage/2026-04-28/1225214140.PDF"]
-    ]
-  },
-  "300274": {
-    code:"300274", name:"阳光电源", date:"2026-08-12", status:"机会核查", statusNote:"等待半年报分业务利润和现金转化",
-    tags:["R · 公司经营拐点", "储能／逆变器"],
-    intro:{doing:"销售光伏逆变器、储能系统并开发新能源电站",payer:"电力企业、项目开发商、工商业客户及海外渠道",profit:"储能和逆变器销售、产品毛利及项目开发收益",position:"新能源发电与储能系统核心设备环节"},
-    judgment:"价格要求不算极端，但一季度收入、利润和现金流同步下滑。系统必须先证明这是交付与汇率扰动，而不是结构性降速。",
-    flow:["全球储能与光伏需求","设备销量和产品结构","毛利与质保／汇率影响","现金回款与资本占用"],
-    positive:["2025年储能业务收入同比增长约49%","逆变器毛利率提升约3.76个百分点","海外收入同比增长约49%"],
-    risks:["2026Q1收入同比下降18.26%","归母净利润同比下降40.12%","产品×地区交叉利润没有披露，不能证明海外储能是利润主因"],
-    method:[["分部利润分析","拆开储能、逆变器和项目开发，避免用合并增长掩盖业务差异。"],["反向估值","当前价格对应的未来增长要求不极端，但估值便宜不能解释经营下滑。"],["反证优先","下一步优先解释Q1利润降幅远大于收入，而不是继续收集行业利好。"]],
-    glm:"GLM初稿识别储能与海外增长，并将两者组合解释为主要利润驱动。",
-    codex:"否定产品和地区两张独立表可以直接交叉归因；保留增长事实，但要求半年报补足分业务利润和现金证据。",
-    sources:[["阳光电源2025年年度报告","https://www.cninfo.com.cn/"],["阳光电源2026年第一季度报告","https://www.cninfo.com.cn/"]]
-  },
-  "300308": {
-    code:"300308", name:"中际旭创", date:"2026-08-11", status:"等待价格", statusNote:"基本面成立，赔率尚未达到行动门槛",
-    tags:["R · 高预期", "AI光互连"],
-    intro:{doing:"生产面向AI数据中心的高速光模块",payer:"全球云计算和网络设备客户",profit:"800G、1.6T等高端产品销量、ASP与规模效应",position:"AI算力集群内部高速光互连关键节点"},
-    judgment:"公司兑现很强，但优秀基本面已经成为共识。当前真正问题不是增长是否存在，而是增长能否超过股价已经要求的高门槛。",
-    flow:["AI资本开支增长","高速光模块需求","高端产品收入与利润","当前估值隐含更高增长"],
-    positive:["AI资本开支已传导到高速光模块需求","公司收入和利润兑现强","技术与客户位置仍然领先"],
-    risks:["当前市值隐含未来利润持续高速复合增长","客户集中和资本开支周期风险","应收、库存和预付款需要转化为现金"],
-    method:[["反向估值","先问当前价格要求公司未来赚多少，而不是只给目标价。"],["预期差分析","基本面强不等于错价；只有真实增长超过市场隐含增长才是机会。"],["赔率门","单日下跌不是买点，价格必须给出足够下行保护。"]],
-    glm:"GLM确认行业需求与公司兑现强，倾向维持积极判断。",
-    codex:"认可基本面，否定直接升级行动；价格隐含要求过高，当前更应等待安全边际。",
-    sources:[["中际旭创公司主记录","#"],["历史判断快照","#"]]
-  },
-  "300124": {
-    code:"300124", name:"汇川技术", date:"2026-08-11", status:"长期候选研究", statusNote:"尚未形成正式价值锚",
-    tags:["C · 长期复利候选", "工业自动化"],
-    intro:{doing:"提供工业自动化控制产品和新能源汽车电驱系统",payer:"制造企业、设备厂商和新能源汽车客户",profit:"自动化高毛利产品、规模制造和跨行业产品平台",position:"工业控制与电气自动化核心部件平台"},
-    judgment:"它可能具备从成长公司升级为长期复利公司的部分条件，但还要证明多业务扩张能持续产生高质量现金和增量资本回报。",
-    flow:["制造业自动化与电动化","产品平台和客户扩张","收入与利润复利","现金回报与再投资能力"],
-    positive:["2025年收入451.05亿元，同比增长21.77%","扣非净利润同比增长22.66%","工业自动化具备产品平台和客户粘性"],
-    risks:["新能源汽车业务规模与盈利质量需要分开","研发和扩张投入持续增加","尚未完成三年正常利润与合理价值测算"],
-    method:[["竞争优势持续期","判断客户、产品平台和研发是否能把超额回报保持多年。"],["增量资本回报","检查新增投入带来的利润和现金，而不是只看收入规模。"],["唐朝式价值锚","只有利润为真、可持续且不依赖大量新增资本后，才估算三年合理价值。"]],
-    glm:"GLM完成业务和财务基线，认为增长稳定且产品平台优势明显。",
-    codex:"保留为长期候选，但不在未验证现金回报和分业务质量前给出买入区。",
-    sources:[["汇川技术2025年年度报告","https://www.cninfo.com.cn/"]]
-  },
-  "688012": {
-    code:"688012", name:"中微公司", date:"2026-08-11", status:"长期候选研究", statusNote:"等待平台化和资本回报验证",
-    tags:["C · 长期复利候选", "半导体设备"],
-    intro:{doing:"生产半导体刻蚀设备，并向薄膜沉积等设备扩展",payer:"晶圆制造厂和芯片生产企业",profit:"设备销售、客户验证、产品扩张与后续服务",position:"半导体制造设备上游关键环节"},
-    judgment:"公司正在展示设备平台化和现金改善，但半导体周期、研发投入与投资收益仍需拆开，暂时不能直接套用成熟价值企业估值。",
-    flow:["国产设备验证","客户采购和产品扩张","收入毛利与服务收入","现金回报和平台持续性"],
-    positive:["2025年收入增长36.62%","归母净利润增长30.69%","经营现金流增长57.39%"],
-    risks:["扣非利润增速低于归母利润","设备业务仍受客户资本开支影响","平台化优势需要更长时间验证"],
-    method:[["平台型公司分析","检查从单品到多品类扩张是否共享客户、技术和服务体系。"],["利润质量拆分","区分主业扣非利润、投资收益和现金流。"],["长期升级门","只有竞争优势、现金回报和再投资空间持续验证后才进入价值锚。"]],
-    glm:"GLM识别收入、利润和现金流增长，倾向认为平台化已经成立。",
-    codex:"认可积极迹象，但把“平台化已经成立”降为待验证推断，并要求继续拆分扣非利润与资本回报。",
-    sources:[["中微公司2025年度披露","https://star.sse.com.cn/"]]
-  }
-};
-
-const views = document.querySelectorAll('.view');
-const navItems = document.querySelectorAll('.nav-item');
-function showView(name){
-  views.forEach(v=>v.classList.toggle('active',v.id===`view-${name}`));
-  navItems.forEach(n=>n.classList.toggle('active',n.dataset.view===name));
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-document.addEventListener('click',e=>{
-  const viewButton=e.target.closest('[data-view]');
-  if(viewButton) showView(viewButton.dataset.view);
-  const companyButton=e.target.closest('[data-company]');
-  if(companyButton){renderCompany(companies[companyButton.dataset.company]);showView('company');}
-});
-
-function renderCompany(c){
-  const detail=document.getElementById('company-detail');
-  const logic=c.flow.map((x,i)=>`<div class="logic-step"><b>0${i+1}</b>${x}</div>`).join('');
-  const methods=c.method.map(m=>`<div class="method-row"><b>${m[0]}</b><span>${m[1]}</span></div>`).join('');
-  const sources=c.sources.map(s=>`<li><a href="${s[1]}" target="_blank" rel="noreferrer">${s[0]}</a></li>`).join('');
-  detail.innerHTML=`
-    <div class="company-hero">
-      <div><div class="eyebrow">公司研究 · ${c.date} 更新</div><div class="company-title-row"><h1>${c.name}</h1><span class="company-code">${c.code}</span></div><div class="strategy-pills">${c.tags.map((t,i)=>`<span class="tag ${i===0&&t.startsWith('C')?'compounder':'repricing'}">${t}</span>`).join('')}</div></div>
-      <aside class="decision-box"><span>当前动作</span><strong>${c.status}</strong><p>${c.statusNote}</p></aside>
-    </div>
-    <article class="intro-card"><span class="section-kicker">30秒认识公司</span><h2>${c.intro.doing}</h2><div class="intro-grid"><div><span>谁付钱</span><strong>${c.intro.payer}</strong></div><div><span>利润来自哪里</span><strong>${c.intro.profit}</strong></div><div><span>产业链位置</span><strong>${c.intro.position}</strong></div><div><span>当前策略身份</span><strong>${c.tags[0]}</strong></div></div></article>
-    <article class="thesis-card"><header class="thesis-head"><div><span class="section-kicker">投资判断</span><h2>系统现在怎么看</h2></div><span class="status ${c.status.includes('核查')?'verify':c.status.includes('价格')?'price':c.status.includes('长期')?'research':'wait'}">${c.status}</span></header><div class="thesis-body"><p class="judgment">${c.judgment}</p><span class="section-kicker">利润传导</span><div class="logic-flow">${logic}</div><div class="evidence-grid"><div class="evidence-box positive"><h4>支持判断的证据</h4><ul>${c.positive.map(x=>`<li>${x}</li>`).join('')}</ul></div><div class="evidence-box risk"><h4>最强反证</h4><ul>${c.risks.map(x=>`<li>${x}</li>`).join('')}</ul></div></div></div></article>
-    <details class="whitebox" open><summary>展开白盒分析：用了什么方法，怎么得到结论</summary><div class="whitebox-content">${methods}<div class="audit-box"><span class="section-kicker">CC × Codex 交叉验证</span><div class="audit-grid"><div><span>CC（Kimi／GLM）初步研究</span>${c.glm}</div><div><span>Codex最终裁决</span>${c.codex}</div></div></div></div></details>
-    <details class="whitebox"><summary>原始证据与来源</summary><div class="whitebox-content"><ul class="source-list">${sources}</ul><p class="source-list">关键数字必须回到公司或交易所一手披露；行情保存时间戳。模型意见不是证据。</p></div></details>`;
-}
-
-document.querySelectorAll('.filter').forEach(btn=>btn.addEventListener('click',()=>{
-  document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));btn.classList.add('active');
-  const f=btn.dataset.filter;document.querySelectorAll('.company-card').forEach(card=>card.classList.toggle('hidden',f!=='all'&&card.dataset.kind!==f));
-}));
-document.getElementById('company-search').addEventListener('input',e=>{
-  const q=e.target.value.trim().toLowerCase();document.querySelectorAll('.company-card').forEach(card=>card.classList.toggle('hidden',q&&!card.textContent.toLowerCase().includes(q)));
-});
-  </script>
-</body>
-</html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="双创研究：公司研究、机会判断和A股打新的白盒研究前台。"><title>双创研究 · 白盒投资研究</title>
+<style>
+:root{--ink:#17201c;--muted:#65716a;--line:#dfe6e1;--paper:#f7f9f7;--white:#fff;--green:#166a4c;--green2:#e8f3ed;--amber:#946008;--amber2:#fff2d4;--red:#a43f34;--red2:#fbeae7;--blue:#315e78;--blue2:#eaf2f6;--shadow:0 10px 32px rgba(30,50,39,.07);--max:1180px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;line-height:1.65}a{color:inherit}.top{position:sticky;top:0;z-index:10;background:rgba(247,249,247,.94);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}.top>div{max-width:var(--max);margin:auto;padding:15px 24px;display:flex;align-items:center;gap:22px}.brand{font-weight:900;text-decoration:none}nav{display:flex;gap:15px;overflow:auto}nav a{font-size:13px;color:var(--muted);text-decoration:none;white-space:nowrap}nav a:hover{color:var(--green)}.base{margin-left:auto;font-size:12px;color:var(--green);font-weight:800;text-decoration:none}main{max-width:var(--max);margin:auto;padding:58px 24px 90px}.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);font-weight:900}h1{font-family:Georgia,"Noto Serif SC",serif;font-size:44px;line-height:1.18;margin:10px 0 16px;max-width:850px}.lead{font-size:17px;color:var(--muted);max-width:850px}.metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:36px 0 64px}.metric{background:var(--white);border:1px solid var(--line);border-radius:15px;padding:18px}.metric span{display:block;font-size:11px;color:var(--muted)}.metric b{display:block;font-size:28px;margin-top:3px}section{scroll-margin-top:80px;margin-top:66px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:20px}h2{font-family:Georgia,"Noto Serif SC",serif;font-size:29px;margin:4px 0}.section-head p{color:var(--muted);margin:0;max-width:650px}.update-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.update-card,.white-card,.company-card{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:var(--shadow)}.card-top{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:11px;color:var(--muted)}.pill{padding:4px 9px;border-radius:999px;font-size:10px}.pill.watch{background:var(--amber2);color:var(--amber)}.pill.risk{background:var(--red2);color:var(--red)}.pill.action{background:var(--green2);color:var(--green)}.pill.quiet{background:var(--blue2);color:var(--blue)}h3{font-size:19px;line-height:1.45;margin:12px 0}h3 small{font-size:12px;color:var(--muted);font-weight:500}dl{margin:18px 0 0}dl div{border-top:1px solid var(--line);padding:12px 0}dt{font-size:10px;color:var(--green);font-weight:900}dd{margin:3px 0 0;font-size:13px;color:var(--muted)}footer{border-top:1px solid var(--line);margin-top:16px;padding-top:13px;display:flex;justify-content:space-between;gap:15px;font-size:11px;color:var(--muted)}footer strong{color:var(--ink)}.stack{display:grid;gap:15px}.judgment{font-family:Georgia,"Noto Serif SC",serif;font-size:18px}.white-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.white-grid>div{background:#f7f9f7;border-radius:12px;padding:14px}.white-grid b{font-size:11px;color:var(--green)}.white-grid p{font-size:12px;color:var(--muted);margin:4px 0 0}.number-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:15px 0}.number-row span{background:#f7f9f7;border-radius:10px;padding:10px;font-size:10px;color:var(--muted)}.number-row b{display:block;color:var(--ink);font-size:15px;margin-top:2px}.search{width:min(380px,100%);border:1px solid var(--line);border-radius:12px;background:var(--white);padding:12px 14px;font-size:14px}.company-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.company-card.hidden{display:none}.method{background:#17201c;color:#fff;border-radius:20px;padding:28px}.method p{color:#bdc8c1}.method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}.method-grid div{background:rgba(255,255,255,.07);border-radius:13px;padding:16px}.method-grid b{display:block;color:#8bd4b1;margin-bottom:5px}.method-grid span{font-size:12px;color:#d2dbd5}@media(max-width:850px){h1{font-size:34px}.metrics{grid-template-columns:repeat(2,1fr)}.update-grid,.company-grid{grid-template-columns:1fr}.white-grid,.method-grid{grid-template-columns:1fr}.base{display:none}main{padding-top:38px}}
+</style></head><body>
+<header class="top"><div><a class="brand" href="./">双创研究</a><nav><a href="#activity">最近更新</a><a href="#opportunities">机会判断</a><a href="#ipo">打新决策</a><a href="#companies">公司库</a><a href="#method">如何判断</a></nav><a class="base" href="https://my.feishu.cn/base/WV0DbRUVpaSuK8s52GUctROknNd?table=tblrfritqTpVhMuz">打开私人研究台账 →</a></div></header>
+<main><div class="eyebrow">截至 2026-08-14 · 10x 投资系统</div><h1>先看结论，再沿着证据、反证和下一验证向下追。</h1><p class="lead">这是公司研究、机会捕捉与 A 股打新的统一阅读前台。完整研究仍保留模块边界，但你不需要理解后台表结构。</p>
+<div class="metrics"><div class="metric"><span>覆盖公司</span><b>21</b></div><div class="metric"><span>机会案例</span><b>3</b></div><div class="metric"><span>打新标的</span><b>5</b></div><div class="metric"><span>可追溯证据</span><b>29</b></div><div class="metric"><span>冻结判断</span><b>11</b></div></div>
+<section id="activity"><div class="section-head"><div><div class="eyebrow">00 · Research Activity</div><h2>最近更新</h2></div><p>每条更新都回答：发生了什么、改变了什么、最强反证是什么、下一步验证什么，以及你是否需要行动。</p></div><div class="update-grid">
+      <article class="update-card">
+        <div class="card-top"><span>2026-08-14 · 机会研究</span><b class="pill watch">中际旭创</b></div>
+        <h3>中际旭创拟以17.47亿元现金受让中石科技10.47%股份且过户尚需深交所合规审核</h3>
+        <dl><div><dt>当前判断</dt><dd>观察｜AI光模块需求与公司兑现极强但当前价格仍隐含极高利润增长</dd></div><div><dt>最强反证</dt><dd>客户资本开支下修或毛利率与现金转化明显恶化</dd></div><div><dt>下一验证</dt><dd>客户资本开支订单覆盖800G与1.6T结构应收库存预付款及中石科技协同治理权和资本回报</dd></div></dl>
+        <footer><strong>无动作</strong><span>未形成行动事件</span></footer>
+      </article>
+      <article class="update-card">
+        <div class="card-top"><span>2026-08-14 · 公司研究</span><b class="pill quiet">高凯技术</b></div>
+        <h3>发行价61.36元发行后市值约61.33亿元且2025年扣非摊薄PE为48.33倍</h3>
+        <dl><div><dt>当前判断</dt><dd>建立公司上市价格锚但不构成长线机会判断</dd></div><div><dt>最强反证</dt><dd>单项事实不足以证明错价，必须与市场预期和价格共同验证</dd></div><div><dt>下一验证</dt><dd>分产品收入毛利客户复购订单合同负债应收回款及募投产能消化</dd></div></dl>
+        <footer><strong>无动作</strong><span>普通研究更新，不发送行动提醒</span></footer>
+      </article>
+      <article class="update-card">
+        <div class="card-top"><span>2026-08-14 · 公司研究</span><b class="pill quiet">高凯技术</b></div>
+        <h3>收入3.27亿元同比增长35.46%扣非利润0.99亿元同比增长84.73%经营现金流1.28亿元同比增长171.23%</h3>
+        <dl><div><dt>当前判断</dt><dd>增长成立但利润率跃升的产品和费用桥待补证</dd></div><div><dt>最强反证</dt><dd>单项事实不足以证明错价，必须与市场预期和价格共同验证</dd></div><div><dt>下一验证</dt><dd>分产品收入毛利客户复购订单合同负债应收回款及募投产能消化</dd></div></dl>
+        <footer><strong>无动作</strong><span>普通研究更新，不发送行动提醒</span></footer>
+      </article>
+      <article class="update-card">
+        <div class="card-top"><span>2026-08-14 · 公司研究</span><b class="pill quiet">海光信息</b></div>
+        <h3>海光信息收入90.99亿元扣非利润16.31亿元但关联销售约占63.2%且存货75.18亿元经营现金流负4.28亿元</h3>
+        <dl><div><dt>当前判断</dt><dd>收入利润增长成立但客户结构存货去化和现金流共同改善未通过</dd></div><div><dt>最强反证</dt><dd>单项事实不足以证明错价，必须与市场预期和价格共同验证</dd></div><div><dt>下一验证</dt><dd>关联收入占比回落非关联增速加快库存商品与预付款回落经营现金流恢复及新订单证据</dd></div></dl>
+        <footer><strong>无动作</strong><span>普通研究更新，不发送行动提醒</span></footer>
+      </article>
+      <article class="update-card">
+        <div class="card-top"><span>2026-08-14 · A股打新</span><b class="pill watch">华大海天</b></div>
+        <h3>阶段：申购前研究；申购日：2026-08-17；发行价：12.57</h3>
+        <dl><div><dt>当前判断</dt><dd>信息不足</dd></div><div><dt>最强反证</dt><dd>真正可比口径首日供给承接和资金获配未校准导致表面折价无法转化为可实现收益</dd></div><div><dt>下一验证</dt><dd>真正可比公司；北交所相似案例；获配率与资金机会成本</dd></div></dl>
+        <footer><strong>申购前仍未补齐则放弃；不依据旧卡准备资金</strong><span>旧final已发送；框架纠错已发送；当前正向建议关闭</span></footer>
+      </article>
+      <article class="update-card">
+        <div class="card-top"><span>2026-08-14 · A股打新</span><b class="pill watch">高凯技术</b></div>
+        <h3>阶段：申购已结束等待中签；申购日：2026-08-14；发行价：61.36</h3>
+        <dl><div><dt>当前判断</dt><dd>信息不足（旧正向建议已撤销）</dd></div><div><dt>最强反证</dt><dd>H1利润率不能延续且市场只给25至30倍估值时小流通溢价可能消失</dd></div><div><dt>下一验证</dt><dd>真正可比公司；历史样本退出收益；中签率与条件期望</dd></div></dl>
+        <footer><strong>若已申购则8月18日检查中签并留足资金；未申购则无动作</strong><span>旧正向提醒已发送并纠错；后续仅接受v2门禁输出</span></footer>
+      </article>
+      <article class="update-card">
+        <div class="card-top"><span>2026-08-14 · A股打新</span><b class="pill watch">马矿股份</b></div>
+        <h3>阶段：等待定价；申购日：2026-08-21；发行价：待定</h3>
+        <dl><div><dt>当前判断</dt><dd>等待发行公告</dd></div><div><dt>最强反证</dt><dd>矿价周期大盘发行供给和扩能资本回报可能共同压制首日收益</dd></div><div><dt>下一验证</dt><dd>法定发行公告；发行价；每签本金；估值；初始流通；历史样本</dd></div></dl>
+        <footer><strong>等待法定发行公告后重新研究；现在不准备资金</strong><span>已发送提前预告；不是申购建议</span></footer>
+      </article>
+      <article class="update-card">
+        <div class="card-top"><span>2026-08-14 · A股打新</span><b class="pill watch">贝特利</b></div>
+        <h3>阶段：等待定价；申购日：2026-08-19；发行价：待定</h3>
+        <dl><div><dt>当前判断</dt><dd>等待发行公告</dd></div><div><dt>最强反证</dt><dd>发行价与发行估值未知且缺法定发行公告后的供给和可比校准</dd></div><div><dt>下一验证</dt><dd>发行价；每签本金；发行估值；初始流通；历史样本</dd></div></dl>
+        <footer><strong>等待法定发行公告后重新研究；现在不准备资金</strong><span>已发送提前预告；不是申购建议</span></footer>
+      </article>
+      <article class="update-card">
+        <div class="card-top"><span>2026-08-14 · A股打新</span><b class="pill watch">格林生物</b></div>
+        <h3>阶段：等待定价；申购日：2026-08-20；发行价：待定</h3>
+        <dl><div><dt>当前判断</dt><dd>等待发行公告</dd></div><div><dt>最强反证</dt><dd>发行价未知且2026H1利润增速低于收入弹性有限</dd></div><div><dt>下一验证</dt><dd>发行价；每签本金；发行估值；战略配售后流通；历史样本</dd></div></dl>
+        <footer><strong>等待法定发行公告后重新研究；现在不准备资金</strong><span>已发送提前预告；不是申购建议</span></footer>
+      </article>
+      <article class="update-card">
+        <div class="card-top"><span>2026-08-13 · 公司研究</span><b class="pill quiet">海光信息</b></div>
+        <h3>海光信息收盘286元总市值约6647.61亿元且按上半年归母利润机械年化约184.8倍</h3>
+        <dl><div><dt>当前判断</dt><dd>价格已包含很高增长要求且半年报尚未经过次日市场交易</dd></div><div><dt>最强反证</dt><dd>单项事实不足以证明错价，必须与市场预期和价格共同验证</dd></div><div><dt>下一验证</dt><dd>关联收入占比回落非关联增速加快库存商品与预付款回落经营现金流恢复及新订单证据</dd></div></dl>
+        <footer><strong>无动作</strong><span>普通研究更新，不发送行动提醒</span></footer>
+      </article>
+      <article class="update-card">
+        <div class="card-top"><span>2026-08-12 · 机会研究</span><b class="pill watch">佰维存储/江波龙</b></div>
+        <h3>佰维存储将2026年综合敞口授信上限由250亿元提高至300亿元</h3>
+        <dl><div><dt>当前判断</dt><dd>观察｜企业级存储增长与AI客户导入成立且权益融资缓解资本约束但利润仍受价格库存周期推动</dd></div><div><dt>最强反证</dt><dd>权益融资后库存负债仍扩张且售价回落现金流不改善</dd></div><div><dt>下一验证</dt><dd>募集资金投向项目进度三季度毛利库存经营现金流借款及企业级收入占比</dd></div></dl>
+        <footer><strong>无动作</strong><span>未形成行动事件</span></footer>
+      </article>
+      <article class="update-card">
+        <div class="card-top"><span>2026-08-10 · 机会研究</span><b class="pill watch">阳光电源</b></div>
+        <h3>14时09分价格113.43元总市值2351.64亿元PE TTM 19.72</h3>
+        <dl><div><dt>当前判断</dt><dd>机会核查｜当前估值隐含的增长要求不高但必须证明一季度下滑是节奏扰动而非结构性转弱</dd></div><div><dt>最强反证</dt><dd>储能及海外同步降速且营运资本继续恶化</dd></div><div><dt>下一验证</dt><dd>半年报分部收入毛利率海外回款储能订单与营运资本</dd></div></dl>
+        <footer><strong>无动作</strong><span>未形成行动事件</span></footer>
+      </article></div></section>
+<section id="opportunities"><div class="section-head"><div><div class="eyebrow">02 · Opportunity Cases</div><h2>机会判断</h2></div><p>公司优秀不等于股票便宜。这里专门保存市场预期差、失效路径和行动门槛。</p></div><div class="stack">
+      <article class="white-card" id="opp-OPP-300308">
+        <div class="card-top"><span>信号驱动 · AI算力光互连</span><b class="pill watch">观察</b></div>
+        <h3>中际旭创 <small>300308</small></h3>
+        <p class="judgment">基本面极强但当前价格需要未来三年利润继续高速复合增长</p>
+        <div class="white-grid"><div><b>为什么可能错价</b><p>AI光模块需求与公司兑现极强但当前价格仍隐含极高利润增长</p></div><div><b>市场已经在赌什么</b><p>12%年化回报下即使终值45倍PE仍要求TTM利润三年复合增长约27.7%</p></div><div><b>最强反证</b><p>订单或资本开支放缓以及应收库存预付款不能转化为现金</p></div><div><b>下一验证</b><p>客户资本开支订单覆盖800G与1.6T结构应收库存预付款及中石科技协同治理权和资本回报</p></div></div>
+        <footer><strong>当前动作：不行动</strong><span>截至 2026-08-10</span></footer>
+      </article>
+      <article class="white-card" id="opp-OPP-300274">
+        <div class="card-top"><span>公司驱动 · 储能与海外业务</span><b class="pill watch">机会核查</b></div>
+        <h3>阳光电源 <small>300274</small></h3>
+        <p class="judgment">价格要求不高但必须区分一季度节奏扰动与结构性降速</p>
+        <div class="white-grid"><div><b>为什么可能错价</b><p>当前估值隐含的增长要求不高但必须证明一季度下滑是节奏扰动而非结构性转弱</p></div><div><b>市场已经在赌什么</b><p>12%年化回报和18倍终值PE对应TTM利润三年复合增长约15.5%</p></div><div><b>最强反证</b><p>储能和海外业务同步降速且存货预付款回款恶化</p></div><div><b>下一验证</b><p>半年报分部收入毛利率海外回款储能订单与营运资本</p></div></div>
+        <footer><strong>当前动作：不行动</strong><span>截至 2026-08-10</span></footer>
+      </article>
+      <article class="white-card" id="opp-OPP-AI-STORAGE">
+        <div class="card-top"><span>信号驱动 · AI存储利润池</span><b class="pill watch">观察</b></div>
+        <h3>佰维存储/江波龙 <small>688525/301308</small></h3>
+        <p class="judgment">定增落地改善融资约束但尚未证明项目资金能形成结构性利润且补流资金能改善现金质量</p>
+        <div class="white-grid"><div><b>为什么可能错价</b><p>企业级存储增长与AI客户导入成立且权益融资缓解资本约束但利润仍受价格库存周期推动</p></div><div><b>市场已经在赌什么</b><p>市场对高周期利润和库存融资风险继续折价且尚未交易收盘后的定增上市公告</p></div><div><b>最强反证</b><p>11亿元补流基于公司增长假设而高库存是否有订单覆盖及借款能否下降仍未验证</p></div><div><b>下一验证</b><p>募集资金投向项目进度三季度毛利库存经营现金流借款及企业级收入占比</p></div></div>
+        <footer><strong>当前动作：不行动</strong><span>截至 2026-08-13</span></footer>
+      </article></div></section>
+<section id="ipo"><div class="section-head"><div><div class="eyebrow">03 · IPO Decisions</div><h2>打新决策</h2></div><p>预告、定价、估值、资金压力和独立核验分开呈现。没有证据支持时，结论就是信息不足。</p></div><div class="stack">
+      <article class="white-card" id="ipo-IPO-A-688835">
+        <div class="card-top"><span>科创板 · 申购日 2026-08-14</span><b class="pill watch">信息不足（旧正向建议已撤销）</b></div>
+        <h3>高凯技术 688835</h3>
+        <div class="number-row"><span>发行价<b>61.36</b></span><span>每单位本金<b>30680</b></span><span>顶格资金<b>337480</b></span></div>
+        <p class="judgment">发行价对应2025年扣非摊薄PE 48.33倍且2026H1增长未进入分母；发行后市值约61.33亿元</p>
+        <div class="white-grid"><div><b>为什么可能成立</b><p>国产替代与上半年利润现金流增长可能支撑更高动态利润</p></div><div><b>最强失败路径</b><p>H1利润率不能延续且市场只给25至30倍估值时小流通溢价可能消失</p></div><div><b>仍缺证据</b><p>真正可比公司；历史样本退出收益；中签率与条件期望</p></div><div><b>独立核验</b><p>新框架复核结论为信息不足；正向建议未通过v2独立行动门</p></div></div>
+        <footer><strong>若已申购则8月18日检查中签并留足资金；未申购则无动作</strong><span>申购已结束等待中签</span></footer>
+      </article>
+      <article class="white-card" id="ipo-IPO-A-920288">
+        <div class="card-top"><span>北交所 · 申购日 2026-08-17</span><b class="pill watch">信息不足</b></div>
+        <h3>华大海天 920288</h3>
+        <div class="number-row"><span>发行价<b>12.57</b></span><span>每单位本金<b>1257</b></span><span>顶格资金<b>11237580</b></span></div>
+        <p class="judgment">未行使绿鞋发行后扣非摊薄PE 13.50倍；行业最近一月静态PE 23.69倍；发行后市值约9.16亿元</p>
+        <div class="white-grid"><div><b>为什么可能成立</b><p>表面估值折价且单手绝对损失较小</p></div><div><b>最强失败路径</b><p>真正可比口径首日供给承接和资金获配未校准导致表面折价无法转化为可实现收益</p></div><div><b>仍缺证据</b><p>真正可比公司；北交所相似案例；获配率与资金机会成本</p></div><div><b>独立核验</b><p>法定事实与信息不足结论经独立CC二次复核PASS</p></div></div>
+        <footer><strong>申购前仍未补齐则放弃；不依据旧卡准备资金</strong><span>申购前研究</span></footer>
+      </article>
+      <article class="white-card" id="ipo-IPO-A-301697">
+        <div class="card-top"><span>创业板 · 申购日 2026-08-19</span><b class="pill watch">等待发行公告</b></div>
+        <h3>贝特利 301697</h3>
+        <div class="number-row"><span>发行价<b>待定</b></span><span>每单位本金<b>待发行公告</b></span><span>顶格资金<b>待发行公告核验</b></span></div>
+        <p class="judgment">待定价后计算</p>
+        <div class="white-grid"><div><b>为什么可能成立</b><p>主营导电材料有机硅与涂层材料并受益于光伏和新能源汽车需求</p></div><div><b>最强失败路径</b><p>发行价与发行估值未知且缺法定发行公告后的供给和可比校准</p></div><div><b>仍缺证据</b><p>发行价；每签本金；发行估值；初始流通；历史样本</p></div><div><b>独立核验</b><p>preview阶段；未进入final独立CC</p></div></div>
+        <footer><strong>等待法定发行公告后重新研究；现在不准备资金</strong><span>等待定价</span></footer>
+      </article>
+      <article class="white-card" id="ipo-IPO-A-301688">
+        <div class="card-top"><span>创业板 · 申购日 2026-08-20</span><b class="pill watch">等待发行公告</b></div>
+        <h3>格林生物 301688</h3>
+        <div class="number-row"><span>发行价<b>待定</b></span><span>每单位本金<b>待发行公告</b></span><span>顶格资金<b>待发行公告核验</b></span></div>
+        <p class="judgment">待定价后计算</p>
+        <div class="white-grid"><div><b>为什么可能成立</b><p>香料产品利润增长且具备松节油柏木油和全合成产品组合</p></div><div><b>最强失败路径</b><p>发行价未知且2026H1利润增速低于收入弹性有限</p></div><div><b>仍缺证据</b><p>发行价；每签本金；发行估值；战略配售后流通；历史样本</p></div><div><b>独立核验</b><p>preview阶段；未进入final独立CC</p></div></div>
+        <footer><strong>等待法定发行公告后重新研究；现在不准备资金</strong><span>等待定价</span></footer>
+      </article>
+      <article class="white-card" id="ipo-IPO-A-601123">
+        <div class="card-top"><span>沪市主板 · 申购日 2026-08-21</span><b class="pill watch">等待发行公告</b></div>
+        <h3>马矿股份 601123</h3>
+        <div class="number-row"><span>发行价<b>待定</b></span><span>每单位本金<b>待发行公告</b></span><span>顶格资金<b>待发行公告核验</b></span></div>
+        <p class="judgment">待定价后计算</p>
+        <div class="white-grid"><div><b>为什么可能成立</b><p>铁矿扩能可能带来产量增长且发行规模较大</p></div><div><b>最强失败路径</b><p>矿价周期大盘发行供给和扩能资本回报可能共同压制首日收益</p></div><div><b>仍缺证据</b><p>法定发行公告；发行价；每签本金；估值；初始流通；历史样本</p></div><div><b>独立核验</b><p>preview阶段；未进入final独立CC</p></div></div>
+        <footer><strong>等待法定发行公告后重新研究；现在不准备资金</strong><span>等待定价</span></footer>
+      </article></div></section>
+<section id="companies"><div class="section-head"><div><div class="eyebrow">01 · Company Library</div><h2>公司库</h2></div><input class="search" id="search" placeholder="搜索公司、代码或业务主题"></div><div class="company-grid" id="company-grid">
+      <article class="company-card" id="company-300274" data-search="阳光电源 300274 储能与海外业务">
+        <div class="card-top"><span>300274 · 储能与海外业务</span><b class="pill watch">机会核查</b></div>
+        <h3>阳光电源</h3>
+        <p>当前估值隐含的增长要求不高但必须证明一季度下滑是节奏扰动而非结构性转弱</p>
+        <dl><div><dt>最新硬证据</dt><dd>等待下一项公司一手证据</dd></div><div><dt>最强反证</dt><dd>储能及海外同步降速且营运资本继续恶化</dd></div><div><dt>下一验证</dt><dd>半年报分业务收入毛利海外回款与储能订单交付</dd></div></dl>
+        <footer><strong>仅研究，不行动</strong><span>2026-08-12 核验</span></footer>
+      </article>
+      <article class="company-card" id="company-300308" data-search="中际旭创 300308 ai光互连">
+        <div class="card-top"><span>300308 · AI光互连</span><b class="pill watch">观察</b></div>
+        <h3>中际旭创</h3>
+        <p>AI光模块需求与公司兑现极强但当前价格仍隐含极高利润增长</p>
+        <dl><div><dt>最新硬证据</dt><dd>等待下一项公司一手证据</dd></div><div><dt>最强反证</dt><dd>客户资本开支下修或毛利率与现金转化明显恶化</dd></div><div><dt>下一验证</dt><dd>客户资本开支订单覆盖及应收库存预付款转化并核验中石科技投资协同与资本回报</dd></div></dl>
+        <footer><strong>仅研究，不行动</strong><span>2026-08-14 核验</span></footer>
+      </article>
+      <article class="company-card" id="company-688019" data-search="安集科技 688019 半导体材料">
+        <div class="card-top"><span>688019 · 半导体材料</span><b class="pill quiet">未进入机会评估</b></div>
+        <h3>安集科技</h3>
+        <p>已完成公司基线，尚未形成可验证的错价判断</p>
+        <dl><div><dt>最新硬证据</dt><dd>等待下一项公司一手证据</dd></div><div><dt>最强反证</dt><dd>需要新的经营、价格与预期证据后再判断</dd></div><div><dt>下一验证</dt><dd>下一期定期报告中的新品收入客户集中与库存现金转化</dd></div></dl>
+        <footer><strong>仅研究，不行动</strong><span>2026-08-07 核验</span></footer>
+      </article>
+      <article class="company-card" id="company-300408" data-search="三环集团 300408 电子陶瓷与元器件">
+        <div class="card-top"><span>300408 · 电子陶瓷与元器件</span><b class="pill quiet">未进入机会评估</b></div>
+        <h3>三环集团</h3>
+        <p>已完成公司基线，尚未形成可验证的错价判断</p>
+        <dl><div><dt>最新硬证据</dt><dd>等待下一项公司一手证据</dd></div><div><dt>最强反证</dt><dd>需要新的经营、价格与预期证据后再判断</dd></div><div><dt>下一验证</dt><dd>半年报MLCC通信毛利现金库存产能和Vermes商誉</dd></div></dl>
+        <footer><strong>仅研究，不行动</strong><span>2026-08-11 核验</span></footer>
+      </article>
+      <article class="company-card" id="company-300236" data-search="上海新阳 300236 半导体材料">
+        <div class="card-top"><span>300236 · 半导体材料</span><b class="pill quiet">未进入机会评估</b></div>
+        <h3>上海新阳</h3>
+        <p>已完成公司基线，尚未形成可验证的错价判断</p>
+        <dl><div><dt>最新硬证据</dt><dd>等待下一项公司一手证据</dd></div><div><dt>最强反证</dt><dd>需要新的经营、价格与预期证据后再判断</dd></div><div><dt>下一验证</dt><dd>半年报半导体材料增长新品收入扩产转固和现金转化</dd></div></dl>
+        <footer><strong>仅研究，不行动</strong><span>2026-08-11 核验</span></footer>
+      </article>
+      <article class="company-card" id="company-688012" data-search="中微公司 688012 半导体设备">
+        <div class="card-top"><span>688012 · 半导体设备</span><b class="pill quiet">未进入机会评估</b></div>
+        <h3>中微公司</h3>
+        <p>已完成公司基线，尚未形成可验证的错价判断</p>
+        <dl><div><dt>最新硬证据</dt><dd>等待下一项公司一手证据</dd></div><div><dt>最强反证</dt><dd>需要新的经营、价格与预期证据后再判断</dd></div><div><dt>下一验证</dt><dd>半年报产品收入毛利发出商品合同负债扣非利润和现金流</dd></div></dl>
+        <footer><strong>仅研究，不行动</strong><span>2026-08-11 核验</span></footer>
+      </article>
+      <article class="company-card" id="company-688361" data-search="中科飞测 688361 半导体检测设备">
+        <div class="card-top"><span>688361 · 半导体检测设备</span><b class="pill quiet">未进入机会评估</b></div>
+        <h3>中科飞测</h3>
+        <p>已完成公司基线，尚未形成可验证的错价判断</p>
+        <dl><div><dt>最新硬证据</dt><dd>等待下一项公司一手证据</dd></div><div><dt>最强反证</dt><dd>需要新的经营、价格与预期证据后再判断</dd></div><div><dt>下一验证</dt><dd>扣非利润产品毛利发出商品合同负债应收和现金流</dd></div></dl>
+        <footer><strong>仅研究，不行动</strong><span>2026-08-11 核验</span></footer>
+      </article>
+      <article class="company-card" id="company-688120" data-search="华海清科 688120 半导体设备">
+        <div class="card-top"><span>688120 · 半导体设备</span><b class="pill quiet">未进入机会评估</b></div>
+        <h3>华海清科</h3>
+        <p>已完成公司基线，尚未形成可验证的错价判断</p>
+        <dl><div><dt>最新硬证据</dt><dd>等待下一项公司一手证据</dd></div><div><dt>最强反证</dt><dd>需要新的经营、价格与预期证据后再判断</dd></div><div><dt>下一验证</dt><dd>半年报分产品收入毛利与应收存货合同负债现金流</dd></div></dl>
+        <footer><strong>仅研究，不行动</strong><span>2026-08-11 核验</span></footer>
+      </article>
+      <article class="company-card" id="company-300346" data-search="南大光电 300346 半导体材料">
+        <div class="card-top"><span>300346 · 半导体材料</span><b class="pill quiet">未进入机会评估</b></div>
+        <h3>南大光电</h3>
+        <p>已完成公司基线，尚未形成可验证的错价判断</p>
+        <dl><div><dt>最新硬证据</dt><dd>等待下一项公司一手证据</dd></div><div><dt>最强反证</dt><dd>需要新的经营、价格与预期证据后再判断</dd></div><div><dt>下一验证</dt><dd>分产品收入毛利新品贡献和经营现金流</dd></div></dl>
+        <footer><strong>仅研究，不行动</strong><span>2026-08-11 核验</span></footer>
+      </article>
+      <article class="company-card" id="company-688256" data-search="寒武纪 688256 国产ai芯片">
+        <div class="card-top"><span>688256 · 国产AI芯片</span><b class="pill quiet">未进入机会评估</b></div>
+        <h3>寒武纪</h3>
+        <p>已完成公司基线，尚未形成可验证的错价判断</p>
+        <dl><div><dt>最新硬证据</dt><dd>等待下一项公司一手证据</dd></div><div><dt>最强反证</dt><dd>需要新的经营、价格与预期证据后再判断</dd></div><div><dt>下一验证</dt><dd>前五大客户复购与存货构成跌价准备和交付去化</dd></div></dl>
+        <footer><strong>仅研究，不行动</strong><span>2026-08-11 核验</span></footer>
+      </article>
+      <article class="company-card" id="company-688072" data-search="拓荆科技 688072 半导体薄膜沉积设备">
+        <div class="card-top"><span>688072 · 半导体薄膜沉积设备</span><b class="pill quiet">未进入机会评估</b></div>
+        <h3>拓荆科技</h3>
+        <p>已完成公司基线，尚未形成可验证的错价判断</p>
+        <dl><div><dt>最新硬证据</dt><dd>等待下一项公司一手证据</dd></div><div><dt>最强反证</dt><dd>需要新的经营、价格与预期证据后再判断</dd></div><div><dt>下一验证</dt><dd>订单转化分产品毛利与存货现金流</dd></div></dl>
+        <footer><strong>仅研究，不行动</strong><span>2026-08-11 核验</span></footer>
+      </article>
+      <article class="company-card" id="company-300502" data-search="新易盛 300502 ai光互连">
+        <div class="card-top"><span>300502 · AI光互连</span><b class="pill quiet">未进入机会评估</b></div>
+        <h3>新易盛</h3>
+        <p>已完成公司基线，尚未形成可验证的错价判断</p>
+        <dl><div><dt>最新硬证据</dt><dd>等待下一项公司一手证据</dd></div><div><dt>最强反证</dt><dd>需要新的经营、价格与预期证据后再判断</dd></div><div><dt>下一验证</dt><dd>半年报产品结构毛利客户集中库存应收汇兑和现金流</dd></div></dl>
+        <footer><strong>仅研究，不行动</strong><span>2026-08-11 核验</span></footer>
+      </article>
+      <article class="company-card" id="company-300124" data-search="汇川技术 300124 工业自动化与机器人">
+        <div class="card-top"><span>300124 · 工业自动化与机器人</span><b class="pill quiet">未进入机会评估</b></div>
+        <h3>汇川技术</h3>
+        <p>已完成公司基线，尚未形成可验证的错价判断</p>
+        <dl><div><dt>最新硬证据</dt><dd>等待下一项公司一手证据</dd></div><div><dt>最强反证</dt><dd>需要新的经营、价格与预期证据后再判断</dd></div><div><dt>下一验证</dt><dd>半年报分业务收入毛利费用与现金流</dd></div></dl>
+        <footer><strong>仅研究，不行动</strong><span>2026-08-11 核验</span></footer>
+      </article>
+      <article class="company-card" id="company-300442" data-search="润泽科技 300442 数据中心与算力基础设施">
+        <div class="card-top"><span>300442 · 数据中心与算力基础设施</span><b class="pill quiet">未进入机会评估</b></div>
+        <h3>润泽科技</h3>
+        <p>已完成公司基线，尚未形成可验证的错价判断</p>
+        <dl><div><dt>最新硬证据</dt><dd>等待下一项公司一手证据</dd></div><div><dt>最强反证</dt><dd>需要新的经营、价格与预期证据后再判断</dd></div><div><dt>下一验证</dt><dd>机柜上架率客户收入单位回报和净债务</dd></div></dl>
+        <footer><strong>仅研究，不行动</strong><span>2026-08-11 核验</span></footer>
+      </article>
+      <article class="company-card" id="company-688008" data-search="澜起科技 688008 内存接口与互连芯片">
+        <div class="card-top"><span>688008 · 内存接口与互连芯片</span><b class="pill quiet">未进入机会评估</b></div>
+        <h3>澜起科技</h3>
+        <p>已完成公司基线，尚未形成可验证的错价判断</p>
+        <dl><div><dt>最新硬证据</dt><dd>等待下一项公司一手证据</dd></div><div><dt>最强反证</dt><dd>需要新的经营、价格与预期证据后再判断</dd></div><div><dt>下一验证</dt><dd>半年报扣非利润桥库存去化互连结构和处置收益</dd></div></dl>
+        <footer><strong>仅研究，不行动</strong><span>2026-08-11 核验</span></footer>
+      </article>
+      <article class="company-card" id="company-301018" data-search="申菱环境 301018 数据中心温控与液冷">
+        <div class="card-top"><span>301018 · 数据中心温控与液冷</span><b class="pill quiet">未进入机会评估</b></div>
+        <h3>申菱环境</h3>
+        <p>已完成公司基线，尚未形成可验证的错价判断</p>
+        <dl><div><dt>最新硬证据</dt><dd>等待下一项公司一手证据</dd></div><div><dt>最强反证</dt><dd>需要新的经营、价格与预期证据后再判断</dd></div><div><dt>下一验证</dt><dd>半年报数据服务毛利存货交付应收回款现金流和减值</dd></div></dl>
+        <footer><strong>仅研究，不行动</strong><span>2026-08-11 核验</span></footer>
+      </article>
+      <article class="company-card" id="company-688017" data-search="绿的谐波 688017 机器人减速器">
+        <div class="card-top"><span>688017 · 机器人减速器</span><b class="pill quiet">未进入机会评估</b></div>
+        <h3>绿的谐波</h3>
+        <p>已完成公司基线，尚未形成可验证的错价判断</p>
+        <dl><div><dt>最新硬证据</dt><dd>等待下一项公司一手证据</dd></div><div><dt>最强反证</dt><dd>需要新的经营、价格与预期证据后再判断</dd></div><div><dt>下一验证</dt><dd>半年报具身智能业务量化与毛利率扩产节奏</dd></div></dl>
+        <footer><strong>仅研究，不行动</strong><span>2026-08-11 核验</span></footer>
+      </article>
+      <article class="company-card" id="company-300476" data-search="胜宏科技 300476 高阶pcb">
+        <div class="card-top"><span>300476 · 高阶PCB</span><b class="pill quiet">未进入机会评估</b></div>
+        <h3>胜宏科技</h3>
+        <p>已完成公司基线，尚未形成可验证的错价判断</p>
+        <dl><div><dt>最新硬证据</dt><dd>等待下一项公司一手证据</dd></div><div><dt>最强反证</dt><dd>需要新的经营、价格与预期证据后再判断</dd></div><div><dt>下一验证</dt><dd>半年报高阶产品毛利客户产能库存海外盈利和资本回报</dd></div></dl>
+        <footer><strong>仅研究，不行动</strong><span>2026-08-11 核验</span></footer>
+      </article>
+      <article class="company-card" id="company-300604" data-search="长川科技 300604 半导体测试设备">
+        <div class="card-top"><span>300604 · 半导体测试设备</span><b class="pill quiet">未进入机会评估</b></div>
+        <h3>长川科技</h3>
+        <p>已完成公司基线，尚未形成可验证的错价判断</p>
+        <dl><div><dt>最新硬证据</dt><dd>等待下一项公司一手证据</dd></div><div><dt>最强反证</dt><dd>需要新的经营、价格与预期证据后再判断</dd></div><div><dt>下一验证</dt><dd>半年报产品毛利研发资本化库存现金并购盈利和商誉安全垫</dd></div></dl>
+        <footer><strong>仅研究，不行动</strong><span>2026-08-11 核验</span></footer>
+      </article>
+      <article class="company-card" id="company-688041" data-search="海光信息 688041 国产cpu与ai算力">
+        <div class="card-top"><span>688041 · 国产CPU与AI算力</span><b class="pill quiet">未进入机会评估</b></div>
+        <h3>海光信息</h3>
+        <p>收入利润高增但关联依赖库存商品预付款与负经营现金流使质量验证未通过</p>
+        <dl><div><dt>最新硬证据</dt><dd>海光信息收入90.99亿元扣非利润16.31亿元但关联销售约占63.2%且存货75.18亿元经营现金流负4.28亿元</dd></div><div><dt>最强反证</dt><dd>非关联收入残差仍增长且应收下降但关联销售占比升至约63.2%</dd></div><div><dt>下一验证</dt><dd>关联收入占比回落非关联增速加快库存商品与预付款回落经营现金流恢复及新订单证据</dd></div></dl>
+        <footer><strong>仅研究，不行动</strong><span>2026-08-14 核验</span></footer>
+      </article>
+      <article class="company-card" id="company-688835" data-search="高凯技术 688835 半导体精密流体控制">
+        <div class="card-top"><span>688835 · 半导体精密流体控制</span><b class="pill quiet">未进入机会评估</b></div>
+        <h3>高凯技术</h3>
+        <p>已完成公司基线，尚未形成可验证的错价判断</p>
+        <dl><div><dt>最新硬证据</dt><dd>发行价61.36元发行后市值约61.33亿元且2025年扣非摊薄PE为48.33倍</dd></div><div><dt>最强反证</dt><dd>需要新的经营、价格与预期证据后再判断</dd></div><div><dt>下一验证</dt><dd>分产品收入毛利客户复购订单合同负债应收回款及募投产能消化</dd></div></dl>
+        <footer><strong>仅研究，不行动</strong><span>2026-08-14 核验</span></footer>
+      </article></div></section>
+<section id="method" class="method"><div class="eyebrow">White-box Method</div><h2>系统怎样从事实走到行动</h2><p>研究过程不是评分黑箱。普通公司事实不会自动升级为机会，机会判断不会自动升级为买入或申购。</p><div class="method-grid"><div><b>事实层</b><span>法定来源、日期、页码、口径与复算结果。</span></div><div><b>判断层</b><span>业务利润逻辑、市场隐含预期、最强反证和失效条件。</span></div><div><b>行动层</b><span>独立核验、个人风险门、模块权限和可追溯投递回执。</span></div></div></section>
+</main><script>const q=document.getElementById('search');q.addEventListener('input',()=>{const s=q.value.trim().toLowerCase();document.querySelectorAll('.company-card').forEach(x=>x.classList.toggle('hidden',s&&!x.dataset.search.includes(s)))});</script></body></html>
