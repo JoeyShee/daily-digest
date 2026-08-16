@@ -31,8 +31,8 @@
     <span class="browse-source-tag">💡 想法</span>
     <span class="browse-date">2026-07-05</span>
   </div>
-  <div class="browse-detail-title">Builder选题：Hermes如何与Claude Code协作——任务拆解agent+执行agen</div>
-  <div class="browse-detail-content">Builder选题：Hermes如何与Claude Code协作——任务拆解agent+执行agent的多agent架构实践。辉哥在实际使用中积累了Hermes（调度/认知/决策层）与Claude Code（编码执行层）的协作经验，想系统整理成builder内容。调研发现2026年生产环境主流是orchestrator-worker模式（hub-and-spoke），而非学术界的swarm架构。关键洞察：多agent在并行任务上优于单agent，但在顺序推理上反而降低39-70%性能。多数团队在单agent达到质量天花板前就过度工程化。Reflection loop（生成→批判→修订）是自改进agent的核心模式，但intrinsic自我批判会失败，grounded reflection（测试/执行/独立critic）才有效。</div>
+  <div class="browse-detail-title">Build日志选题：Hermes每周自检（self-optimization weekly）任务的设</div>
+  <div class="browse-detail-content">Build日志选题：Hermes每周自检（self-optimization weekly）任务的设计与使用。辉哥给Hermes设计了一套每周自动自检系统：分析近期对话、memory、规则执行情况，识别重复错误和改进机会，输出结构化周报。调研发现2026年自改进AI agent的核心是Reflection模式（generate→critique→revise闭环），关键区分点是intrinsic自我批判会陷入coherence trap失败，而grounded reflection（用测试、执行结果、独立critic来锚定批判）才真正有效。Hermes的自检系统恰好是grounded reflection的实践——用cron触发、用实际对话和memory做证据、输出可追踪的结构化报告。</div>
 </div>
   <footer class="site-footer">
     <p>Daily Digest · 先形成判断，再占用注意力</p>
