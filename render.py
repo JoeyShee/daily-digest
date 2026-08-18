@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """
-Daily Digest 渲染脚本 v2
-熵减计划和想法墓地拆为独立频道，各有独立页面目录
+Daily Digest 渲染脚本 v3
+公开前台只保留两个入口：今日判断（perception/）和 10x研究（dual-innovation/）。
+熵减计划、想法墓地、Zero2Idea、旧10x投机、信号库已停止生成与更新，
+历史目录和 HTML 保留在原位，旧链接仍可访问，只是不再出现在导航里。
 
 用法：
   python3 render.py --today
@@ -673,13 +675,13 @@ def render_10x_report(md_text):
     return cards
 
 def render_dual_innovation_report(md_text):
-    """把双创每日一页渲染为单张决策卡，避免暴露后台台账。"""
+    """把 10x 研究每日一页渲染为单张决策卡，避免暴露后台台账。"""
     title_m = re.search(r'^#\s+(.+)$', md_text, flags=re.MULTILINE)
-    title = title_m.group(1).strip() if title_m else "双创研究"
+    title = title_m.group(1).strip() if title_m else "10x研究"
     body = re.sub(r'^#\s+.+$', '', md_text, count=1, flags=re.MULTILINE).strip()
     return card(
         "dual-innovation",
-        "📈 双创研究 · 今日一页",
+        "📈 10x研究 · 今日一页",
         title,
         md_to_html(body),
         collapsed=False,
@@ -735,15 +737,11 @@ def _find_prev_next(date_str, available_dates):
     return prev_d, next_d
 
 def _tab_nav_html(section, base_path=".."):
-    """生成频道导航。商业感知是默认判断层，其余频道是证据与专项层。"""
+    """生成频道导航。公开前台只有两个入口；其余历史频道不再曝光，
+    目录与旧链接保留但导航不指向它们。"""
     tabs = [
-        ("perception", f"{base_path}/perception/", "🌍 商业感知"),
-        ("entropy", f"{base_path}/entropy/", "🧠 熵减计划"),
-        ("graveyard", f"{base_path}/graveyard/", "🪦 想法墓地"),
-        ("zero2idea", f"{base_path}/zero2idea/", "🔭 Zero2Idea"),
-        ("dual-innovation", f"{base_path}/dual-innovation/", "📈 双创研究"),
-        ("10x", f"{base_path}/10x/", "🎯 10x投机"),
-        ("browse", f"{base_path}/browse/", "📚 信号库"),
+        ("perception", f"{base_path}/perception/", "🌍 今日判断"),
+        ("dual-innovation", f"{base_path}/dual-innovation/", "📈 10x研究"),
     ]
     items = []
     for key, href, label in tabs:
@@ -793,113 +791,71 @@ def render_day_page(date_str, cards_html, section, section_title, available_date
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / f"{date_str}.html").write_text(html)
 
-def render_index(dates_entropy, dates_graveyard, dates_zero2idea, dates_10x=None, dates_perception=None, dates_dual_innovation=None):
-    """渲染首页 + 频道首页"""
-    if dates_10x is None: dates_10x = set()
+def render_index(dates_perception=None, dates_dual_innovation=None, today=None):
+    """渲染首页 + 今日判断频道首页。
+
+    公开前台只维护今日判断（perception/）与 10x研究（dual-innovation/）。
+    熵减计划、想法墓地、Zero2Idea、旧10x投机、信号库不再生成或更新，
+    历史目录与 HTML 原样保留，旧链接仍可访问。
+    """
     if dates_perception is None: dates_perception = set()
     if dates_dual_innovation is None: dates_dual_innovation = set()
+    if today is None: today = datetime.now().strftime("%Y-%m-%d")
 
-    # 首页 = 最新商业感知判断。原始信息频道不再默认占用注意力。
-    if dates_perception:
-        latest_p = max(dates_perception)
-        p_cards = collect_repricing_cards(latest_p)
-        if p_cards.strip():
-            tab_nav = _tab_nav_html("perception", ".")
-            prev_d, next_d = _find_prev_next(latest_p, dates_perception)
-            prev_link = f"perception/{prev_d}.html" if prev_d else "index.html"
-            next_link = f"perception/{next_d}.html" if next_d else "index.html"
+    # 首页 = 最新今日判断。没有 Repricing 报告时安静地说明，
+    # 不回退展示想法墓地或其他后台内容。
+    latest_p = max(dates_perception) if dates_perception else today
+    p_cards = collect_repricing_cards(latest_p)
+    if not p_cards.strip():
+        # 最新日无报告，往前找最近有判断的一天
+        for d in sorted(dates_perception, reverse=True):
+            p_cards = collect_repricing_cards(d)
+            if p_cards.strip():
+                latest_p = d
+                break
 
-            template = load_template("day.html")
-            html = template
-            html = html.replace("{{DATE}}", latest_p)
-            html = html.replace("{{SECTION_TITLE}}", "商业感知")
-            html = html.replace("{{CSS_PATH}}", "style.css")
-            html = html.replace("{{INDEX_PATH}}", "index.html")
-            html = html.replace("{{TAB_NAV}}", tab_nav)
-            html = html.replace("{{PREV_DAY}}", prev_link)
-            html = html.replace("{{NEXT_DAY}}", next_link)
-            html = html.replace("{{CARDS}}", '<div class="attention-note">今天只需要理解一个变化。原始信号保留在后台，只有形成判断后才进入这里。</div>' + p_cards)
-            html = html.replace(".html.html", ".html")
-            (BASE_DIR / "index.html").write_text(html)
+    tab_nav = _tab_nav_html("perception", ".")
+    prev_d, next_d = _find_prev_next(latest_p, dates_perception)
+    prev_link = f"perception/{prev_d}.html" if prev_d else "index.html"
+    next_link = f"perception/{next_d}.html" if next_d else "index.html"
 
-    # 没有商业感知报告时才回退到想法墓地，避免首页空白。
-    elif dates_graveyard:
-        latest_g = max(dates_graveyard)
-        g_cards = collect_graveyard_cards(latest_g)
-        if not g_cards.strip():
-            # 最新日无有效卡片，往前找最近有数据的一天
-            for d in sorted(dates_graveyard, reverse=True):
-                g_cards = collect_graveyard_cards(d)
-                if g_cards.strip():
-                    latest_g = d
-                    break
-        if g_cards.strip():
-            tab_nav = _tab_nav_html("graveyard", ".")
-            prev_d, next_d = _find_prev_next(latest_g, dates_graveyard)
-            prev_link = f"graveyard/{prev_d}.html" if prev_d else "index.html"
-            next_link = f"graveyard/{next_d}.html" if next_d else "index.html"
+    if p_cards.strip():
+        cards_html = '<div class="attention-note">今天只需要理解一个变化。原始信号保留在后台，只有形成判断后才进入这里。</div>' + p_cards
+    else:
+        cards_html = '<div class="attention-note">暂无值得占用注意力的新判断。</div>'
 
-            template = load_template("day.html")
-            html = template
-            html = html.replace("{{DATE}}", latest_g)
-            html = html.replace("{{SECTION_TITLE}}", "想法墓地")
-            html = html.replace("{{CSS_PATH}}", "style.css")
-            html = html.replace("{{INDEX_PATH}}", "index.html")
-            html = html.replace("{{TAB_NAV}}", tab_nav)
-            html = html.replace("{{PREV_DAY}}", prev_link)
-            html = html.replace("{{NEXT_DAY}}", next_link)
-            html = html.replace("{{CARDS}}", g_cards)
-            html = html.replace(".html.html", ".html")
-            (BASE_DIR / "index.html").write_text(html)
+    template = load_template("day.html")
+    html = template
+    html = html.replace("{{DATE}}", latest_p)
+    html = html.replace("{{SECTION_TITLE}}", "今日判断")
+    html = html.replace("{{CSS_PATH}}", "style.css")
+    html = html.replace("{{INDEX_PATH}}", "index.html")
+    html = html.replace("{{TAB_NAV}}", tab_nav)
+    html = html.replace("{{PREV_DAY}}", prev_link)
+    html = html.replace("{{NEXT_DAY}}", next_link)
+    html = html.replace("{{CARDS}}", cards_html)
+    html = html.replace(".html.html", ".html")
+    (BASE_DIR / "index.html").write_text(html)
 
-    # 商业感知频道 index
+    # 今日判断频道 index：用当前模板重渲染最新一期，确保频道首页与导航保持一致
     PERCEPTION_DIR.mkdir(parents=True, exist_ok=True)
     if dates_perception:
         latest = max(dates_perception)
-        latest_file = PERCEPTION_DIR / f"{latest}.html"
-        if latest_file.exists():
-            (PERCEPTION_DIR / "index.html").write_text(latest_file.read_text())
+        cards = collect_repricing_cards(latest)
+        if cards.strip():
+            intro = '<div class="attention-note">先读判断。只有当判断值得追踪时，再展开候选与证据。</div>'
+            render_day_page(latest, intro + cards, "perception", "今日判断", dates_perception)
+            latest_file = PERCEPTION_DIR / f"{latest}.html"
+            if latest_file.exists():
+                (PERCEPTION_DIR / "index.html").write_text(latest_file.read_text())
 
-    # 熵减频道 index
-    ENTROPY_DIR.mkdir(parents=True, exist_ok=True)
-    if dates_entropy:
-        latest = max(dates_entropy)
-        latest_file = ENTROPY_DIR / f"{latest}.html"
-        if latest_file.exists():
-            (ENTROPY_DIR / "index.html").write_text(latest_file.read_text())
-
-    # 墓地频道 index
-    GRAVEYARD_DIR.mkdir(parents=True, exist_ok=True)
-    if dates_graveyard:
-        latest = max(dates_graveyard)
-        latest_file = GRAVEYARD_DIR / f"{latest}.html"
-        if latest_file.exists():
-            (GRAVEYARD_DIR / "index.html").write_text(latest_file.read_text())
-
-    # Zero2Idea 频道 index
-    ZERO2IDEA_DIR.mkdir(parents=True, exist_ok=True)
-    if dates_zero2idea:
-        latest = max(dates_zero2idea)
-        latest_file = ZERO2IDEA_DIR / f"{latest}.html"
-        if latest_file.exists():
-            (ZERO2IDEA_DIR / "index.html").write_text(latest_file.read_text())
-
-    # 10x投机频道 index
-    TENX_DIR.mkdir(parents=True, exist_ok=True)
-    if dates_10x:
-        latest = max(dates_10x)
-        latest_file = TENX_DIR / f"{latest}.html"
-        if latest_file.exists():
-            (TENX_DIR / "index.html").write_text(latest_file.read_text())
-
-    # 双创研究首页由独立交互页维护。每日渲染只新增/更新按日期归档页，
-    # 不再用最新日报覆盖首页，否则会抹掉“当前行动 / 本周变化 / 公司库”。
+    # 10x研究首页由独立交互页维护（10x投机/scripts/render_personal_research_frontpage.py）。
+    # 每日渲染只新增/更新按日期归档页，不用最新日报覆盖首页，
+    # 否则会抹掉“当前行动 / 本周变化 / 公司库”。
     DUAL_INNOVATION_DIR.mkdir(parents=True, exist_ok=True)
 
-    # browse 频道 index
-    BROWSE_DIR.mkdir(parents=True, exist_ok=True)
-    render_browse_details()
-    render_browse_index()
+    # 熵减计划、想法墓地、Zero2Idea、旧10x投机、信号库（browse）频道
+    # 已停止生成与更新：历史目录与 index 保留原样，供旧链接直达。
 
 # ============================================================
 # 收集卡片
@@ -1157,40 +1113,24 @@ def render_browse_index(per_page=20):
 # 主逻辑
 # ============================================================
 
-def render_date(date_str, e_dates=None, g_dates=None, z_dates=None, t_dates=None, p_dates=None, d_dates=None):
-    """渲染某一天的商业感知与各专项证据页面。"""
-    if e_dates is None: e_dates = set()
-    if g_dates is None: g_dates = set()
-    if z_dates is None: z_dates = set()
-    if t_dates is None: t_dates = set()
+def render_date(date_str, p_dates=None, d_dates=None):
+    """渲染某一天的公开前台页面：今日判断与 10x研究。
+
+    熵减计划、想法墓地、Zero2Idea、旧10x投机、信号库已停止渲染；
+    对应历史页面保留在原目录，不再新增或更新。
+    """
     if p_dates is None: p_dates = set()
     if d_dates is None: d_dates = set()
 
     p = collect_repricing_cards(date_str)
     if p.strip():
         intro = '<div class="attention-note">先读判断。只有当判断值得追踪时，再展开候选与证据。</div>'
-        render_day_page(date_str, intro + p, "perception", "商业感知", p_dates)
-
-    e = collect_entropy_cards(date_str)
-    if e.strip():
-        render_day_page(date_str, e, "entropy", "熵减计划", e_dates)
-
-    g = collect_graveyard_cards(date_str)
-    if g.strip():
-        render_day_page(date_str, g, "graveyard", "想法墓地", g_dates)
-
-    z = collect_zero2idea_cards(date_str)
-    if z.strip():
-        render_day_page(date_str, z, "zero2idea", "Zero2Idea", z_dates)
-
-    t = collect_10x_cards(date_str)
-    if t.strip():
-        render_day_page(date_str, t, "10x", "10x投机", t_dates)
+        render_day_page(date_str, intro + p, "perception", "今日判断", p_dates)
 
     d = collect_dual_innovation_cards(date_str)
     if d.strip():
         intro = '<div class="attention-note">每天只看一页：当前状态、变化、错价、反证和行动。</div>'
-        render_day_page(date_str, intro + d, "dual-innovation", "双创研究", d_dates)
+        render_day_page(date_str, intro + d, "dual-innovation", "10x研究", d_dates)
 
 def main():
     args = sys.argv[1:]
@@ -1200,38 +1140,28 @@ def main():
 
     if "--today" in args:
         d = datetime.now().strftime("%Y-%m-%d")
-        e_dates, g_dates = get_available_dates()
-        z_dates = get_zero2idea_dates()
-        t_dates = get_10x_dates()
         p_dates = get_repricing_dates()
         d_dates = get_dual_innovation_dates()
-        render_date(d, e_dates, g_dates, z_dates, t_dates, p_dates, d_dates)
-        render_index(e_dates, g_dates, z_dates, t_dates, p_dates, d_dates)
+        render_date(d, p_dates, d_dates)
+        render_index(p_dates, d_dates, today=d)
         print(f"✅ 渲染完成: {d}")
 
     elif "--date" in args:
         idx = args.index("--date")
         d = args[idx + 1]
-        e_dates, g_dates = get_available_dates()
-        z_dates = get_zero2idea_dates()
-        t_dates = get_10x_dates()
         p_dates = get_repricing_dates()
         d_dates = get_dual_innovation_dates()
-        render_date(d, e_dates, g_dates, z_dates, t_dates, p_dates, d_dates)
-        render_index(e_dates, g_dates, z_dates, t_dates, p_dates, d_dates)
+        render_date(d, p_dates, d_dates)
+        render_index(p_dates, d_dates, today=d)
         print(f"✅ 渲染完成: {d}")
 
     elif "--all" in args:
-        e_dates, g_dates = get_available_dates()
-        z_dates = get_zero2idea_dates()
-        t_dates = get_10x_dates()
         p_dates = get_repricing_dates()
         d_dates = get_dual_innovation_dates()
-        all_dates = e_dates | g_dates | z_dates | t_dates | p_dates | d_dates
-        for d in sorted(all_dates):
-            render_date(d, e_dates, g_dates, z_dates, t_dates, p_dates, d_dates)
-        render_index(e_dates, g_dates, z_dates, t_dates, p_dates, d_dates)
-        print(f"✅ 渲染完成: 商业感知 {len(p_dates)} 天, 熵减 {len(e_dates)} 天, 墓地 {len(g_dates)} 天, Zero2Idea {len(z_dates)} 天, 双创研究 {len(d_dates)} 天, 10x {len(t_dates)} 天")
+        for d in sorted(p_dates | d_dates):
+            render_date(d, p_dates, d_dates)
+        render_index(p_dates, d_dates)
+        print(f"✅ 渲染完成: 今日判断 {len(p_dates)} 天, 10x研究 {len(d_dates)} 天")
 
 if __name__ == "__main__":
     main()

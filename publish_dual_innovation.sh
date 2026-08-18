@@ -1,5 +1,5 @@
 #!/bin/bash
-# 将 10x 投机系统当天的一页交付发布到个人站“双创研究”栏目。
+# 将 10x 投机系统当天的一页交付发布到个人站“10x研究”栏目（URL 保持 /dual-innovation/）。
 set -euo pipefail
 
 SITE_REPO="/Users/joeyshee/Documents/daily-digest"
