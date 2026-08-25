@@ -39,6 +39,14 @@ if ! git diff --cached --quiet; then
   HAS_CHANGES=true
 fi
 
+# A previous run may have committed locally and then lost the network during
+# `git push`.  A retry must publish that existing commit instead of returning
+# SILENT merely because the working tree is clean.
+if [ "$(git rev-list --count origin/main..HEAD)" -gt 0 ]; then
+  git push origin main
+  HAS_CHANGES=true
+fi
+
 if [ "$HAS_CHANGES" = false ] && [ "$FORCE_DEPLOY" = false ]; then
   echo "[SILENT]"
   exit 0
