@@ -27,11 +27,187 @@ footer{border-top:1px solid var(--line);margin-top:16px;padding-top:13px;display
 @media(max-width:1080px){.focus-grid{grid-template-columns:repeat(2,1fr)}.company-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:860px){h1{font-size:34px}.update-grid,.company-grid{grid-template-columns:1fr}main{padding-top:38px}}
 @media(max-width:640px){.focus-grid,.argue-grid,.quad,.method-grid{grid-template-columns:1fr}.base{display:none}}
+
+/* company visual prototype */
+.vp-section .white-card{margin-top:14px}
+.vp-oneliner{font-family:Georgia,"Noto Serif SC",serif;font-size:16.5px;margin:6px 0 4px}
+.vp-mkt{display:grid;grid-template-columns:1.1fr 1fr .9fr;gap:14px;align-items:stretch}
+.vp-bignum span,.vp-trend>b,.vp-fstep>span{display:block;font-size:11px;color:var(--muted)}
+.vp-share{display:flex;align-items:center;gap:14px;margin:9px 0}
+.vp-ring{--share:0;width:104px;aspect-ratio:1;border-radius:50%;background:conic-gradient(var(--green) calc(var(--share)*1%),#e6ece8 0);display:grid;place-items:center;position:relative;flex:0 0 auto}
+.vp-ring:before{content:"";position:absolute;width:76px;aspect-ratio:1;border-radius:50%;background:var(--white)}
+.vp-ring b{position:relative;font:900 27px/1 Georgia,serif;color:var(--green)}
+.vp-ring b i{font:700 13px/1 sans-serif}
+.vp-share-copy strong{display:block;font-size:15px}.vp-share-copy small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.vp-side .vp-ring{width:88px;background:conic-gradient(var(--blue) calc(var(--share)*1%),#e6edf1 0)}
+.vp-side .vp-ring:before{width:64px}.vp-side .vp-ring b{font-size:23px;color:var(--blue)}
+.vp-bignum p{font-size:12.5px;color:var(--muted);margin:0}
+.vp-trend{background:#f7f9f7;border-radius:12px;padding:12px;font-size:12.5px;color:var(--muted)}
+.vp-cols{display:flex;gap:14px;align-items:flex-end;height:150px;margin-top:10px}
+.vp-col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:5px;height:100%}
+.vp-col>b{font-size:13px;color:var(--ink)}
+.vp-col i{display:block;width:62%;max-width:52px;background:var(--green);border-radius:6px 6px 2px 2px;min-height:4px}
+.vp-col span{font-size:11px;color:var(--muted)}
+.vp-basis{background:var(--amber2);color:var(--amber);border-radius:10px;padding:10px 12px;font-size:12.5px;margin:12px 0 0}
+.vp-basis b{margin-right:8px}
+.vp-stack{display:flex;height:34px;border-radius:9px;overflow:hidden;margin-top:12px}
+.vp-stack i{display:block;min-width:3px}
+.vp-seg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.vp-seg{background:#f7f9f7;border-radius:10px;padding:10px 12px}
+.vp-seg>i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px}
+.vp-seg>b{font-size:13.5px}
+.vp-seg span{display:block;font-size:11.5px;color:var(--muted);margin-top:3px}
+.vp-seg span b{font-size:11.5px;color:var(--ink)}
+.vp-seg p{margin:6px 0 0;font-size:12px;color:var(--muted)}
+.vp-flow{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap}
+.vp-fstep{flex:1;min-width:150px;background:#f7f9f7;border-radius:12px;padding:14px}
+.vp-fstep>b{display:block;font-size:30px;font-family:Georgia,serif}
+.vp-fstep i{font-size:13px;font-style:normal;color:var(--muted);margin-left:3px}
+.vp-fstep em{display:block;font-style:normal;font-size:11.5px;color:var(--blue);margin-top:5px}
+.vp-farrow{font-size:26px;color:#c6cfc9;align-self:center}
+.vp-ratio{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--blue2);border-radius:12px;padding:12px 16px;margin-top:12px;font-size:12px;color:var(--blue)}
+.vp-ratio>b{font-size:20px;color:var(--ink)}
+.vp-ratio i{font-size:11px;font-style:normal;color:var(--muted);font-weight:400}
+.vp-cmp{margin-top:14px}
+.vp-cmp>b{font-size:11px;color:var(--muted)}
+.vp-cmp-row{display:grid;grid-template-columns:90px 1fr auto;gap:10px;align-items:center;margin-top:8px;font-size:12px}
+.vp-cmp-row>span{color:var(--muted)}
+.vp-cmp-track{background:#eef2ef;border-radius:5px;height:12px}
+.vp-cmp-track i{display:block;height:100%;border-radius:5px;background:var(--green)}
+.vp-cmp-row>div{text-align:right}
+.vp-cmp-row div b{display:block}
+.vp-cmp-row div small{color:var(--muted);font-weight:400}
+.vp-chain{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap}
+.vp-chain-step{flex:1;min-width:170px;background:#f7f9f7;border-top:3px solid var(--green);border-radius:10px;padding:12px}
+.vp-chain-step>b{font-size:13px}
+.vp-chain-step p{margin:5px 0 0;font-size:12px;color:var(--muted)}
+.vp-risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.vp-risk{background:#f7f9f7;border-radius:10px;padding:12px}
+.vp-risk>b{font-size:13.5px}
+.vp-risk-nums{display:flex;align-items:baseline;gap:8px;margin:6px 0;flex-wrap:wrap}
+.vp-risk-nums>span:first-child{font-size:15px;color:var(--muted)}
+.vp-risk-nums>strong{font-size:20px}
+.vp-risk-nums small{color:var(--muted)}
+.vp-risk p{margin:4px 0 6px;font-size:12.5px;color:var(--muted)}
+.vp-risk-bars{display:grid;gap:5px;margin:8px 0 10px}.vp-risk-bar{display:grid;grid-template-columns:72px 1fr 48px;gap:7px;align-items:center;font-size:10.5px;color:var(--muted)}
+.vp-risk-track{height:9px;border-radius:5px;background:#e7ece9;overflow:hidden}.vp-risk-track i{display:block;height:100%;border-radius:5px;background:#a7b4ac}.vp-risk-bar.current .vp-risk-track i{background:var(--red)}.vp-risk-bar.current b{color:var(--red)}
+.vp-src{font-size:11px;color:var(--muted);margin:10px 0 0}
+.vp-judge{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.vp-evi{border-radius:12px;padding:12px 14px}
+.vp-pro{background:var(--green2)}.vp-pro>b{color:var(--green)}
+.vp-con{background:var(--red2)}.vp-con>b{color:var(--red)}
+.vp-evi ul{margin:6px 0 0;padding-left:18px;font-size:12.5px;color:var(--ink)}
+.vp-sources{margin:6px 0 0;padding-left:18px;font-size:13px}
+.vp-sources a{color:var(--green);font-weight:700}
+@media(max-width:900px){.vp-mkt,.vp-seg-grid,.vp-judge,.vp-risk-grid{grid-template-columns:1fr}.vp-cols{height:120px}}
 </style></head><body>
 <a class="skip" href="#main">跳到主要内容</a>
-<header class="top"><div><a class="brand" href="./">10x研究</a><nav><a href="#focus">今日关注</a><a href="#activity">最近更新</a><a href="#opportunities">机会判断</a><a href="#ipo">打新决策</a><a href="#companies">公司库</a><a href="#method">如何判断</a></nav><a class="base" href="https://my.feishu.cn/base/WV0DbRUVpaSuK8s52GUctROknNd?table=tblrfritqTpVhMuz">打开私人研究台账 →</a></div></header>
-<main id="main" data-activity-count="37"><div class="eyebrow">截至 2026-08-27 · 10x 投资系统</div><h1>先看结论，再沿着证据、反证和下一验证向下追。</h1><p class="lead">这是公司研究、机会捕捉与 A 股打新的统一阅读前台。先读今日关注，再按模块下钻；你不需要理解后台表结构。</p>
-<div class="metrics"><div class="metric"><span>覆盖公司</span><b>21</b></div><div class="metric"><span>机会案例</span><b>3</b></div><div class="metric"><span>打新标的</span><b>12</b></div><div class="metric"><span>可追溯证据</span><b>60</b></div><div class="metric"><span>冻结判断</span><b>42</b></div></div>
+<header class="top"><div><a class="brand" href="./">10x研究</a><nav><a href="#focus">今日关注</a><a href="#activity">最近更新</a><a href="#opportunities">机会判断</a><a href="#ipo">打新决策</a><a href="#companies">公司库</a><a href="#company-visual-688019">公司原型</a><a href="#method">如何判断</a></nav><a class="base" href="https://my.feishu.cn/base/WV0DbRUVpaSuK8s52GUctROknNd?table=tblrfritqTpVhMuz">打开私人研究台账 →</a></div></header>
+<main id="main" data-activity-count="38"><div class="eyebrow">截至 2026-08-28 · 10x 投资系统</div><h1>先看结论，再沿着证据、反证和下一验证向下追。</h1><p class="lead">这是公司研究、机会捕捉与 A 股打新的统一阅读前台。先读今日关注，再按模块下钻；你不需要理解后台表结构。</p>
+<div class="metrics"><div class="metric"><span>覆盖公司</span><b>21</b></div><div class="metric"><span>机会案例</span><b>3</b></div><div class="metric"><span>打新标的</span><b>12</b></div><div class="metric"><span>可追溯证据</span><b>61</b></div><div class="metric"><span>冻结判断</span><b>43</b></div></div>
+
+  <section id="company-visual-688019" class="vp-section">
+    <div class="section-head"><div><div class="eyebrow">Visual Prototype · Company</div><h2>安集科技 · 视觉叙事</h2></div><p>同一份公司档案的叙事化表达：份额、业务构成、利润结构、因果链、风险对比与判断汇聚。全部数据来自公司视觉档案 JSON；档案缺失时本区块整体不渲染。</p></div>
+    
+      <article class="white-card">
+        <div class="card-top"><span>688019 · A股科创板 · 视觉叙事原型</span><b class="pill watch">观察，不进入机会评估</b></div>
+        <h3>安集科技 <small>给晶圆制造的抛光、清洗和沉积工艺提供高端配方材料</small></h3>
+        <p class="vp-oneliner">基本盘是化学机械抛光液，功能性湿电子化学品增长更快；市场份额继续上升，但扣非利润增速落后于收入，新品利润贡献仍未量化。</p>
+        <footer><strong>动作：仅研究，不行动</strong><span>数据截至 2026-08-27</span></footer>
+      </article>
+      <article class="white-card">
+        <h3>市场位置 <small>份额是叙事的起点，不是结论</small></h3>
+        <div class="vp-mkt">
+          <div class="vp-bignum vp-main"><span>全球半导体 CMP 抛光液市场份额 · 2025</span><div class="vp-share"><div class="vp-ring" style="--share:13.00" role="img" aria-label="市场份额 13.00%"><b>13<i>%</i></b></div><div class="vp-share-copy"><strong>约占全球市场的八分之一</strong><small>占比环以完整市场为 100%</small></div></div><p>全球每 100 元半导体 CMP 抛光液销售额中，约 13 元来自安集；三年增加约 5 个百分点。</p></div>
+          <div class="vp-trend"><b>份额趋势 · 统一 0–15% 纵轴</b><div class="vp-cols">
+          <div class="vp-col"><b>8.00%</b><i style="height:53%"></i><span>2023</span></div>
+          <div class="vp-col"><b>11.00%</b><i style="height:73%"></i><span>2024</span></div>
+          <div class="vp-col"><b>13.00%</b><i style="height:87%"></i><span>2025</span></div></div></div>
+          <div class="vp-bignum vp-side"><span>全球功能性湿电子化学品市场份额 · 2025</span><div class="vp-share"><div class="vp-ring" style="--share:6.00" role="img" aria-label="市场份额 6.00%"><b>6<i>%</i></b></div><div class="vp-share-copy"><strong>第二增长曲线</strong><small>规模位置仍小于抛光液</small></div></div><p>仍小于抛光液基本盘，但已形成可量化的全球市场位置。</p></div>
+        </div>
+        <p class="vp-basis"><b>份额口径</b>公司依据 TECHCET 公开的全球半导体抛光液市场规模测算；不是 TECHCET 直接发布的公司份额排名。 功能性湿电子化学品份额采用相同测算口径。（来源：2025年年度报告第22页）</p>
+      </article>
+      <article class="white-card">
+        <h3>业务构成 <small>2026H1 · 堆叠条与占比由原始收入计算（计算值）</small></h3>
+        <div class="vp-stack" role="img" aria-label="业务构成堆叠条：化学机械抛光液占78.9%，功能性湿电子化学品占20.5%，其他占0.6%"><i style="width:78.90%;background:var(--green)"></i><i style="width:20.49%;background:var(--blue)"></i><i style="width:0.62%;background:var(--amber)"></i></div>
+        <div class="vp-seg-grid">
+          <div class="vp-seg"><i style="background:var(--green)"></i><b>化学机械抛光液</b>
+            <span>收入 <b>12.04 亿元</b> · 占比 78.90%（计算值）</span>
+            <span>同比 +29.47% · 角色：基本盘</span>
+            <p>约占收入八成，决定当前利润底盘。</p>
+          </div>
+          <div class="vp-seg"><i style="background:var(--blue)"></i><b>功能性湿电子化学品</b>
+            <span>收入 <b>3.13 亿元</b> · 占比 20.49%（计算值）</span>
+            <span>同比 +51.03% · 角色：增长引擎</span>
+            <p>规模仍小，但增速明显快于基本盘。</p>
+          </div>
+          <div class="vp-seg"><i style="background:var(--amber)"></i><b>其他</b>
+            <span>收入 <b>0.09 亿元</b> · 占比 0.62%（计算值）</span>
+            <span>同比 未披露 · 角色：待观察</span>
+            <p>包括尚未单独披露收入贡献的新品。</p>
+          </div></div>
+        <p class="vp-src">来源：2026年半年度报告第163页</p>
+      </article>
+      <article class="white-card">
+        <h3>收入 → 毛利 → 扣非利润 <small>2026H1 · 由 current/prior 原始值计算（计算值）</small></h3>
+        <div class="vp-flow">
+          <div class="vp-fstep"><b>15.26<i>亿元</i></b><span>营业总收入</span><em>同比 33.72%（计算值）</em></div>
+          <span class="vp-farrow" aria-hidden="true">→</span>
+          <div class="vp-fstep"><b>8.49<i>亿元</i></b><span>毛利（收入 − 营业成本）</span><em>毛利率 55.63%，上年 56.39%（计算值）</em></div>
+          <span class="vp-farrow" aria-hidden="true">→</span>
+          <div class="vp-fstep"><b>4.26<i>亿元</i></b><span>扣非归母净利润</span><em>占收入 27.89%（计算值）</em></div>
+        </div>
+        <div class="vp-ratio"><span>经营现金流 ÷ 扣非利润</span><span><b>75.23%</b> <i>（计算值）</i></span></div>
+        <div class="vp-cmp"><b>同比增速比较 · 统一 0–40% 横轴（current ÷ prior − 1，计算值；小字为披露值）</b>
+          <div class="vp-cmp-row"><span>营业总收入</span><div class="vp-cmp-track"><i style="width:84%"></i></div><div><b>33.72%（计算值）</b><small>披露值 +33.72%</small></div></div>
+          <div class="vp-cmp-row"><span>扣非利润</span><div class="vp-cmp-track"><i style="width:48%"></i></div><div><b>19.35%（计算值）</b><small>披露值 +19.35%</small></div></div>
+          <div class="vp-cmp-row"><span>经营现金流</span><div class="vp-cmp-track"><i style="width:77%"></i></div><div><b>30.68%（计算值）</b><small>披露值 +30.68%</small></div></div>
+          <div class="vp-cmp-row"><span>研发投入</span><div class="vp-cmp-track"><i style="width:76%"></i></div><div><b>30.51%（计算值）</b><small>披露值 +30.51%</small></div></div></div>
+        <div class="band band-judgment"><b>解读</b><p>收入和回款继续增长，但归母净利润高增受到公允价值变动及投资收益影响；扣非利润增速明显落后于收入，是这期最需要解释的分叉。</p></div>
+        <p class="vp-src">来源：2026年半年度报告第9至10页、第33页</p>
+      </article>
+      <article class="white-card">
+        <h3>生意因果链 <small>每一步只解释一个因果环节</small></h3>
+        <div class="vp-chain"><div class="vp-chain-step"><b>1 · 进入客户工艺</b><p>配方材料需要经过晶圆厂验证，产品表现直接关系良率和工艺稳定性。</p></div><span class="vp-farrow" aria-hidden="true">→</span><div class="vp-chain-step"><b>2 · 验证形成黏性</b><p>更换材料需要重新验证，并承担良率与停线风险。</p></div><span class="vp-farrow" aria-hidden="true">→</span><div class="vp-chain-step"><b>3 · 扩品提高单客价值</b><p>从抛光液延伸到清洗液、电镀液和添加剂，覆盖更多工艺步骤。</p></div><span class="vp-farrow" aria-hidden="true">→</span><div class="vp-chain-step"><b>4 · 份额与用量共同增长</b><p>客户扩产、先进制程增加工艺步骤，叠加国产替代，带动材料用量。</p></div></div>
+      </article>
+      <article class="white-card">
+        <h3>风险前后对比 <small>同一指标、两个时点，只表达变化</small></h3>
+        <div class="vp-risk-grid">
+          <div class="vp-risk">
+            <b>前五大客户收入占比</b>
+            <div class="vp-risk-nums"><span>75.65%</span><span class="vp-farrow" aria-hidden="true">→</span><strong>71.48%</strong><small>2025全年 → 2026H1</small></div>
+            <div class="vp-risk-bars" role="img" aria-label="前五大客户收入占比 从 75.65% 变为 71.48%">
+              <div class="vp-risk-bar"><span>2025全年</span><div class="vp-risk-track"><i style="width:75.65%"></i></div><b>75.65%</b></div>
+              <div class="vp-risk-bar current"><span>2026H1</span><div class="vp-risk-track"><i style="width:71.48%"></i></div><b>71.48%</b></div>
+            </div>
+            <p>集中度略有下降但仍很高；客户认证既是壁垒，也是单一客户波动风险。</p>
+            <small>来源：2026年半年度报告第32页；2025年年度报告</small>
+          </div>
+          <div class="vp-risk">
+            <b>上线结算客户收入占比</b>
+            <div class="vp-risk-nums"><span>56.98%</span><span class="vp-farrow" aria-hidden="true">→</span><strong>65.83%</strong><small>2025全年 → 2026H1</small></div>
+            <div class="vp-risk-bars" role="img" aria-label="上线结算客户收入占比 从 56.98% 变为 65.83%">
+              <div class="vp-risk-bar"><span>2025全年</span><div class="vp-risk-track"><i style="width:56.98%"></i></div><b>56.98%</b></div>
+              <div class="vp-risk-bar current"><span>2026H1</span><div class="vp-risk-track"><i style="width:65.83%"></i></div><b>65.83%</b></div>
+            </div>
+            <p>更多货物在客户领用时确认收入，发出商品、库存管理和回款需要一起观察。</p>
+            <small>来源：2026年半年度报告第32页</small>
+          </div></div>
+      </article>
+      <article class="white-card">
+        <h3>证据汇聚 <small>正证与反证 → 当前判断 → 下一验证 → 动作</small></h3>
+        <div class="vp-judge">
+          <div class="vp-evi vp-pro"><b>正证</b><ul><li>CMP 抛光液全球份额约 8%→11%→13%，行业位置持续提升。</li><li>功能性湿电子化学品收入增长 51.03%，快于抛光液的 29.47%。</li><li>经营现金流增长 30.68%，销售回款与收入增长基本一致。</li></ul></div>
+          <div class="vp-evi vp-con"><b>反证</b><ul><li>扣非利润只增长 19.35%，明显落后于收入增长 33.72%。</li><li>归母净利润增速受到 1.25 亿元公允价值变动及投资收益影响。</li><li>电镀液等新品虽已量产，但绝对收入和利润贡献尚未披露。</li></ul></div>
+        </div>
+        <div class="band band-judgment"><b>当前判断</b><p>主业增长、份额提升和新品量产获得补强，但利润质量与新品回报尚不足以支持机会升级。</p></div>
+        <div class="argue-grid">
+          <div class="cell cell-next"><b>下一验证</b><p>三季报重点核对扣非利润、毛利率、现金流、存货与发出商品，以及电镀液新品的绝对收入和利润贡献。</p></div>
+          <div class="cell cell-thesis"><b>动作</b><p>仅研究，不行动</p></div>
+        </div>
+      </article>
+      <article class="white-card"><h3>来源</h3><ul class="vp-sources"><li><a href="https://static.cninfo.com.cn/finalpage/2026-04-16/1225108553.PDF" target="_blank" rel="noopener">2025年年度报告</a></li><li><a href="https://static.cninfo.com.cn/finalpage/2026-08-27/1225513853.PDF" target="_blank" rel="noopener">2026年半年度报告</a></li></ul></article>
+  </section>
 <section id="focus"><div class="section-head"><div><div class="eyebrow">Today · Focus</div><h2>今日关注</h2></div><p>确定性选取，不打分：先取需要用户动作的最新动态，再取核查中的机会与公司。每张卡回答：什么对象、什么状态、为什么重要、下一验证什么。</p></div><div class="focus-grid">
       <article class="focus-card">
         <div class="focus-meta"><span>动态 · A股打新</span><span>2026-08-27</span></div>
@@ -70,6 +246,16 @@ footer{border-top:1px solid var(--line);margin-top:16px;padding-top:13px;display
         <footer><strong>动作：不行动</strong><a href="#opportunities">机会判断 →</a></footer>
       </article></div></section>
 <section id="activity"><div class="section-head"><div><div class="eyebrow">00 · Research Activity</div><h2>最近更新</h2></div><p>每条动态先给事实（发生了什么），再给当前判断、最强反证与下一验证；用户动作单独列出，不与事实混排。</p></div><div class="update-grid">
+      <article class="update-card" id="dyn-DYN-EV-300476-H1-20260828">
+        <div class="card-top"><span>2026-08-28 · 公司研究</span><b class="pill quiet">增长和现金改善成立但扣非毛利应收集中库存资本开支与AI业务量化均未共同通过</b></div>
+        <h3>胜宏科技</h3>
+        <p class="why"><b>为什么重要</b>公司一手事实｜来源等级A</p>
+        <div class="cell cell-fact"><b>发生了什么</b><p>收入116.29亿元增长28.77%经营现金流增长144.61%但扣非利润仅增长12.50%毛利率下降3.00个百分点且存货净额增长86.24%</p></div>
+        <div class="band band-judgment"><b>当前判断</b><p>增长和现金改善成立但扣非毛利应收集中库存资本开支与AI业务量化均未共同通过</p></div>
+        <div class="cell cell-contra"><b>最强反证</b><p>单项事实不足以证明错价，必须与市场预期和价格共同验证</p></div>
+        <div class="cell cell-next"><b>下一验证</b><p>三季报扣非利润毛利现金流应收存货资本开支及AI收入海外基地盈利量化</p></div>
+        <footer><strong>动作：无动作</strong><span>普通研究更新，不发送行动提醒</span></footer>
+      </article>
       <article class="update-card" id="dyn-DYN-EV-688019-H1-20260827">
         <div class="card-top"><span>2026-08-27 · 公司研究</span><b class="pill quiet">主业增长现金回款和新品量产获得补强但估值与新品利润证据不足且不进入机会评估</b></div>
         <h3>安集科技</h3>
@@ -710,17 +896,6 @@ footer{border-top:1px solid var(--line);margin-top:16px;padding-top:13px;display
         </div>
         <footer><strong>动作：仅研究，不行动</strong><span>基线有效 · 2026-08-11 核验</span></footer>
       </article>
-      <article class="company-card" id="company-300476" data-search="胜宏科技 300476 高阶pcb">
-        <div class="card-top"><span>300476 · 高阶PCB</span><b class="pill quiet">未进入机会评估</b></div>
-        <h3>胜宏科技</h3>
-        <div class="quad">
-          <div class="cell cell-thesis"><b>当前论点</b><p>已完成公司基线，尚未形成可验证的错价判断</p></div>
-          <div class="cell cell-fact"><b>硬证据</b><p>等待下一项公司一手证据</p></div>
-          <div class="cell cell-contra"><b>反证 / 风险</b><p>需要新的经营、价格与预期证据后再判断</p></div>
-          <div class="cell cell-next"><b>下一验证</b><p>半年报高阶产品毛利客户产能库存海外盈利和资本回报</p></div>
-        </div>
-        <footer><strong>动作：仅研究，不行动</strong><span>基线有效 · 2026-08-11 核验</span></footer>
-      </article>
       <article class="company-card" id="company-300604" data-search="长川科技 300604 半导体测试设备">
         <div class="card-top"><span>300604 · 半导体测试设备</span><b class="pill quiet">未进入机会评估</b></div>
         <h3>长川科技</h3>
@@ -840,7 +1015,7 @@ footer{border-top:1px solid var(--line);margin-top:16px;padding-top:13px;display
           <div class="cell cell-contra"><b>反证 / 风险</b><p>功能性湿电子化学品增长51.03%且两类电镀产品已量产销售</p></div>
           <div class="cell cell-next"><b>下一验证</b><p>三季报扣非利润毛利现金流存货发出商品及电镀液新品绝对收入</p></div>
         </div>
-        <footer><strong>动作：仅研究，不行动</strong><span>基线有效 · 2026-08-27 核验</span></footer>
+        <footer><strong>动作：仅研究，不行动</strong><span>基线有效 · 2026-08-27 核验</span><a href="#company-visual-688019">视觉叙事 →</a></footer>
       </article>
       <article class="company-card" id="company-688072" data-search="拓荆科技 688072 半导体薄膜沉积设备">
         <div class="card-top"><span>688072 · 半导体薄膜沉积设备</span><b class="pill quiet">未进入机会评估</b></div>
@@ -874,6 +1049,17 @@ footer{border-top:1px solid var(--line);margin-top:16px;padding-top:13px;display
           <div class="cell cell-next"><b>下一验证</b><p>三季报毛利率经营现金流存货跌价应收回款及具身智能收入订单量化</p></div>
         </div>
         <footer><strong>动作：仅研究，不行动</strong><span>基线有效 · 2026-08-27 核验</span></footer>
+      </article>
+      <article class="company-card" id="company-300476" data-search="胜宏科技 300476 高阶pcb">
+        <div class="card-top"><span>300476 · 高阶PCB</span><b class="pill quiet">未进入机会评估</b></div>
+        <h3>胜宏科技</h3>
+        <div class="quad">
+          <div class="cell cell-thesis"><b>当前论点</b><p>收入与经营现金流增长成立但扣非增速放缓毛利下行且应收集中库存与资本开支明显增加</p></div>
+          <div class="cell cell-fact"><b>硬证据</b><p>收入116.29亿元增长28.77%经营现金流增长144.61%但扣非利润仅增长12.50%毛利率下降3.00个百分点且存货净额增长86.24%</p></div>
+          <div class="cell cell-contra"><b>反证 / 风险</b><p>公司称新增客户中一半以上为AI高端客户且部分产品量产但缺少收入订单和利润量化</p></div>
+          <div class="cell cell-next"><b>下一验证</b><p>三季报扣非利润毛利现金流应收存货资本开支及AI收入海外基地盈利量化</p></div>
+        </div>
+        <footer><strong>动作：仅研究，不行动</strong><span>基线有效 · 2026-08-28 核验</span></footer>
       </article></div></section>
 <section id="method" class="method"><div class="eyebrow">White-box Method</div><h2>系统怎样从事实走到行动</h2><p>研究过程不是评分黑箱。普通公司事实不会自动升级为机会，机会判断不会自动升级为买入或申购。</p><div class="method-grid"><div><b>事实层</b><span>法定来源、日期、页码、口径与复算结果。</span></div><div><b>判断层</b><span>业务利润逻辑、市场隐含预期、最强反证和失效条件。</span></div><div><b>行动层</b><span>独立核验、个人风险门、模块权限和可追溯投递回执。</span></div></div></section>
 </main><script>const q=document.getElementById('search');if(q){q.addEventListener('input',()=>{const s=q.value.trim().toLowerCase();document.querySelectorAll('.company-card').forEach(x=>x.classList.toggle('hidden',s&&!x.dataset.search.includes(s)))})}</script></body></html>
