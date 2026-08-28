@@ -110,11 +110,37 @@ footer{border-top:1px solid var(--line);margin-top:16px;padding-top:13px;display
 .vp-sources{margin:6px 0 0;padding-left:18px;font-size:13px}
 .vp-sources a{color:var(--green);font-weight:700}
 @media(max-width:900px){.vp-mkt,.vp-seg-grid,.vp-judge,.vp-risk-grid,.vp-reader-grid{grid-template-columns:1fr}.vp-cols{height:120px}.vp-hook h3{font-size:26px}}
+/* layer-1 per-100-yuan revenue feel */
+.vp-per100-bar{display:flex;height:38px;border-radius:10px;overflow:hidden;margin-top:12px}
+.vp-per100-bar i{display:block;min-width:3px}
+.vp-per100-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.vp-per100-grid>div{background:#f7f9f7;border-radius:12px;padding:14px;border-top:3px solid var(--green)}
+.vp-per100-grid b{display:block;font:900 30px/1.1 Georgia,serif;color:var(--ink)}
+.vp-per100-grid b i{font:700 13px/1 sans-serif;font-style:normal;margin-left:2px;color:var(--muted)}
+.vp-per100-grid span{display:block;font-size:12px;color:var(--muted);margin-top:5px}
+/* advanced layer: native details/summary */
+.vp-details{margin-top:14px;border:1px solid var(--line);background:var(--white);border-radius:18px;box-shadow:var(--shadow)}
+.vp-details>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 22px;flex-wrap:wrap}
+.vp-details>summary::-webkit-details-marker{display:none}
+.vp-details>summary:hover .vp-sum-copy b{color:var(--green)}
+.vp-sum-copy b{display:block;font-family:Georgia,"Noto Serif SC",serif;font-size:19px}
+.vp-sum-qs{display:block;margin-top:7px;font-size:13px;color:var(--ink);font-weight:700}
+.vp-sum-hint{display:block;margin-top:4px;font-size:11.5px;color:var(--muted)}
+.vp-sum-state{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:999px;background:var(--green2);color:var(--green);font-size:12.5px;font-weight:800;white-space:nowrap}
+.vp-sum-arrow{font-style:normal;font-size:12px;transition:transform .18s ease}
+.vp-details[open] .vp-sum-arrow{transform:rotate(180deg)}
+.vp-details[open] .vp-sum-state{background:#f0f2ef;color:var(--muted)}
+.vp-details:not([open]) .when-open{display:none}
+.vp-details[open] .when-closed{display:none}
+.vp-details:not([open])>.vp-adv{display:none}
+.vp-adv{padding:8px 22px 22px;display:grid;gap:14px}
+.vp-adv .white-card{margin-top:0}
+@media(max-width:900px){.vp-per100-grid{grid-template-columns:1fr}}
 </style></head><body>
 <a class="skip" href="#main">跳到主要内容</a>
 <header class="top"><div><a class="brand" href="./">10x研究</a><nav><a href="#focus">今日关注</a><a href="#activity">最近更新</a><a href="#opportunities">机会判断</a><a href="#ipo">打新决策</a><a href="#companies">公司库</a><a href="#company-visual-688019">公司原型</a><a href="#method">如何判断</a></nav><a class="base" href="https://my.feishu.cn/base/WV0DbRUVpaSuK8s52GUctROknNd?table=tblrfritqTpVhMuz">打开私人研究台账 →</a></div></header>
-<main id="main" data-activity-count="41"><div class="eyebrow">截至 2026-08-28 · 10x 投资系统</div><h1>先看结论，再沿着证据、反证和下一验证向下追。</h1><p class="lead">这是公司研究、机会捕捉与 A 股打新的统一阅读前台。先读今日关注，再按模块下钻；你不需要理解后台表结构。</p>
-<div class="metrics"><div class="metric"><span>覆盖公司</span><b>21</b></div><div class="metric"><span>机会案例</span><b>3</b></div><div class="metric"><span>打新标的</span><b>12</b></div><div class="metric"><span>可追溯证据</span><b>64</b></div><div class="metric"><span>冻结判断</span><b>46</b></div></div>
+<main id="main" data-activity-count="42"><div class="eyebrow">截至 2026-08-28 · 10x 投资系统</div><h1>先看结论，再沿着证据、反证和下一验证向下追。</h1><p class="lead">这是公司研究、机会捕捉与 A 股打新的统一阅读前台。先读今日关注，再按模块下钻；你不需要理解后台表结构。</p>
+<div class="metrics"><div class="metric"><span>覆盖公司</span><b>21</b></div><div class="metric"><span>机会案例</span><b>3</b></div><div class="metric"><span>打新标的</span><b>13</b></div><div class="metric"><span>可追溯证据</span><b>65</b></div><div class="metric"><span>冻结判断</span><b>47</b></div></div>
 
   <section id="company-visual-688019" class="vp-section">
     
@@ -125,12 +151,6 @@ footer{border-top:1px solid var(--line);margin-top:16px;padding-top:13px;display
         <span class="vp-hook-fact">先从一片晶圆为什么要反复“找平”开始</span>
       </article>
       <article class="white-card">
-        <div class="card-top"><span>688019 · A股科创板 · 视觉叙事原型</span><b class="pill watch">观察，不进入机会评估</b></div>
-        <h3>先看懂它卖什么 <small>安集科技 · 给晶圆制造的抛光、清洗和沉积工艺提供高端配方材料</small></h3>
-        <p class="vp-oneliner">基本盘是化学机械抛光液，功能性湿电子化学品增长更快；市场份额继续上升，但扣非利润增速落后于收入，新品利润贡献仍未量化。</p>
-        <footer><strong>动作：仅研究，不行动</strong><span>数据截至 2026-08-27</span></footer>
-      </article>
-      <article class="white-card">
         <h3>它离你的手机有多远？ <small>看不见安集的品牌，但芯片装进手机、电脑和AI服务器之前，可能已经反复用过它所在品类的材料。</small></h3>
         <div class="vp-reader-grid">
           <div class="vp-reader"><b>像盖楼一样，芯片也要一层层找平</b><p>布线层越多，表面越容易高低不平。CMP就像每盖几层都重新找平，否则下一层很难继续精细加工。</p><strong>7纳米及以下逻辑芯片，CMP步骤可能超过30次</strong><small>来源：2026年半年度报告第29页</small></div>
@@ -139,7 +159,32 @@ footer{border-top:1px solid var(--line);margin-top:16px;padding-top:13px;display
         <div class="vp-reader-summary">AI芯片越复杂 → 布线层数和工艺步骤越多 → 抛光与清洗次数增加 → 高纯配方材料消耗随之增加。</div>
       </article>
       <article class="white-card">
-        <h3>把全球市场想成100元，安集约占13元 <small>先建立大小体感，再看份额变化</small></h3>
+        <h3>每100元营收里，安集科技卖的是什么？ <small>2026H1 · 分部收入 ÷ 营业总收入，换算成每100元（计算值）</small></h3>
+        <div class="vp-per100-bar" role="img" aria-label="每100元营收构成：化学机械抛光液约79元，功能性湿电子化学品约20元，其他约1元"><i style="width:78.90%;background:var(--green)"></i><i style="width:20.49%;background:var(--blue)"></i><i style="width:0.62%;background:var(--amber)"></i></div>
+        <div class="vp-per100-grid">
+          <div style="border-top-color:var(--green)"><b>79<i>元</i></b><span>化学机械抛光液</span></div>
+          <div style="border-top-color:var(--blue)"><b>20<i>元</i></b><span>功能性湿电子化学品</span></div>
+          <div style="border-top-color:var(--amber)"><b>0.6<i>元</i></b><span>其他</span></div></div>
+        <p class="vp-src">来源：2026年半年度报告第163页 · 计算口径：分部收入 ÷ 营业总收入 × 100元</p>
+      </article>
+    <details id="company-visual-688019-advanced" class="vp-details">
+      <summary>
+        <span class="vp-sum-copy">
+          <b>进阶研究：三个值得追问的问题</b>
+          <span class="vp-sum-qs">市场份额连续上升，是真增长吗？ · 收入为何跑得比主业利润快？ · 客户黏性是壁垒，还是风险？</span>
+          <span class="vp-sum-hint">展开后先看研究状态与动作，再看市场份额口径、业务结构、财务因果、风险与证据来源；读完约需 5 分钟。</span>
+        </span>
+        <span class="vp-sum-state"><span class="when-closed">展开 5 分钟进阶层</span><span class="when-open">收起进阶层</span><i class="vp-sum-arrow" aria-hidden="true">▼</i></span>
+      </summary>
+      <div class="vp-adv">
+      <article class="white-card">
+        <div class="card-top"><span>688019 · A股科创板 · 进阶层 · 研究档案</span><b class="pill watch">观察，不进入机会评估</b></div>
+        <h3>先看懂它卖什么，再看研究状态 <small>安集科技 · 给晶圆制造的抛光、清洗和沉积工艺提供高端配方材料</small></h3>
+        <p class="vp-oneliner">基本盘是化学机械抛光液，功能性湿电子化学品增长更快；市场份额继续上升，但扣非利润增速落后于收入，新品利润贡献仍未量化。</p>
+        <footer><strong>动作：仅研究，不行动</strong><span>数据截至 2026-08-27</span></footer>
+      </article>
+      <article class="white-card">
+        <h3>把全球市场想成100元，安集科技约占13元 <small>先建立大小体感，再看份额变化</small></h3>
         <div class="vp-mkt">
           <div class="vp-bignum vp-main"><span>全球半导体 CMP 抛光液市场份额 · 2025</span><div class="vp-share"><div class="vp-ring" style="--share:13.00" role="img" aria-label="市场份额 13.00%"><b>13<i>%</i></b></div><div class="vp-share-copy"><strong>约占全球市场的八分之一</strong><small>占比环以完整市场为 100%</small></div></div><p>全球每 100 元半导体 CMP 抛光液销售额中，约 13 元来自安集；三年增加约 5 个百分点。</p></div>
           <div class="vp-trend"><b>份额趋势 · 统一 0–15% 纵轴</b><div class="vp-cols">
@@ -151,7 +196,7 @@ footer{border-top:1px solid var(--line);margin-top:16px;padding-top:13px;display
         <p class="vp-basis"><b>份额口径</b>公司依据 TECHCET 公开的全球半导体抛光液市场规模测算；不是 TECHCET 直接发布的公司份额排名。 功能性湿电子化学品份额采用相同测算口径。（来源：2025年年度报告第22页）</p>
       </article>
       <article class="white-card">
-        <h3>每收到100元营收，近79元来自抛光液 <small>2026H1 · 堆叠条与占比由原始收入计算（计算值）</small></h3>
+        <h3>每收到100元营收，约79元来自化学机械抛光液 <small>2026H1 · 堆叠条与占比由原始收入计算（计算值）</small></h3>
         <div class="vp-stack" role="img" aria-label="业务构成堆叠条：化学机械抛光液占78.9%，功能性湿电子化学品占20.5%，其他占0.6%"><i style="width:78.90%;background:var(--green)"></i><i style="width:20.49%;background:var(--blue)"></i><i style="width:0.62%;background:var(--amber)"></i></div>
         <div class="vp-seg-grid">
           <div class="vp-seg"><i style="background:var(--green)"></i><b>化学机械抛光液</b>
@@ -229,9 +274,19 @@ footer{border-top:1px solid var(--line);margin-top:16px;padding-top:13px;display
           <div class="cell cell-thesis"><b>动作</b><p>仅研究，不行动</p></div>
         </div>
       </article>
-      <article class="white-card"><h3>来源</h3><ul class="vp-sources"><li><a href="https://static.cninfo.com.cn/finalpage/2026-04-16/1225108553.PDF" target="_blank" rel="noopener">2025年年度报告</a></li><li><a href="https://static.cninfo.com.cn/finalpage/2026-08-27/1225513853.PDF" target="_blank" rel="noopener">2026年半年度报告</a></li></ul></article>
+      <article class="white-card"><h3>来源</h3><ul class="vp-sources"><li><a href="https://static.cninfo.com.cn/finalpage/2026-04-16/1225108553.PDF" target="_blank" rel="noopener">2025年年度报告</a></li><li><a href="https://static.cninfo.com.cn/finalpage/2026-08-27/1225513853.PDF" target="_blank" rel="noopener">2026年半年度报告</a></li></ul></article></div>
+    </details>
   </section>
 <section id="focus"><div class="section-head"><div><div class="eyebrow">Today · Focus</div><h2>今日关注</h2></div><p>确定性选取，不打分：先取需要用户动作的最新动态，再取核查中的机会与公司。每张卡回答：什么对象、什么状态、为什么重要、下一验证什么。</p></div><div class="focus-grid">
+      <article class="focus-card">
+        <div class="focus-meta"><span>动态 · A股打新</span><span>2026-08-28</span></div>
+        <div class="focus-title"><h3>百迈科</h3><b class="pill watch">信息不足（集采敏感性桥与双模型未通过）</b></div>
+        <dl class="focus-body">
+          <div><dt>为什么重要</dt><dd>发行估值约为可比均值40%的显著折价叠加小盘低流通资金聚集与2026H1营收+27.72%扣非+11.42%正增长</dd></div>
+          <div><dt>下一验证</dt><dd>集采价格敏感性桥；经销收入质量核验；可比前瞻估值分布；北交所首日退出样本</dd></div>
+        </dl>
+        <footer><strong>动作：信息不足默认不申购；北交所全额预缴每100股1710元</strong><a href="#ipo">打新决策 →</a></footer>
+      </article>
       <article class="focus-card">
         <div class="focus-meta"><span>动态 · A股打新</span><span>2026-08-27</span></div>
         <div class="focus-title"><h3>电科思仪</h3><b class="pill watch">信息不足（默认放弃）</b></div>
@@ -249,15 +304,6 @@ footer{border-top:1px solid var(--line);margin-top:16px;padding-top:13px;display
           <div><dt>下一验证</dt><dd>法定发行公告；发行价；估值；科创板第五套首日退出样本</dd></div>
         </dl>
         <footer><strong>动作：T-1=9/2核验法定定价后走analysis链路；现在不推送</strong><a href="#ipo">打新决策 →</a></footer>
-      </article>
-      <article class="focus-card">
-        <div class="focus-meta"><span>动态 · A股打新</span><span>2026-08-25</span></div>
-        <div class="focus-title"><h3>杰锋动力</h3><b class="pill watch">信息不足（盈利下行经营桥未建模）</b></div>
-        <dl class="focus-body">
-          <div><dt>为什么重要</dt><dd>发行估值约为行业静态57%/可比均值28%的显著折价叠加小盘低流通市值资金聚集，北交所近期小盘新股首日溢价样本存在</dd></div>
-          <div><dt>下一验证</dt><dd>2026盈利下滑经营桥与全年三情景动态PE；北交所小盘首日退出样本与碎股门槛分布；用户北交所权限与全额预缴资金适配</dd></div>
-        </dl>
-        <footer><strong>动作：信息不足默认不申购；北交所全额预缴每100股3070元、顶格44.49万股约1365.84万元</strong><a href="#ipo">打新决策 →</a></footer>
       </article>
       <article class="focus-card">
         <div class="focus-meta"><span>机会 · 信号驱动 · AI算力光互连</span><span>截至 2026-08-27</span></div>
@@ -308,6 +354,16 @@ footer{border-top:1px solid var(--line);margin-top:16px;padding-top:13px;display
         <div class="cell cell-contra"><b>最强反证</b><p>单项事实不足以证明错价，必须与市场预期和价格共同验证</p></div>
         <div class="cell cell-next"><b>下一验证</b><p>三季报前驱体毛利特气细分应收现金流及光刻胶绝对收入在建产能利用率</p></div>
         <footer><strong>动作：无动作</strong><span>普通研究更新，不发送行动提醒</span></footer>
+      </article>
+      <article class="update-card" id="dyn-DYN-IPO-A-920268-20260828">
+        <div class="card-top"><span>2026-08-28 · A股打新</span><b class="pill watch">信息不足（集采敏感性桥与双模型未通过）</b></div>
+        <h3>百迈科</h3>
+        <p class="why"><b>为什么重要</b>发行估值约为可比均值40%的显著折价叠加小盘低流通资金聚集与2026H1营收+27.72%扣非+11.42%正增长</p>
+        <div class="cell cell-fact"><b>发生了什么</b><p>阶段：已定价待申购；申购日：2026-08-31；发行价：17.10</p></div>
+        <div class="band band-judgment"><b>当前判断</b><p>信息不足（集采敏感性桥与双模型未通过）</p></div>
+        <div class="cell cell-contra"><b>最强反证</b><p>缝线耗材集采降价敏感性未量化叠加北交所全额预缴资金占用与碎股配售不确定</p></div>
+        <div class="cell cell-next"><b>下一验证</b><p>集采价格敏感性桥；经销收入质量核验；可比前瞻估值分布；北交所首日退出样本</p></div>
+        <footer><strong>动作：信息不足默认不申购；北交所全额预缴每100股1710元</strong><span>analysis已送达8/28 12:11(om_x100b6624e866e0a4c2929c3f05ccec0)；tday_open已排期8/31 09:30</span></footer>
       </article>
       <article class="update-card" id="dyn-DYN-EV-688019-H1-20260827">
         <div class="card-top"><span>2026-08-27 · 公司研究</span><b class="pill quiet">主业增长现金回款和新品量产获得补强但估值与新品利润证据不足且不进入机会评估</b></div>
@@ -869,6 +925,19 @@ footer{border-top:1px solid var(--line);margin-top:16px;padding-top:13px;display
         </div>
         <footer><strong>不申购；8/28 09:30状态提醒已排期；T+2=9/1缴款</strong><span>已定价待申购</span></footer>
       </article>
+      <article class="white-card" id="ipo-IPO-A-920268">
+        <div class="card-top"><span>北交所 · 申购日 2026-08-31</span><b class="pill watch">信息不足（集采敏感性桥与双模型未通过）</b></div>
+        <h3>百迈科 920268</h3>
+        <div class="number-row"><span>发行价<b>17.10</b></span><span>每单位本金<b>1710</b></span><span>顶格资金<b>8108820</b></span></div>
+        <p class="judgment">直接定价扣非摊薄PE 14.99倍；行业近月静态28.18倍；可比均值37.16倍；缩募24.3%；发行后市值9.27亿元</p>
+        <div class="argue-grid">
+          <div class="cell cell-fact"><b>为什么可能成立</b><p>发行估值约为可比均值40%的显著折价叠加小盘低流通资金聚集与2026H1营收+27.72%扣非+11.42%正增长</p></div>
+          <div class="cell cell-contra"><b>最强失败路径</b><p>缝线耗材集采降价敏感性未量化叠加北交所全额预缴资金占用与碎股配售不确定</p></div>
+          <div class="cell"><b>仍缺证据</b><p>集采价格敏感性桥；经销收入质量核验；可比前瞻估值分布；北交所首日退出样本</p></div>
+          <div class="cell cell-next"><b>独立核验</b><p>晨扫8/28定价核验；analysis已通过ipo-analysis-v1校验并送达</p></div>
+        </div>
+        <footer><strong>信息不足默认不申购；北交所全额预缴每100股1710元</strong><span>已定价待申购</span></footer>
+      </article>
       <article class="white-card" id="ipo-IPO-A-688837">
         <div class="card-top"><span>科创板 · 申购日 2026-09-03</span><b class="pill quiet">预研究（未定价）</b></div>
         <h3>信诺维 688837</h3>
@@ -1115,4 +1184,5 @@ footer{border-top:1px solid var(--line);margin-top:16px;padding-top:13px;display
         <footer><strong>动作：仅研究，不行动</strong><span>基线有效 · 2026-08-28 核验</span></footer>
       </article></div></section>
 <section id="method" class="method"><div class="eyebrow">White-box Method</div><h2>系统怎样从事实走到行动</h2><p>研究过程不是评分黑箱。普通公司事实不会自动升级为机会，机会判断不会自动升级为买入或申购。</p><div class="method-grid"><div><b>事实层</b><span>法定来源、日期、页码、口径与复算结果。</span></div><div><b>判断层</b><span>业务利润逻辑、市场隐含预期、最强反证和失效条件。</span></div><div><b>行动层</b><span>独立核验、个人风险门、模块权限和可追溯投递回执。</span></div></div></section>
-</main><script>const q=document.getElementById('search');if(q){q.addEventListener('input',()=>{const s=q.value.trim().toLowerCase();document.querySelectorAll('.company-card').forEach(x=>x.classList.toggle('hidden',s&&!x.dataset.search.includes(s)))})}</script></body></html>
+</main><script>const q=document.getElementById('search');if(q){q.addEventListener('input',()=>{const s=q.value.trim().toLowerCase();document.querySelectorAll('.company-card').forEach(x=>x.classList.toggle('hidden',s&&!x.dataset.search.includes(s)))})}
+const openAdv=function(){const h=decodeURIComponent(location.hash.slice(1));if(!h)return;const t=document.getElementById(h);if(t&&t.tagName==='DETAILS')t.open=true};addEventListener('hashchange',openAdv);openAdv();</script></body></html>
