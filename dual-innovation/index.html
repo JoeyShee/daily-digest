@@ -31,6 +31,16 @@ footer{border-top:1px solid var(--line);margin-top:16px;padding-top:13px;display
 /* company visual prototype */
 .vp-section .white-card{margin-top:14px}
 .vp-oneliner{font-family:Georgia,"Noto Serif SC",serif;font-size:16.5px;margin:6px 0 4px}
+.vp-hook{background:linear-gradient(135deg,#173f2c 0%,#246d4a 100%);color:white;border:0}
+.vp-hook .card-top,.vp-hook .card-top span{color:#d5e7dc}
+.vp-hook h3{font-size:32px;line-height:1.18;max-width:720px;margin-top:24px;color:white}
+.vp-hook p{max-width:760px;font-size:16px;line-height:1.75;color:#e7f1eb;margin:16px 0 2px}
+.vp-hook-fact{display:inline-flex;margin-top:16px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.13);color:#fff;font-size:12px;font-weight:800}
+.vp-reader-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.vp-reader{background:#f7f9f7;border-radius:12px;padding:14px;border-top:3px solid var(--green)}
+.vp-reader>b{display:block;font-size:14px}.vp-reader p{font-size:12.5px;line-height:1.65;color:var(--muted);margin:7px 0}
+.vp-reader strong{display:block;color:var(--green);font-size:13px}.vp-reader small{display:block;margin-top:6px;color:var(--muted);font-size:10.5px}
+.vp-reader-summary{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--green);color:white;font-weight:800;font-size:13.5px;line-height:1.6}
 .vp-mkt{display:grid;grid-template-columns:1.1fr 1fr .9fr;gap:14px;align-items:stretch}
 .vp-bignum span,.vp-trend>b,.vp-fstep>span{display:block;font-size:11px;color:var(--muted)}
 .vp-share{display:flex;align-items:center;gap:14px;margin:9px 0}
@@ -99,7 +109,7 @@ footer{border-top:1px solid var(--line);margin-top:16px;padding-top:13px;display
 .vp-evi ul{margin:6px 0 0;padding-left:18px;font-size:12.5px;color:var(--ink)}
 .vp-sources{margin:6px 0 0;padding-left:18px;font-size:13px}
 .vp-sources a{color:var(--green);font-weight:700}
-@media(max-width:900px){.vp-mkt,.vp-seg-grid,.vp-judge,.vp-risk-grid{grid-template-columns:1fr}.vp-cols{height:120px}}
+@media(max-width:900px){.vp-mkt,.vp-seg-grid,.vp-judge,.vp-risk-grid,.vp-reader-grid{grid-template-columns:1fr}.vp-cols{height:120px}.vp-hook h3{font-size:26px}}
 </style></head><body>
 <a class="skip" href="#main">跳到主要内容</a>
 <header class="top"><div><a class="brand" href="./">10x研究</a><nav><a href="#focus">今日关注</a><a href="#activity">最近更新</a><a href="#opportunities">机会判断</a><a href="#ipo">打新决策</a><a href="#companies">公司库</a><a href="#company-visual-688019">公司原型</a><a href="#method">如何判断</a></nav><a class="base" href="https://my.feishu.cn/base/WV0DbRUVpaSuK8s52GUctROknNd?table=tblrfritqTpVhMuz">打开私人研究台账 →</a></div></header>
@@ -107,16 +117,29 @@ footer{border-top:1px solid var(--line);margin-top:16px;padding-top:13px;display
 <div class="metrics"><div class="metric"><span>覆盖公司</span><b>21</b></div><div class="metric"><span>机会案例</span><b>3</b></div><div class="metric"><span>打新标的</span><b>12</b></div><div class="metric"><span>可追溯证据</span><b>64</b></div><div class="metric"><span>冻结判断</span><b>46</b></div></div>
 
   <section id="company-visual-688019" class="vp-section">
-    <div class="section-head"><div><div class="eyebrow">Visual Prototype · Company</div><h2>安集科技 · 视觉叙事</h2></div><p>同一份公司档案的叙事化表达：份额、业务构成、利润结构、因果链、风险对比与判断汇聚。全部数据来自公司视觉档案 JSON；档案缺失时本区块整体不渲染。</p></div>
     
+      <article class="white-card vp-hook">
+        <div class="card-top"><span>一家藏在晶圆厂里的材料公司</span><b>安集科技 · 688019</b></div>
+        <h3>你手机里的先进芯片，制造时要反复“磨平”30多次</h3>
+        <p>安集科技不造芯片，它卖晶圆厂反复消耗的高纯抛光液和清洗液。7纳米及以下逻辑芯片，CMP抛光步骤可能超过30次。</p>
+        <span class="vp-hook-fact">先从一片晶圆为什么要反复“找平”开始</span>
+      </article>
       <article class="white-card">
         <div class="card-top"><span>688019 · A股科创板 · 视觉叙事原型</span><b class="pill watch">观察，不进入机会评估</b></div>
-        <h3>安集科技 <small>给晶圆制造的抛光、清洗和沉积工艺提供高端配方材料</small></h3>
+        <h3>先看懂它卖什么 <small>安集科技 · 给晶圆制造的抛光、清洗和沉积工艺提供高端配方材料</small></h3>
         <p class="vp-oneliner">基本盘是化学机械抛光液，功能性湿电子化学品增长更快；市场份额继续上升，但扣非利润增速落后于收入，新品利润贡献仍未量化。</p>
         <footer><strong>动作：仅研究，不行动</strong><span>数据截至 2026-08-27</span></footer>
       </article>
       <article class="white-card">
-        <h3>市场位置 <small>份额是叙事的起点，不是结论</small></h3>
+        <h3>它离你的手机有多远？ <small>看不见安集的品牌，但芯片装进手机、电脑和AI服务器之前，可能已经反复用过它所在品类的材料。</small></h3>
+        <div class="vp-reader-grid">
+          <div class="vp-reader"><b>像盖楼一样，芯片也要一层层找平</b><p>布线层越多，表面越容易高低不平。CMP就像每盖几层都重新找平，否则下一层很难继续精细加工。</p><strong>7纳米及以下逻辑芯片，CMP步骤可能超过30次</strong><small>来源：2026年半年度报告第29页</small></div>
+          <div class="vp-reader"><b>芯片制造里，清洗不是收尾动作</b><p>光刻、刻蚀、沉积和抛光之后都可能要清洗，避免微粒和金属污染影响良率。</p><strong>每10道芯片制造工序，3道以上是清洗</strong><small>来源：2026年半年度报告第30页</small></div>
+          <div class="vp-reader"><b>把全球市场想成100元</b><p>按公司依据TECHCET市场规模的测算，其中约13元对应安集的CMP抛光液。</p><strong>2025年全球CMP抛光液份额约13%</strong><small>来源：2025年年度报告第22页</small></div></div>
+        <div class="vp-reader-summary">AI芯片越复杂 → 布线层数和工艺步骤越多 → 抛光与清洗次数增加 → 高纯配方材料消耗随之增加。</div>
+      </article>
+      <article class="white-card">
+        <h3>把全球市场想成100元，安集约占13元 <small>先建立大小体感，再看份额变化</small></h3>
         <div class="vp-mkt">
           <div class="vp-bignum vp-main"><span>全球半导体 CMP 抛光液市场份额 · 2025</span><div class="vp-share"><div class="vp-ring" style="--share:13.00" role="img" aria-label="市场份额 13.00%"><b>13<i>%</i></b></div><div class="vp-share-copy"><strong>约占全球市场的八分之一</strong><small>占比环以完整市场为 100%</small></div></div><p>全球每 100 元半导体 CMP 抛光液销售额中，约 13 元来自安集；三年增加约 5 个百分点。</p></div>
           <div class="vp-trend"><b>份额趋势 · 统一 0–15% 纵轴</b><div class="vp-cols">
@@ -128,7 +151,7 @@ footer{border-top:1px solid var(--line);margin-top:16px;padding-top:13px;display
         <p class="vp-basis"><b>份额口径</b>公司依据 TECHCET 公开的全球半导体抛光液市场规模测算；不是 TECHCET 直接发布的公司份额排名。 功能性湿电子化学品份额采用相同测算口径。（来源：2025年年度报告第22页）</p>
       </article>
       <article class="white-card">
-        <h3>业务构成 <small>2026H1 · 堆叠条与占比由原始收入计算（计算值）</small></h3>
+        <h3>每收到100元营收，近79元来自抛光液 <small>2026H1 · 堆叠条与占比由原始收入计算（计算值）</small></h3>
         <div class="vp-stack" role="img" aria-label="业务构成堆叠条：化学机械抛光液占78.9%，功能性湿电子化学品占20.5%，其他占0.6%"><i style="width:78.90%;background:var(--green)"></i><i style="width:20.49%;background:var(--blue)"></i><i style="width:0.62%;background:var(--amber)"></i></div>
         <div class="vp-seg-grid">
           <div class="vp-seg"><i style="background:var(--green)"></i><b>化学机械抛光液</b>
@@ -149,7 +172,7 @@ footer{border-top:1px solid var(--line);margin-top:16px;padding-top:13px;display
         <p class="vp-src">来源：2026年半年度报告第163页</p>
       </article>
       <article class="white-card">
-        <h3>收入 → 毛利 → 扣非利润 <small>2026H1 · 由 current/prior 原始值计算（计算值）</small></h3>
+        <h3>收入跑得快，真正的主业利润没跟上 <small>2026H1 · 由 current/prior 原始值计算（计算值）</small></h3>
         <div class="vp-flow">
           <div class="vp-fstep"><b>15.26<i>亿元</i></b><span>营业总收入</span><em>同比 33.72%（计算值）</em></div>
           <span class="vp-farrow" aria-hidden="true">→</span>
@@ -167,11 +190,11 @@ footer{border-top:1px solid var(--line);margin-top:16px;padding-top:13px;display
         <p class="vp-src">来源：2026年半年度报告第9至10页、第33页</p>
       </article>
       <article class="white-card">
-        <h3>生意因果链 <small>每一步只解释一个因果环节</small></h3>
+        <h3>为什么一旦进了晶圆厂，就很难轻易换掉它？ <small>每一步只解释一个因果环节</small></h3>
         <div class="vp-chain"><div class="vp-chain-step"><b>1 · 进入客户工艺</b><p>配方材料需要经过晶圆厂验证，产品表现直接关系良率和工艺稳定性。</p></div><span class="vp-farrow" aria-hidden="true">→</span><div class="vp-chain-step"><b>2 · 验证形成黏性</b><p>更换材料需要重新验证，并承担良率与停线风险。</p></div><span class="vp-farrow" aria-hidden="true">→</span><div class="vp-chain-step"><b>3 · 扩品提高单客价值</b><p>从抛光液延伸到清洗液、电镀液和添加剂，覆盖更多工艺步骤。</p></div><span class="vp-farrow" aria-hidden="true">→</span><div class="vp-chain-step"><b>4 · 份额与用量共同增长</b><p>客户扩产、先进制程增加工艺步骤，叠加国产替代，带动材料用量。</p></div></div>
       </article>
       <article class="white-card">
-        <h3>风险前后对比 <small>同一指标、两个时点，只表达变化</small></h3>
+        <h3>客户越黏，安集也越依赖少数大客户 <small>同一指标、两个时点，只表达变化</small></h3>
         <div class="vp-risk-grid">
           <div class="vp-risk">
             <b>前五大客户收入占比</b>
@@ -195,7 +218,7 @@ footer{border-top:1px solid var(--line);margin-top:16px;padding-top:13px;display
           </div></div>
       </article>
       <article class="white-card">
-        <h3>证据汇聚 <small>正证与反证 → 当前判断 → 下一验证 → 动作</small></h3>
+        <h3>生意正在变强，但还没到下注时刻 <small>正证与反证 → 当前判断 → 下一验证 → 动作</small></h3>
         <div class="vp-judge">
           <div class="vp-evi vp-pro"><b>正证</b><ul><li>CMP 抛光液全球份额约 8%→11%→13%，行业位置持续提升。</li><li>功能性湿电子化学品收入增长 51.03%，快于抛光液的 29.47%。</li><li>经营现金流增长 30.68%，销售回款与收入增长基本一致。</li></ul></div>
           <div class="vp-evi vp-con"><b>反证</b><ul><li>扣非利润只增长 19.35%，明显落后于收入增长 33.72%。</li><li>归母净利润增速受到 1.25 亿元公允价值变动及投资收益影响。</li><li>电镀液等新品虽已量产，但绝对收入和利润贡献尚未披露。</li></ul></div>
