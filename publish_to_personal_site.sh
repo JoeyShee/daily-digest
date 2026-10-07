@@ -48,7 +48,11 @@ if [ "$(git rev-list --count origin/main..HEAD)" -gt 0 ]; then
 fi
 
 if [ "$HAS_CHANGES" = false ] && [ "$FORCE_DEPLOY" = false ]; then
-  echo "[SILENT]"
+  # COG-MAINT-1176：SILENT 快速路径补可见回执——让「内容完整但无站点变更」
+  # 与「未执行」可分辨。只补回执，不改投递策略：无变更仍零提交/零部署/零 workflow 触发。
+  # 回执不声称站点已由本 job 更新——当日站点更新（如有）来自上游 push 触发的部署。
+  echo "[SILENT] 内容完整·无站点变更：本 job 未产生新提交、未触发部署（当日站点更新如有来自上游 browse push，非本 job 投递）"
+  echo "[SILENT] 站点 HEAD：$(git rev-parse --short HEAD) $(git log -1 --format=%s)"
   exit 0
 fi
 
