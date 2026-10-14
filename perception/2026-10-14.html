@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2026-10-14 · 今日判断</title>
+<link rel="stylesheet" href="../style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav class="top-nav">
+  <a href="../index.html" class="brand">商业感知</a>
+  <div class="tab-nav">
+<a href="../perception/" class="tab-item active">🌍 今日判断</a>
+<a href="../dual-innovation/" class="tab-item">📈 10x研究</a>
+</div>
+</nav>
+<div class="container">
+  <div class="day-nav">
+    <a href="2026-10-13.html" class="nav-btn">← 前一天</a>
+    <div class="day-title">2026-10-14</div>
+    <a href="../index.html" class="nav-btn">后一天 →</a>
+  </div>
+  <div class="attention-note">先读判断。只有当判断值得追踪时，再展开候选与证据。</div><div class="card collapsed">
+  <div class="card-bar watch"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">🟡 候选重定价</div><h2>Watchlist</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"><p>- <strong>Trump Accounts #49</strong>：从 open thesis 降回 watch（10/14-16 窗口走弱），HOOD Q3 财报是最后判别点。<br>- <strong>大麦 CN 免费 #6</strong>：演出票务异动（历史包 8/21、8/23、9/30、今日第 4 窗口），演唱会经济/日历效应混杂，攒窗口中。<br>- <strong>CN 约会/情绪买断集群密度 8→5</strong>：Thesis 2 负面 tick，10/20 判别。<br>- <strong>Netflix Game Controller 周二 #26</strong>：周中仍在 top50，周末习惯溢出确认中。<br>- <strong>GoWish（丹麦愿望清单）US 免费 #46</strong>：首次进雷达，跨境愿望单/代购层，攒窗口。</p>
+<hr>
+*数据源：AMP RSS 双区实时榜（us/cn free + us paid/grossing + cn paid/grossing）、iTunes customerreviews/lookup、历史输入包 grep（~/.hermes/cron/output/，2+ 周保留）、TechCrunch/Releasebot/Lifehacker 二手交叉。Dedao 雷达今日数据正常（10-13 run）。AMP top-grossing 端点 404（已知），畅销榜以 iTunes legacy RSS 仲裁。*</div>
+</div>
+  <footer class="site-footer">
+    <p>Daily Digest · 先形成判断，再占用注意力</p>
+  </footer>
+</div>
+<script>
+var cards=document.querySelectorAll(".card");cards.forEach(function(c,i){if(i>0)c.classList.add("collapsed")});
+document.addEventListener('click',function(e){var h=e.target.closest('.card-header');if(h)h.closest('.card').classList.toggle('collapsed')});
+</script>
+</body>
+</html>
