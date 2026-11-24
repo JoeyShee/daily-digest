@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2026-11-24 · 今日判断</title>
+<link rel="stylesheet" href="../style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav class="top-nav">
+  <a href="../index.html" class="brand">商业感知</a>
+  <div class="tab-nav">
+<a href="../perception/" class="tab-item active">🌍 今日判断</a>
+<a href="../dual-innovation/" class="tab-item">📈 10x研究</a>
+</div>
+</nav>
+<div class="container">
+  <div class="day-nav">
+    <a href="2026-11-23.html" class="nav-btn">← 前一天</a>
+    <div class="day-title">2026-11-24</div>
+    <a href="../index.html" class="nav-btn">后一天 →</a>
+  </div>
+  <div class="attention-note">先读判断。只有当判断值得追踪时，再展开候选与证据。</div><div class="card collapsed">
+  <div class="card-bar watch"></div>
+  <div class="card-header" onclick="toggleCard(this)">
+    <div><div class="card-type">🟡 候选重定价</div><h2>Watchlist（有趣但不够强）</h2></div>
+    <div class="toggle-icon">▼</div>
+  </div>
+  <div class="card-body"><p>- <strong>Satisfy: ASMR Fidget Toys</strong>（US 付费 #9，11/04 上架，跨 11/8、11/23、11/24 三窗）：ASMR 解压类付费新品连续上榜，与 CN 情绪买断带同族「情绪生理调节」需求，攒跨区窗口。<br>- <strong>我的花园世界</strong>（CN 畅销 #29↑16，跨 10/2–11/24 六个输入包）：模拟经营长尾畅销，多日多窗但缺新闻锚。<br>- <strong>Spirit Talker</strong>（US 付费 #23↑25，10/7 以来第 7 窗）：灵异设备 App 反复上榜，节日季情绪供给，机制不明。<br>- <strong>Untraced: Find the Suspect</strong>（US 免费 #43）：1.1★ 极端差评仍上榜的 quiz 类灰产形态，质量脱钩样本池。</p></div>
+</div>
+  <footer class="site-footer">
+    <p>Daily Digest · 先形成判断，再占用注意力</p>
+  </footer>
+</div>
+<script>
+var cards=document.querySelectorAll(".card");cards.forEach(function(c,i){if(i>0)c.classList.add("collapsed")});
+document.addEventListener('click',function(e){var h=e.target.closest('.card-header');if(h)h.closest('.card').classList.toggle('collapsed')});
+</script>
+</body>
+</html>
